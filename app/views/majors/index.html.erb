@@ -1,0 +1,11 @@
+<div class="list-group">
+<% counter = 0 %>
+<% @majors.each do |major| %>
+  <% if counter != @majors.length - 1%>
+    <%= link_to major.name,  major_reviews_path(:major_id => major.id ), :class => "list-group-item", :style => "border:none;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-left:1px solid #dddddd;" %>
+  <% else -%>
+    <%= link_to major.name,  major_reviews_path(:major_id => major.id ), :class => "list-group-item", :style => "border:none;border:1px solid #dddddd;" %>
+  <% end -%>
+  <% counter += 1 %>
+<% end %>
+</div>

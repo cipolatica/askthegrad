@@ -1,10 +1,35 @@
 Rails.application.routes.draw do
+  resources :major_search_suggestions
+
+  get 'majors/index'
+
+  resources :major_reviews
+
+  resources :search_suggestions do
+    member do
+      get 'major_search'
+    end
+  end
+
+  get 'authentication_required/index'
+
+  #get 'school_review/index'
+
+  #get 'school_review/show'
+  #get 'school_review/new'
+  #get 'school_review/edit'
+
   get 'schools/index'
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "my_devise/registrations"}
   
-  
+  resources :school_reviews do
+    member { post :vote}
+    member { get :comment }
+    member { post :post_comments }
+  end
   resources :states
+  resources :votes
   root to: "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

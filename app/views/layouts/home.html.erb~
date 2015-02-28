@@ -1,0 +1,6 @@
+<% content_for :navbar, render("layouts/user_nav") %>
+
+
+<%= render :layout => "layouts/base" do %>
+  <%= yield %>
+<% end %>

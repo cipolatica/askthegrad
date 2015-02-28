@@ -1,0 +1,82 @@
+class SchoolReviewController < ApplicationController
+  def index
+    @school = params[:the_school]
+    @school_id = @school["school_id"]
+    @reviews = SchoolReview.where(school_id:@school_id)
+    
+    @school = School.find(@school_id)
+    @state = State.find(@school.state_id)
+  end
+
+  def show
+    @school_review = SchoolReview.find(params[:id])
+  end
+  
+  def new
+    @school = params[:the_school]
+    @school_id = @school["school_id"]
+    @school_review = SchoolReview.new
+  end
+  
+  def edit
+    @school_review = SchoolReview.find(params[:id])
+  end
+  
+  def update
+  end
+  
+  def create
+    #render plain: params[:school_review].inspect
+    @school_review = SchoolReview.new(review_params)
+    @school_id = @school_review.school_id
+    if @school_review.valid?
+      @school_review.annual_salary = get_max_value(@school_review.annual_salary)
+      @school_review.debt = get_max_value(@school_review.debt)
+    end
+    if @school_review.save
+      school = School.find(@school_review.school_id)
+      school.recommend_average = update_bool_average(@school_review.recommend_this_school, school.recommend_average, school.college_counter)
+      school.party_average = update_bool_average(@school_review.party_school, school.party_average, school.college_counter)
+      school.worth_money_average = update_bool_average(@school_review.worth_money, school.worth_money_average, school.college_counter)
+      school.rating_average = update_num_average(@school_review.rating, school.rating_average, school.college_counter)
+      if (@school_review.year_graduated >= (Date.today.year - 2))
+        school.salary_average = update_num_average(@school_review.annual_salary, school.salary_average, school.two_year_college)
+        school.debt_average = update_num_average(@school_review.debt, school.debt_average, school.two_year_college)
+        school.two_year_college += 1
+      end
+      school.college_counter += 1
+      school.save
+      
+      redirect_to @school_review
+    else
+      render "new"
+    end
+  end
+  
+  def destroy
+  end
+  
+  
+  private
+  def get_max_value (the_num)
+    return the_num > 1000000 ? 1000001 : the_num
+  end
+  def update_num_average (the_num, the_average, the_counter)
+    return ((the_average * the_counter) + the_num) / (the_counter + 1)
+  end
+  def update_bool_average (the_bool, the_average, the_counter)
+    val = the_bool ? 1 : 0
+    return ((the_average * the_counter) + val) / (the_counter + 1)
+  end
+  
+  def review_params
+    params.require(:school_review).permit(:title, :school_id, :recommend_this_school, :worth_money, :party_school, :rating, :annual_salary, :debt, :review, :year_graduated)
+  end
+end
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+<div id="major">
+<%= form_tag  schools_index_path, :method => "get" do %>
+  Enter your <strong>major</strong> to see its reviews<br>
+  <%= text_field_tag :major_search, params[:major_search] %>
+  <%= submit_tag "Search Major", :name => nil, :class => "btn btn-default" %>
+<% end %>
+</div>

@@ -1,0 +1,66 @@
+
+<% content_for :actions do %>
+  <%= link_to new_major_review_path, class: 'btn btn-danger btn-large pull-right' do %>
+    <%= icon_tag "plus" %> Add Major review
+  <% end %>
+<% end %>
+
+
+
+<dl class="dl=horizontal">
+  <dt>one</dt>
+  <dd>two</dd>
+  <dt>three</dt>
+  <dd>four</dd>
+</dt>
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Year graduated</th>
+          <th>Recommend this major</th>
+          <th>Difficulty</th>
+          <th>Rating</th>
+          <th>Annual salary</th>
+          <th>Worth money</th>
+          <th>Debt</th>
+          <th>Review</th>
+          <th>Position title</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @major_reviews.each do |major_review| %>
+        <tr>
+          <td><%= major_review.year_graduated %></td>
+          <td><%= major_review.recommend_this_major %></td>
+          <td><%= major_review.difficulty %></td>
+          <td><%= major_review.rating %></td>
+          <td><%= major_review.annual_salary %></td>
+          <td><%= major_review.user_id %></td>
+          <td><%= major_review.worth_money %></td>
+          <td><%= major_review.debt %></td>
+          <td><%= major_review.review %></td>
+          <td><%= major_review.title %></td>
+          <td><%= major_review.position_title %></td>
+          <td><%= major_review.register_id %></td>
+          <td><%= major_review.vote_count %></td>
+          <td><%= major_review.comment_count %></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye"), major_review, rel: 'tooltip', title: 'Show' %>
+            <%= link_to icon_tag("pencil"), edit_major_review_path(major_review), rel: 'tooltip', title: 'Edit' %>
+            <%= link_to icon_tag("trash-o"), major_review, rel: 'tooltip', title: 'Delete',
+                        data: { confirm: 'Are you sure?' }, method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+      <% if @major_reviews.length == 0 %>
+        <tr><td colspan=42 class='text-center'>No major_reviews.</td></tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->
+

@@ -1,0 +1,5 @@
+<h1>Authentication Required</h1>
+<h3>Posting your review is almost complete! <br />All you have to is <%= link_to 'Sign In', new_user_session_path  %> or <%= link_to 'Sign Up', new_user_registration_path  %>. <em>It only takes 2 minutes</em></h3>
+<p>Reg id: <%= @reg.id %></p>
+<p>school id: <%= @reg.school_id %></p>
+<p>school review id: <%= @reg.school_review_id %></p>

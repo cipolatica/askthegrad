@@ -1,3 +1,25 @@
 <h1>Welcome To Ask The Grad!</h1>
 
-<%= link_to 'Find your school', :controller => 'states', :action => 'index'  %>
+<!--<div class="col-md-9">-->
+<div class="bs-docs-example ">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#college_search" role="tab" data-toggle="tab">Search College</a></li>
+    <li><a href="#major" role="tab" data-toggle="tab">Search Major</a></li>
+  </ul>
+
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="college_search">
+      <p style="margin-top:15px;">
+        <%= render "college_search" %>
+      </p>
+    </div>
+    <div class="tab-pane fade" id="major">
+      <p style="margin-top:15px;">
+        <%= render "major_search" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Find your college', :controller => 'states', :action => 'index'  %> <br >
+<%= link_to 'Find your major', :controller => 'majors', :action => 'index'  %>

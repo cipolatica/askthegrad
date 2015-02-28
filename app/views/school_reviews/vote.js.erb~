@@ -1,0 +1,3 @@
+$('#show-likes').replaceWith('<span id="show-likes"><%= @likes.to_i %></span>');
+$('#calcdislikes').replaceWith('<span id="calcdislikes"><%= @dislikes.to_i %></span>');
+

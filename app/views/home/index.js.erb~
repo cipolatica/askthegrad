@@ -1,0 +1,1 @@
+$("#search_auto").html("<%= escape_javascript(<p> we got this far</p>) %>")

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  college_id: 1
+  major_id: 1
+  counter: 1
+  content: MyText
+  username: MyString
+
+two:
+  college_id: 1
+  major_id: 1
+  counter: 1
+  content: MyText
+  username: MyString

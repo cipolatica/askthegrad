@@ -1,0 +1,4 @@
+1. transfer askthegrad domain to heroku
+2. for autocomplete, make it faster (railscast 399)
+3. for autocomplete, make it show by popularity
+

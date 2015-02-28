@@ -1,0 +1,2 @@
+$('<%= @value %>').hide().after('<%= j render("comment") %>');
+setTimeout(function(){ alert("Hello"); }, 3000);

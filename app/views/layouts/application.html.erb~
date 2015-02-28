@@ -1,14 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>AskTheGrad</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<% content_for :navbar, render("layouts/user_nav") %>
 
-<%= yield %>
+<%= render :layout => "layouts/base" do %>
+  <div class="page-header" style="margin: 30px 0 15px;">
+    <div class="row">
+      <div class="col-md-7">
+        <h2><%= @title %></h2>
+        <%= yield :description %>
+      </div>
+      <div class="col-md-2">
+        <%= yield :actions %>
+      </div>
+    </div>
+  </div><!-- /.page-header -->
 
-</body>
-</html>
+  <div class="row">
+    <div id="content" class="col-md-9">
+      <%= yield %>
+    </div> <!-- /#content -->
+
+    <div id="sidebar" class="col-md-3">
+      <h6>Menu</h6>
+      <p></p>
+
+      <ul class="nav nav-tabs nav-stacked nav-caret-left">
+        <%= activatable_li_tag_with_link "Sub menu", nil %>
+        <%= activatable_li_tag_with_link "Another menu", "#" %>
+        <%= activatable_li_tag_with_link "A last one", "#" %>
+      </ul>
+    </div> <!-- /#sidebar -->
+  </div> <!-- /.row -->
+<% end %>

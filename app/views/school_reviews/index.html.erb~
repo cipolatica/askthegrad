@@ -1,0 +1,66 @@
+<% content_for :actions do %>
+  <div class="row">
+  <span style="float:left;">New Grad?</span>
+  <%= link_to new_school_review_path(:the_school => { :school_id => @school_id }), class: 'btn btn-primary btn-large pull-right' do %>
+    <%= icon_tag "plus" %> Review this college
+  <% end %>
+  </div>
+<% end %>
+
+<h2><%= @school.city %>, <%= @state.name %></h2>
+<h3>Rating: <%= number_with_precision(@school.rating_average, precision: 1) %> out of 5</h3>
+<h3>Grads recommending this school: <%= number_to_percentage(@school.recommend_average*100, precision: 0) %></h3>
+<h3>Party school rating: <%= number_with_precision(@school.party_average, precision: 1) %> out of 5</h3>
+<h3>Grads saying it was worth the money: <%= number_to_percentage(@school.worth_money_average*100,precision: 0) %></h3>
+<h3>Average starting salary after graduating <em>(past 2yrs):</em> <%= number_to_currency(@school.salary_average, precision: 2) %></h3>
+<h3>Average debt after graduating <em>(past 2yrs):</em> <%= number_to_currency(@school.debt_average, precision: 2) %></h3>
+
+<p>new grad? <%= link_to 'review this college!', new_school_review_path(:the_school => { :school_id => @school_id }) %></p>
+<% @reviews.each do |review| -%>
+  <p><%= link_to review.year_graduated,  school_review_path(review) %></p>
+<% end -%>
+
+<div class="sheet sheet-condensed">
+  <div class="sheet-inner">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Year graduated</th>
+          <th>Recommend this college</th>
+          <th>Rating</th>
+          <th>Party school</th>
+          <th>Annual salary</th>
+          <th>Worth money</th>
+          <th>Debt</th>
+          <th>Review</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.title %></td>
+          <td><%= review.year_graduated %></td>
+          <td><%= review.recommend_this_school %></td>
+          <td><%= review.rating %></td>
+          <td><%= review.party_school %></td>
+          <td><%= review.annual_salary %></td>
+          <td><%= review.worth_money %></td>
+          <td><%= review.debt %></td>
+          <td><%= review.review %></td>
+          <td class="actions">
+            <%= link_to icon_tag("eye"), review, rel: 'tooltip', title: 'Show' %>
+            <%= link_to icon_tag("pencil"), edit_school_review_path(review), rel: 'tooltip', title: 'Edit' %>
+            <%= link_to icon_tag("trash-o"), review, rel: 'tooltip', title: 'Delete',
+                        data: { confirm: 'Are you sure?' }, method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+      <% if @reviews.length == 0 %>
+        <tr><td colspan=42 class='text-center'>No College Reviews. Be the first!</td></tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div><!-- /.sheet-inner -->
+</div><!-- /.sheet -->

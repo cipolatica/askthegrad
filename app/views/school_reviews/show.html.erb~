@@ -1,0 +1,93 @@
+  <p>
+    <strong>Title: </strong>
+    <%= @school_review.title %>
+  </p>
+  <p>
+    <strong>Year Graduated: </strong>
+    <%= @school_review.year_graduated %>
+  </p>
+  <p>
+    <strong>Recommend: </strong>
+    <%= @school_review.recommend_this_school %>
+  </p>
+  <p>
+    <strong>Worth Money: </strong>
+    <%= @school_review.worth_money %>
+  </p>
+  <p>
+    <strong>Party School: </strong>
+    <%= @school_review.party_school %>
+  </p>
+  <p>
+    <strong>Rating: </strong>
+    <%= @school_review.rating %>
+  </p>
+  <p>
+    <strong>Annual Salary: </strong>
+    <% if @school_review.annual_salary > 1000000 %>
+      $1 Million+
+      <% else %>
+      <%= number_to_currency(@school_review.annual_salary, precision: 2) %>
+      <% end %>
+  </p>
+  <p>
+    <strong>debt: </strong>
+    <% if @school_review.debt > 1000000 %>
+      $1 Million+
+      <% else %>
+      <%= number_to_currency(@school_review.debt, precision: 2) %>
+      <% end %>
+  </p>
+  <p>
+    <strong>Review: </strong>
+    <%= @school_review.review %>
+  </p>
+  <% if @school_review.vote_count %>
+    <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
+    <% dislikes = @school_review.vote_count - likes %>
+  <% elsif %>
+    <% likes = 0 %>
+    <% dislikes = 0 %>
+  <% end %>
+  
+  <%= link_to "like", vote_school_review_path(@school_review, type: "up"), id: "like", remote: true, method: "post" %> (<span id="show-likes"><%= likes.to_i %></span>) |
+  <%= link_to "dislike", vote_school_review_path(@school_review, type: "down"), id: "dislike", remote:true, method: "post" %> (<span id="show-dislikes"><%= dislikes.to_i %></span>)<br>
+  
+  
+  <%= link_to 'Back', school_reviews_path(:the_school => { :school_id => @school_review.school_id }) %> |
+  <%= link_to 'Edit', edit_school_review_path(@school_review) %><br>
+  
+<div class="bs-docs-example "> 
+<span id="show-comments">
+<% if @comments && @comments.length > 0 %>
+  <% @comments.each do |c| %>
+  <% if c.is_parent == true %>
+  <div class="media">
+  <% else %>
+  <div class="media" style="margin-left:50px" >
+  <% end %>
+    <div class="pull-left" href="#">
+      <%= image_tag "user_placeholder.png", :class =>"media-object" %>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading"><%= c.username %></h4>
+      <%= simple_format c.content %>
+      <%= link_to "Reply", comment_school_review_path(@school_review, comm_id: c.id ), id: "comm_#{c.id}", remote:true %>
+    </div>
+  </div>
+
+<% end %>
+<% else %>
+  <p>There are no comments for this post. Be the first!</p>
+<% end %>
+
+</span>
+
+<%= render 'comment' %>
+</div>
+
+<noscript>Please enable JavaScript to view the comments</noscript>
+
+
+
+

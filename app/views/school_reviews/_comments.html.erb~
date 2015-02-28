@@ -1,0 +1,12 @@
+<%= @comments.each do |c| %>
+  <p>
+    <%= simple_format c.username %>
+  </p>
+ 
+  <p>
+    <%= simple_format c.content %>
+  </p>
+  <p>
+    <%= simple_format c.college_review_id %>
+  </p>
+<% end %>

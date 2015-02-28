@@ -1,0 +1,143 @@
+<% @title = "Showing major_review" %>
+
+<div class="form-horizontal">
+  <div class="form-group">
+    <label class="col-md-2 form-label">School</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.school_id %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Year graduated</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.year_graduated %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Recommend this major</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.recommend_this_major %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Difficulty</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.difficulty %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Rating</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.rating %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Annual salary</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.annual_salary %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">User</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.user_id %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Worth money</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.worth_money %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Debt</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.debt %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Review</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.review %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Title</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.title %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Position title</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.position_title %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Register</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.register_id %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Vote count</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.vote_count %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 form-label">Comment count</label>
+    <div class="col-md-10 control-label uneditable-input">
+      <span>
+        <%= @major_review.comment_count %>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-actions col-md-offset-2">
+    <%= link_to icon_tag("pencil") + ' Edit', edit_major_review_path(@major_review), class: 'btn btn-primary' %>
+    <%= link_to 'Back', major_reviews_path, class: 'btn' %>
+  </div>
+</div>

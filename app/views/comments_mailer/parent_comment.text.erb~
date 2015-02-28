@@ -1,0 +1,9 @@
+Hi <%= @user.username %>,
+
+<%= @comment.username %> commented on your post.
+\"<%= @comment.content %>\"
+
+Sign in to AskTheGrad and click on the "My Account" tab to respond!
+
+Thanks,
+AskTheGrad

@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  state_id: 1
+  name: MyString
+  city: MyString
+  rating_average: 1.5
+  salary_average: 1.5
+  recommend_average: 1.5
+  difficulty_average: 1.5
+  worth_money_average: 1.5
+  debt_average: 1.5
+  college_counter: 1.5
+  major_counter: 1.5
+  two_year_college: 1.5
+  two_year_major: 1.5
+  searchable: MyString
+  searchable_name: MyString
+  popularity: 1
+
+two:
+  state_id: 1
+  name: MyString
+  city: MyString
+  rating_average: 1.5
+  salary_average: 1.5
+  recommend_average: 1.5
+  difficulty_average: 1.5
+  worth_money_average: 1.5
+  debt_average: 1.5
+  college_counter: 1.5
+  major_counter: 1.5
+  two_year_college: 1.5
+  two_year_major: 1.5
+  searchable: MyString
+  searchable_name: MyString
+  popularity: 1

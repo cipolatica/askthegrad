@@ -1,5 +1,6 @@
 class StatesController < ApplicationController
   def index
-    @states = State.all
+    @title = "States"
+    @states = State.all.order(:name)
   end
 end

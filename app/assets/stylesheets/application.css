@@ -10,6 +10,32 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require jquery-ui/autocomplete
  *= require_tree .
  *= require_self
  */
+.bs-docs-example 
+{
+    position: relative;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    background-color: white;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.sliding-scale-value
+{
+    color:#f6931f; 
+    background-color:transparent; 
+    font-weight:bold; 
+    width:35px; 
+    padding:0; 
+    box-shadow:none;
+    margin:0 0 3px 0;
+    min-height:19px; 
+    border:none;
+}
+

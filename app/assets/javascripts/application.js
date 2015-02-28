@@ -11,6 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui/autocomplete
+//= require jquery-ui/slider
 //= require jquery_ujs
-//= require turbolinks
+//= require dresssed
 //= require_tree .
+
+
+jQuery ->
+  $("#receive_email").click(function() {
+          alert( "Handler for .click() called." );
+        });

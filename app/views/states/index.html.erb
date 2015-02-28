@@ -1,5 +1,12 @@
-<h1>States</h1>
-
-<% @states.each do |state| -%>
-  <p><%= link_to state.name,  schools_index_path %></p>
-<% end -%>
+<div class="list-group">
+<div class="form-actions col-md-offset-1 col-md-10">
+<% counter = 0 %>
+<% @states.each do |state| %>
+  <% if counter != @states.length - 1%>
+    <%= link_to state.name,  schools_index_path(:the_state => { :state_id => state.id }), :class => "list-group-item", :style => "color:#16333f;border:none;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-left:1px solid #dddddd;" %>
+  <% else -%>
+    <%= link_to state.name,  schools_index_path(:the_state => { :state_id => state.id }), :class => "list-group-item", :style => "color:#16333f;border:none;border:1px solid #dddddd;" %>
+  <% end -%>
+  <% counter += 1 %>
+<% end %>
+</div></div>

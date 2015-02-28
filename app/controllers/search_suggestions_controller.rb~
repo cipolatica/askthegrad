@@ -1,0 +1,23 @@
+class SearchSuggestionsController < ApplicationController
+  def index
+    if true
+      major = Major.search(params[:term])
+      session[:search_index] = major.pluck(:id)
+      session[:search_name] = major.pluck(:name)
+      render json: major.pluck(:name)
+    else
+      school = School.search(params[:term])
+      session[:search_index] = school.pluck(:id)
+      session[:search_name] = school.pluck(:searchable_name)
+      render json: school.pluck(:searchable_name)
+    end
+    #render json: School.search(params[:term])
+  end
+  
+  def major_search
+      major = Major.search(params[:term])
+      session[:search_index] = major.pluck(:id)
+      session[:search_name] = major.pluck(:name)
+      render json: major.pluck(:name)
+  end
+end

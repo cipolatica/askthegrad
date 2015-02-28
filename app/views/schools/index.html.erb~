@@ -1,2 +1,17 @@
-<h1>Schools#index</h1>
-<p>@state.name</p>
+<div class="list-group">
+<div class="form-actions col-md-offset-1 col-md-10">
+<% counter = 0 %>
+<% @schools.each do |school| -%>
+  <% if counter != @schools.length - 1%>
+    <%= link_to  school_reviews_path(:the_school => { :school_id => school.id }), :class => "list-group-item", :style => "border:none;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-left:1px solid #dddddd;" do %>
+    <span style="color:black;"><%= school.name %>,</span> <em><%= school.city %></em>
+    <% end -%>
+  <% else -%>
+    <%= link_to  school_reviews_path(:the_school => { :school_id => school.id }), :class => "list-group-item", :style => "border:none;border:1px solid #dddddd;" do %>
+      <span style="color:black;"><%= school.name %>,</span> <em><%= school.city %></em>
+    <% end -%>
+  <% end -%>
+  <% counter += 1 %>
+<% end %>
+</div></div>
+

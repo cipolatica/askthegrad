@@ -1,0 +1,45 @@
+<% lineage = nil %>
+<% if @comment_id %>
+  <% comm_id = @comment_id %>
+  <% @comments.each do |c| %>
+    <% if c.id == comm_id.to_i %>
+      <% lineage = c.lineage %>
+    <% end -%>
+    <% if lineage && lineage.split('_')[0] == c.lineage.split('_')[0] %>
+      <% lineage = c.lineage %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% comm_id = nil %>
+  <% if @comments && @comments.length > 0 %>
+    <% lineage = @comments.last.lineage %>
+  <% else %>
+    <% lineage = "AAA_AAA" %>
+  <% end -%>
+<% end %>
+<%= form_for @comment, url: post_comments_school_review_path(@school_review), remote: true do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@comment.errors.count, "error") %> prohibited
+        this review from being saved:
+      </h2>
+      <ul>
+        <% @comment.errors.each do |field,msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :comm_id, :value => comm_id %>
+  <%= f.hidden_field :lineage, :value => lineage %>
+  <p>
+    <%= f.label "Ask this Grad a question or post a comment" %>
+    <%= f.text_area :content %>
+  </p>
+ 
+  <p>
+    <%= f.submit "Post"%>
+  </p>
+<% end %>
+

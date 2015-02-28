@@ -1,0 +1,68 @@
+<script type="text/javascript">
+  function check_info() {
+    alert("wtf");
+    return true;
+  }
+</script>
+<%= form_for @school_review do |f| %>
+  <% if @school_review.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@school_review.errors.count, "error") %> prohibited
+        this review from being saved:
+      </h2>
+      <ul>
+        <% @school_review.errors.each do |field,msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ <%= f.hidden_field :school_id, :value => @school_id  %>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+  <% years = ["Select year"] %>
+  <% 
+  for i in 0..50
+      years.push(Date.today.year - i)
+  end
+   %>
+  <p>
+    <%= f.label :year_graduated %><br>
+    <%= f.select :year_graduated, years %>
+  </p>
+  <p>
+    <%= f.label "Recommend this college?" %> <br />
+    <%= f.check_box :recommend_this_school %>
+  </p>
+  <p>
+    <%= f.label "Worth the money?" %> <br />
+    <%= f.check_box :worth_money %>
+  </p>
+  <p>
+    <%= f.label "Party school?" %> <br />
+    <%= f.check_box :party_school %>
+  </p>
+  <p>
+    <%= f.label "Rating" %> <em> (out of 10) ex: 9, 9.3</em> <br />
+    <%= f.text_field :rating %>
+  </p>
+  <p>
+    <%= f.label "Starting annual salary after graduating" %> <em> ex: 54999, 54999.50</em><br />
+    <%= f.text_field :annual_salary %>
+  </p>
+  <p>
+    <%= f.label "Debt after graduating" %> <em> ex: 24999, 24999.50</em><br />
+    <%= f.text_field :debt %>
+  </p>
+  <p>
+    <%= f.label :review %><em> ex: pros, cons, advice to students</em><br>
+    <%= f.text_area :review %>
+  </p>
+
+  <p>
+    <%= f.submit "hello", :onclick => "return check_info();"%>
+  </p>
+<% end %>
