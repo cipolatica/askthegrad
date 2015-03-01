@@ -5,7 +5,7 @@ class MajorReviewsController < ApplicationController
   # GET /major_reviews.json
   def index
     @major_id = params[:major_id]
-    @major_reviews = MajorReview.where(school_id:@major_id)
+    @major_reviews = MajorReview.where(major_id:@major_id)
     
     @major = Major.find(@major_id)
     @title = @major.name
@@ -19,6 +19,7 @@ class MajorReviewsController < ApplicationController
 
   # GET /major_reviews/new
   def new
+    @major_id = params[:major_id]
     @major_review = MajorReview.new
   end
 
@@ -74,6 +75,6 @@ class MajorReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def major_review_params
-      params.require(:major_review).permit(:school_id, :year_graduated, :recommend_this_major, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count)
+      params.require(:major_review).permit(:school_id, :year_graduated, :recommend_this_major, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id)
     end
 end

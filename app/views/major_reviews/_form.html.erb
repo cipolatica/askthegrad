@@ -31,6 +31,7 @@
   </script>
   
 <%= form_for @major_review do |f| %>
+    <%= f.hidden_field :major_id, :value => @major_id  %>
   <%= f.error_notification %>
     <% years = ["Select graduation year"] %>
     <% 
@@ -40,7 +41,7 @@
     %>
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
-        <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;position:relative;top:7px;"%>
+        <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.select :year_graduated, years, class: 'form-control' %>
       </div>
     </div>
