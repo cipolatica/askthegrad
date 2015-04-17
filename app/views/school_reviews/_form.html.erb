@@ -1,68 +1,179 @@
-<script type="text/javascript">
-  function check_info() {
-    alert("wtf");
-    return true;
-  }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script src="jquery.ui.touch-punch.min.js"></script>
+
+
+<script>
+    $(function() {
+        $( "#slider-range-max" ).slider({
+            range: "max",
+            min: 0,
+            max: 5,
+            step: 0.5,
+            value: 0,
+            slide: function( event, ui ) {
+                $( "#amount" ).val( ui.value );
+            }
+        });
+        $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+
+        $( "#slider-rating" ).slider({
+            range: "max",
+            min: 0,
+            max: 5,
+            step: 0.5,
+            value: 0,
+            slide: function( event, ui ) {
+                $( "#rating-amount" ).val( ui.value );
+            }
+        });
+        $( "#rating-amount" ).val( $( "#slider-rating" ).slider( "value" ) );
+    });
 </script>
+
 <%= form_for @school_review do |f| %>
   <% if @school_review.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@school_review.errors.count, "error") %> prohibited
-        this review from being saved:
-      </h2>
-      <ul>
-        <% @school_review.errors.each do |field,msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <strong><%= pluralize(@school_review.errors.count, "error") %> prohibited
+            this review from being saved!</strong>
+          <ul>
+            <% @school_review.errors.each do |field,msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+
+
+
   <% end %>
  <%= f.hidden_field :school_id, :value => @school_id  %>
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
-  <% years = ["Select year"] %>
-  <% 
-  for i in 0..50
-      years.push(Date.today.year - i)
-  end
-   %>
-  <p>
-    <%= f.label :year_graduated %><br>
-    <%= f.select :year_graduated, years %>
-  </p>
-  <p>
-    <%= f.label "Recommend this college?" %> <br />
-    <%= f.check_box :recommend_this_school %>
-  </p>
-  <p>
-    <%= f.label "Worth the money?" %> <br />
-    <%= f.check_box :worth_money %>
-  </p>
-  <p>
-    <%= f.label "Party school?" %> <br />
-    <%= f.check_box :party_school %>
-  </p>
-  <p>
-    <%= f.label "Rating" %> <em> (out of 10) ex: 9, 9.3</em> <br />
-    <%= f.text_field :rating %>
-  </p>
-  <p>
-    <%= f.label "Starting annual salary after graduating" %> <em> ex: 54999, 54999.50</em><br />
-    <%= f.text_field :annual_salary %>
-  </p>
-  <p>
-    <%= f.label "Debt after graduating" %> <em> ex: 24999, 24999.50</em><br />
-    <%= f.text_field :debt %>
-  </p>
-  <p>
-    <%= f.label :review %><em> ex: pros, cons, advice to students</em><br>
-    <%= f.text_area :review %>
-  </p>
 
-  <p>
-    <%= f.submit "helldo", :onclick => "return check_info();"%>
-  </p>
+
+
+    <% years = ["Select graduation year"] %>
+    <%
+       for i in 0..50
+         years.push(Date.today.year - i)
+       end
+    %>
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.select :year_graduated, years, class: 'form-control' %>
+      </div>
+    </div>
+
+
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Would you recommend this college? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.check_box :recommend_this_school, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+      </div>
+    </div>
+
+
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.check_box :worth_money, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+      </div>
+    </div>
+
+
+
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.label "Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :rating, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:32px;">
+        <div id="slider-rating" ></div>
+      </div>
+    </div>
+
+
+
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9">
+        <div class="row">
+          <div class="col-md-4">
+            <%= f.label "Party school: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :party_school, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+
+          </div>
+        </div>
+      </div>
+      <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
+        <div id="slider-range-max" ></div>
+      </div>
+    </div>
+
+
+    <hr style="margin:15px 0;">
+
+
+    <%= f.form_group :title do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Title of your review", class: "string required control-label" %>
+          <%= f.text_field :title, class: 'form-control' %>
+        </div>
+    <% end %>
+
+
+
+    <%= f.form_group :annual_salary do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Starting annual salary after graduating", class: 'string required control-label' %>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <%= f.text_field :annual_salary, class: 'form-control', placeholder: "ex. 35999" %>
+            <span class="input-group-addon">.00</span>
+          </div>
+        </div>
+    <% end %>
+
+
+
+
+
+
+    <%= f.form_group :debt do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Debt after graduating", class: 'string required control-label' %>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <%= f.text_field :debt, class: 'form-control', placeholder: "ex. 18999" %>
+            <span class="input-group-addon">.00</span>
+          </div>
+        </div>
+    <% end %>
+
+
+
+
+    <%= f.form_group :review do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label :review, class: 'string required control-label' %>
+          <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, advice to students" %>
+        </div>
+    <% end %>
+
+
+
+    <div class="form-actions col-md-offset-2 col-md-9">
+      <%= f.submit class: 'btn btn-primary' %>
+      <%= link_to "Cancel", school_reviews_path, class: 'btn' %>
+    </div>
+
 <% end %>

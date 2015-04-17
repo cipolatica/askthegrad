@@ -10,7 +10,7 @@ class Major < ActiveRecord::Base
       where("searchable like ?", "%#{tp}_%").limit(25)
       #where("searchable like ?", "%#{tp}_%").limit(10).pluck(:searchable_name)
     else
-      School.all
+      Major.all
     end
   end
   
@@ -25,7 +25,7 @@ class Major < ActiveRecord::Base
       where("searchable like ?", "%#{tp}_%")
       #where("searchable like ?", "%#{tp}_%").limit(10).pluck(:searchable_name)
     else
-      School.all
+      Major.all
     end
   end
 end

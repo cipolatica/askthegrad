@@ -1,9 +1,17 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">-->
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+  <script src="jquery.ui.touch-punch.min.js"></script>
+<style type="text/css">
+    .ui-slider-horizontal .ui-state-default {background: white url(http://stackoverflow.com/content/img/so/vote-arrow-down.png) no-repeat scroll 50% 50%;}
+</style>
+
+
+
 
 <script>
   $(function() {
+      // This slider-range-max is for DIFFICULTY
     $( "#slider-range-max" ).slider({
       range: "max",
       min: 0,
@@ -11,7 +19,37 @@
       step: 0.5,
       value: 0,
       slide: function( event, ui ) {
-        $( "#amount" ).val( ui.value );
+          var displayText = ui.value;
+          if (displayText === 0){
+              displayText = "Easy peasy"
+          } else if (displayText === 0.5 ){
+              displayText = "Lemon squeezy"
+          } else if (displayText === 1 ){
+              displayText = "Effortless"
+          } else if (displayText === 1.5 ){
+              displayText = "Uncomplicated"
+          } else if (displayText === 2 ){
+              displayText = "Not bad"
+          } else if (displayText === 2.5 ){
+              displayText = "meh.."
+          } else if (displayText === 3 ){
+              displayText = "Took some effort"
+          } else if (displayText === 3.5 ){
+              displayText = "Challenging"
+          } else if (displayText === 4 ){
+              displayText = "Very difficult"
+          }else if (displayText === 4.5 ){
+              displayText = "Needed coffee to survive"
+          }else {
+              displayText = "No life, just studying"
+          }
+          $( "#amount" ).val( displayText);
+
+          $( "#slider-range-max" ).css("background","#d0e4f7");
+          $( "#slider-range-max" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+          $( "#slider-range-max" ).css("-moz-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+          $( "#slider-range-max" ).css("box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+          $( "#slider-range-max" ).css("border","none");
       }
     });
     $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
@@ -23,23 +61,71 @@
       step: 0.5,
       value: 0,
       slide: function( event, ui ) {
-        $( "#rating-amount" ).val( ui.value );
+          var displayText = ui.value;
+          if (displayText === 0){
+              displayText = "Worst college ever"
+          } else if (displayText === 0.5 ){
+              displayText = "Couldn't wait to leave"
+          } else if (displayText === 1 ){
+              displayText = "Disliked most days"
+          } else if (displayText === 1.5 ){
+              displayText = "Wasn't a fan"
+          } else if (displayText === 2 ){
+              displayText = "meh.."
+          } else if (displayText === 2.5 ){
+              displayText = "Still kind of meh.."
+          } else if (displayText === 3 ){
+              displayText = "It was alright"
+          } else if (displayText === 3.5 ){
+              displayText = "I enjoyed most days"
+          } else if (displayText === 4 ){
+              displayText = "College was good"
+          }else if (displayText === 4.5 ){
+              displayText = "School was a blast"
+          }else {
+              displayText = "Best college ever!"
+          }
+          $( "#rating-amount" ).val( displayText );
+
+          $( "#slider-rating" ).css("background","#d0e4f7");
+          $( "#slider-rating" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+          $( "#slider-rating" ).css("-moz-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+          $( "#slider-rating" ).css("box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+          $( "#slider-rating" ).css("border","none");
+
       }
     });
     $( "#rating-amount" ).val( $( "#slider-rating" ).slider( "value" ) );
+
   });
   </script>
-  
+
+<!--<div class="form-group"  >-->
+  <!--<div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">-->
+    <h4 style="margin-bottom: 20px;"><strong>First, please answer a few questions about your college</strong></h4>
+  <!--</div>-->
+<!--</div>-->
+
+
 <%= form_for @major_review do |f| %>
-    <%= f.hidden_field :major_id, :value => @major_id  %>
+  <%= f.hidden_field :major_id, :value => @major_id  %>
   <%= f.error_notification %>
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Would you recommend this college? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.check_box :recommend_this_school, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+      </div>
+    </div>
+
+
     <% years = ["Select graduation year"] %>
     <% 
       for i in 0..50
           years.push(Date.today.year - i)
       end
     %>
-    <div class="form-group" style="margin-bottom:0px;" >
+    <div class="form-group"  >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
         <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.select :year_graduated, years, class: 'form-control' %>
@@ -47,24 +133,47 @@
     </div>
     
     
-   <div class="form-group" style="margin-bottom:0px;" >
+   <div class="form-group" style="margin-bottom:0px; height: 75px;" >
       <div class="form-actions col-md-offset-2 col-md-9">
         <div class="row">
-          <div class="col-md-4">
-            <%= f.label "Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-          <%= f.text_field :rating, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
+          <div class="col-md-8">
+            <%= f.label "School Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :rating, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
           </div>
       </div>
     </div>
-    <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:32px;">
-        <div id="slider-rating" ></div>
+
+
+
+    <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:132px;">
+      <div class="ui-slider-wrapper ui-widget horizontal">
+        <div class="ui-slider-labels">
+          <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+            </div>
+          <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+            </div>
+          <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+            </div>
+          <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+            </div>
+          <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+            </div>
+          <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+            </div>
+        </div>
+
+        <div id="slider-rating" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+          <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+        </div>
+
       </div>
     </div>
-    
+   </div>
+
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-8">
             <%= f.label "Difficulty: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
             <%= f.text_field :difficulty, class: 'sliding-scale-value', id: "amount", :readonly => true %>
 
@@ -72,7 +181,28 @@
         </div>
       </div>
       <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
-        <div id="slider-range-max" ></div>
+        <div class="ui-slider-wrapper ui-widget horizontal">
+
+          <div class="ui-slider-labels">
+            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+              </div>
+            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+              </div>
+            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+              </div>
+            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+              </div>
+            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+              </div>
+            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+              </div>
+          </div>
+
+          <div id="slider-range-max" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+          </div>
+
+        </div>
       </div>
     </div>
 

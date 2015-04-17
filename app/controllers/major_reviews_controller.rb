@@ -4,6 +4,9 @@ class MajorReviewsController < ApplicationController
   # GET /major_reviews
   # GET /major_reviews.json
   def index
+    if session[:school_id_for_major] != nil
+      redirect_to new_major_review_path(:major_id => params[:major_id]) and return
+    end
     @major_id = params[:major_id]
     @major_reviews = MajorReview.where(major_id:@major_id)
     
@@ -20,6 +23,7 @@ class MajorReviewsController < ApplicationController
   # GET /major_reviews/new
   def new
     @major_id = params[:major_id]
+    @major = Major.find(@major_id)
     @major_review = MajorReview.new
   end
 

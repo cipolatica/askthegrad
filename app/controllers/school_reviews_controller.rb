@@ -21,6 +21,7 @@ class SchoolReviewsController < ApplicationController
   def new
     @school = params[:the_school]
     @school_id = @school["school_id"]
+    @school_name = School.find(@school_id).name
     @school_review = SchoolReview.new
   end
   

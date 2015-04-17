@@ -1,7 +1,13 @@
 class MajorsController < ApplicationController
   def index
     @title = "Majors"
-    if session[:search_name] && session[:search_index]
+    if params[:clr_sch] != nil
+      session[:school_id_for_major] = nil
+      @majors = Major.all.order(:name)
+    elsif params[:school_id] != nil
+      session[:school_id_for_major] = params[:school_id]
+      @majors = Major.all.order(:name)
+    elsif session[:search_name] && session[:search_index]
       counter = 0
       session[:search_name].each do |s|
         if s == params[:major_search]

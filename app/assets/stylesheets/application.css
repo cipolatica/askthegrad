@@ -29,13 +29,251 @@
 .sliding-scale-value
 {
     color:#f6931f; 
-    background-color:transparent; 
+    background-color:transparent;
     font-weight:bold; 
-    width:35px; 
+    width:180px;
     padding:0; 
     box-shadow:none;
     margin:0 0 3px 0;
     min-height:19px; 
     border:none;
+}
+.ui-slider .ui-slider-horizontal .ui-widget-content .ui-corner-all{
+    background-color: white;
+    border: none;
+}
+
+.ui-slider-wrapper { position: relative; }
+.ui-slider-wrapper .ui-slider-horizontal { width: 100%;}
+
+.ui-slider-labels { position: absolute; border: 1px solid transparent; }
+.ui-slider-label-ticks { border: 1px solid transparent; position: absolute; white-space: nowrap; }
+.ui-slider-label-ticks span { font-size: 0.9em; min-width: 1.2em; }
+
+.ui-slider-wrapper.horizontal { height: 4.5em; }
+.horizontal .ui-slider-labels { left: 0; right: 0; top: 0.7em }
+.horizontal .ui-slider-label-ticks { width: 1.2em; height: .8em; text-align: center; border-left: 1px solid white; top:-.8em;z-index: 2;}
+.horizontal .ui-slider-label-ticks span { position: relative; display: inline-block; margin-left: -1.3em; top: .6em; }
+
+.ui-slider-wrapper.vertical { width: 4.5em; }
+.vertical .ui-slider-labels { top: 1px; bottom: 0; left: 0.7em; }
+.vertical .ui-slider-label-ticks { height: 1.2em; width: 0.8em; border-bottom: 1px solid #999; }
+.vertical .ui-slider-label-ticks span { position: relative; display: inline-block; margin-left: 1em; top: -.6em;}
+
+
+/*Style for the slider button*/
+.ui-slider {
+    position: relative;
+    text-align: left;
+}
+.ui-slider .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 1.2em;
+    height: 1.2em;
+    cursor: default;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+.ui-slider .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: none;
+    background-position: 0 0;
+}
+
+ /*support: IE8 - See #6727*/
+.ui-slider.ui-state-disabled .ui-slider-handle,
+.ui-slider.ui-state-disabled .ui-slider-range {
+    filter: inherit;
+}
+
+.ui-slider-horizontal {
+    height: .8em;
+}
+.ui-slider-horizontal .ui-slider-handle {
+    top: -.3em;
+    margin-left: -.6em;
+}
+.ui-slider-horizontal .ui-slider-range {
+    top: 0;
+    height: 100%;
+}
+.ui-slider-horizontal .ui-slider-range-min {
+    left: 0;
+}
+.ui-slider-horizontal .ui-slider-range-max {
+    right: 0;
+}
+
+.ui-slider-vertical {
+    width: .8em;
+    height: 100px;
+}
+.ui-slider-vertical .ui-slider-handle {
+    left: -.3em;
+    margin-left: 0;
+    margin-bottom: -.6em;
+}
+.ui-slider-vertical .ui-slider-range {
+    left: 0;
+    width: 100%;
+}
+.ui-slider-vertical .ui-slider-range-min {
+    bottom: 0;
+}
+.ui-slider-vertical .ui-slider-range-max {
+    top: 0;
+}
+
+
+.ui-widget-header {
+    border: 1px solid #cccccc;
+    color: #222222;
+    font-weight: bold;
+
+    background: #cccccc;
+    -webkit-box-shadow: inset -2px 2px 4px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: inset -2px 2px 4px 0 rgba(0,0,0,0.75);
+    box-shadow: inset -2px 2px 4px 0 rgba(0,0,0,0.75);
+
+
+}
+.ui-widget-header a {
+    color: #222222;
+}
+
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    /*border: 1px solid #d3d3d3;*/
+    /*border: 1px solid #ccc;*/
+    border:none;
+    background: #e6e6e6;
+    font-weight: normal;
+    color: #555555;
+}
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+    color: #555555;
+    text-decoration: none;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #999999;
+    background: #dadada;
+    font-weight: normal;
+    color: #212121;
+}
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited,
+.ui-state-focus a,
+.ui-state-focus a:hover,
+.ui-state-focus a:link,
+.ui-state-focus a:visited {
+    color: #212121;
+    text-decoration: none;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    border: 1px solid #aaaaaa;
+    /*border: 1px solid black;*/
+    /*border: none;*/
+    background: #ffffff;
+    font-weight: normal;
+    color: #212121;
+}
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+    color: #212121;
+    text-decoration: none;
+}
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+    border: 1px solid #fcefa1;
+    /*border:none;*/
+    background: #fbf9ee;
+    color: #363636;
+}
+.ui-state-highlight a,
+.ui-widget-content .ui-state-highlight a,
+.ui-widget-header .ui-state-highlight a {
+    color: #363636;
+}
+.ui-state-error,
+.ui-widget-content .ui-state-error,
+.ui-widget-header .ui-state-error {
+    background: #fef1ec;
+    color: #cd0a0a;
+}
+.ui-state-error a,
+.ui-widget-content .ui-state-error a,
+.ui-widget-header .ui-state-error a {
+    color: #cd0a0a;
+}
+.ui-state-error-text,
+.ui-widget-content .ui-state-error-text,
+.ui-widget-header .ui-state-error-text {
+    color: #cd0a0a;
+}
+.ui-priority-primary,
+.ui-widget-content .ui-priority-primary,
+.ui-widget-header .ui-priority-primary {
+    font-weight: bold;
+}
+.ui-priority-secondary,
+.ui-widget-content .ui-priority-secondary,
+.ui-widget-header .ui-priority-secondary {
+    opacity: .7;
+    filter:Alpha(Opacity=70);  /*support: IE8*/
+    font-weight: normal;
+}
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+    opacity: .35;
+    filter:Alpha(Opacity=35);  /*support: IE8*/
+    background-image: none;
+}
+.ui-state-disabled .ui-icon {
+    filter:Alpha(Opacity=35);  /*support: IE8*/
+}
+
+.ui-icon {
+    width: 16px;
+    height: 16px;
+}
+.ui-icon,
+.ui-widget-content .ui-icon {
+    /*background-image: url("images/ui-icons_222222_256x240.png");*/
+}
+.ui-widget-header .ui-icon {
+    /*background-image: url("images/ui-icons_222222_256x240.png");*/
+}
+
+.ui-slider-handle {
+    /*width:24px;*/
+    /*height:24px;*/
+    position:absolute;
+    top:-7px;
+    margin-left:-12px;
+    /*z-index:200;*/
+    border: 1px solid #cccccc;
+    /*background:url(slider-button.png);*/
+    left: 0%; background-color: white; border-radius: 50%;width:1.1em; height: 1.1em; z-index: 200;
 }
 
