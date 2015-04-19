@@ -44,6 +44,7 @@
               displayText = "No life, just studying"
           }
           $( "#amount" ).val( displayText);
+          $( "#difficulty-rating-value" ).val( ui.value );
 
           $( "#slider-range-max" ).css("background","#d0e4f7");
           $( "#slider-range-max" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
@@ -53,6 +54,7 @@
       }
     });
     $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+      $( "#difficulty-rating-value" ).val( $( "#slider-range-max" ).slider( "value" ) );
     
     $( "#slider-rating" ).slider({
       range: "max",
@@ -61,6 +63,7 @@
       step: 0.5,
       value: 0,
       slide: function( event, ui ) {
+          $( "#school-rating-value" ).val( ui.value );
           var displayText = ui.value;
           if (displayText === 0){
               displayText = "Worst college ever"
@@ -96,20 +99,93 @@
       }
     });
     $( "#rating-amount" ).val( $( "#slider-rating" ).slider( "value" ) );
+      $( "#school-rating-value" ).val( $( "#slider-rating" ).slider( "value" ) );
+
+
+
+      $( "#slider-party-school" ).slider({
+          range: "max",
+          min: 0,
+          max: 5,
+          step: 0.5,
+          value: 0,
+          slide: function( event, ui ) {
+              var displayText = ui.value;
+              if (displayText === 0){
+                  displayText = "Never partied :-("
+              } else if (displayText === 0.5 ){
+                  displayText = "Didn't really have time"
+              } else if (displayText === 1 ){
+                  displayText = "Partied a few times"
+              } else if (displayText === 1.5 ){
+                  displayText = "Maybe once a month"
+              } else if (displayText === 2 ){
+                  displayText = "meh.."
+              } else if (displayText === 2.5 ){
+                  displayText = "Still kind of meh.."
+              } else if (displayText === 3 ){
+                  displayText = "Partied occasionally"
+              } else if (displayText === 3.5 ){
+                  displayText = "Partied often"
+              } else if (displayText === 4 ){
+                  displayText = "Always something to do"
+              }else if (displayText === 4.5 ){
+                  displayText = "Partied most days"
+              }else {
+                  displayText = "Non-stop partying!"
+              }
+              $( "#amount-party-school" ).val( displayText );
+              $( "#party-school-rating-value" ).val( ui.value );
+
+              $( "#slider-party-school" ).css("background","#d0e4f7");
+              $( "#slider-party-school" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+              $( "#slider-party-school" ).css("-moz-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+              $( "#slider-party-school" ).css("box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+              $( "#slider-party-school" ).css("border","none");
+          }
+      });
+      $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
+      $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
   });
   </script>
 
-<!--<div class="form-group"  >-->
-  <!--<div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">-->
-    <h4 style="margin-bottom: 20px;"><strong>First, please answer a few questions about your college</strong></h4>
-  <!--</div>-->
-<!--</div>-->
 
-
-<%= form_for @major_review do |f| %>
+<%= form_for @review do |f| %>
   <%= f.hidden_field :major_id, :value => @major_id  %>
+    <%= f.hidden_field :school_id, :value => @school_id  %>
   <%= f.error_notification %>
+
+    <%= f.form_group :title do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Title of your review", class: "string required control-label" %>
+          <%= f.text_field :title, class: 'form-control' %>
+          <%= f.error_messages %>
+        </div>
+    <% end %>
+
+
+    <% years = ["Select graduation year"] %>
+    <%
+       for i in 0..50
+         years.push(Date.today.year - i)
+       end
+    %>
+    <div class="form-group"  >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.select :year_graduated, years, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom: 0;margin-top:7px;">
+        <h4 style="margin-bottom: 0px;"><strong>Now, some questions about your college</strong></h4>
+      </div>
+    </div>
+    <hr style="margin-top:2px; margin-bottom: 15px;">
+
+
 
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
@@ -118,48 +194,71 @@
       </div>
     </div>
 
-
-    <% years = ["Select graduation year"] %>
-    <% 
-      for i in 0..50
-          years.push(Date.today.year - i)
-      end
-    %>
-    <div class="form-group"  >
+    <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
-        <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.select :year_graduated, years, class: 'form-control' %>
+        <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.check_box :worth_money, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
       </div>
     </div>
-    
-    
-   <div class="form-group" style="margin-bottom:0px; height: 75px;" >
+
+    <%= f.hidden_field :party_school, id: "party-school-rating-value", :readonly => true  %>
+     <div class="form-group" style="margin-bottom:0px;" >
+       <div class="form-actions col-md-offset-2 col-md-9">
+         <div class="row">
+           <div class="col-md-8">
+             <%= f.label "Party school rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+             <%= f.text_field :party_school_f, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
+
+           </div>
+         </div>
+       </div>
+       <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
+         <div class="ui-slider-wrapper ui-widget horizontal">
+
+           <div class="ui-slider-labels">
+             <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+             </div>
+             <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+             </div>
+             <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+             </div>
+             <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+             </div>
+             <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+             </div>
+             <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+             </div>
+           </div>
+
+           <div id="slider-party-school" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+             <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+           </div>
+
+         </div>
+       </div>
+     </div>
+
+
+
+    <%= f.hidden_field :rating, id: "school-rating-value", :readonly => true  %>
+    <div class="form-group" style="margin-bottom:0px; height: 75px;" >
       <div class="form-actions col-md-offset-2 col-md-9">
         <div class="row">
           <div class="col-md-8">
             <%= f.label "School Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :rating, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
+            <%= f.text_field :rating_f, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
           </div>
+        </div>
       </div>
-    </div>
-
-
-
     <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:132px;">
       <div class="ui-slider-wrapper ui-widget horizontal">
         <div class="ui-slider-labels">
-          <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
-            </div>
-          <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
-            </div>
-          <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
-            </div>
-          <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
-            </div>
-          <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
-            </div>
-          <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
-            </div>
+          <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span></div>
+          <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span></div>
+          <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span></div>
+          <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span></div>
+          <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span></div>
+          <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span></div>
         </div>
 
         <div id="slider-rating" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
@@ -170,12 +269,45 @@
     </div>
    </div>
 
+
+
+    <%= f.form_group :debt do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Debt after graduating", class: 'string required control-label' %>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <%= f.text_field :debt, class: 'form-control', placeholder: "ex. 18999" %>
+            <span class="input-group-addon">.00</span>
+          </div>
+        </div>
+    <% end %>
+
+
+
+    <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom: 0;margin-top:7px;">
+        <h4 style="margin-bottom: 0px;"><strong>Major specific questions</strong></h4>
+      </div>
+    </div>
+    <hr style="margin-top:2px; margin-bottom: 15px;">
+
+
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Would you recommend this major? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.check_box :recommend_this_major, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+      </div>
+    </div>
+
+
+    <%= f.hidden_field :difficulty, id: "difficulty-rating-value", :readonly => true  %>
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9">
         <div class="row">
           <div class="col-md-8">
-            <%= f.label "Difficulty: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :difficulty, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+            <%= f.label "Difficulty of major: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :difficulty_f, class: 'sliding-scale-value', id: "amount", :readonly => true %>
 
           </div>
         </div>
@@ -206,15 +338,7 @@
       </div>
     </div>
 
-    <hr style="margin:15px 0;"> 
-    
-    <%= f.form_group :title do |f| %>
-      <div class="form-actions col-md-offset-2 col-md-9">
-        <%= f.label "Title of your review", class: "string required control-label" %>
-        <%= f.text_field :title, class: 'form-control' %>
-        <%= f.error_messages %>
-      </div>
-    <% end %>
+    <!--<hr style="margin:15px 0;">-->
     
     <%= f.form_group :annual_salary do |f| %>
       <div class="form-actions col-md-offset-2 col-md-9">
@@ -238,8 +362,8 @@
     
     <%= f.form_group :review do |f| %>
       <div class="form-actions col-md-offset-2 col-md-9">
-        <%= f.label :review, class: 'string required control-label' %>
-        <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, advice to students" %>
+        <%= f.label "Review this major", class: 'string required control-label' %>
+        <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, career satisfaction, advice to students" %>
         <%= f.error_messages %>
       </div>
     <% end %>

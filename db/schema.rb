@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150412181253) do
+ActiveRecord::Schema.define(version: 20150418221241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,12 @@ ActiveRecord::Schema.define(version: 20150412181253) do
     t.float    "school_rating"
     t.float    "major_rating"
     t.float    "difficulty"
+    t.boolean  "recommend_this_major"
+    t.float    "career_satisfaction"
+    t.boolean  "career_relation"
+    t.string   "rating_f"
+    t.string   "difficulty_f"
+    t.string   "party_school_f"
   end
 
   create_table "schools", force: true do |t|

@@ -22,9 +22,13 @@ class MajorReviewsController < ApplicationController
 
   # GET /major_reviews/new
   def new
+    @school_id = nil
+    if session[:school_id_for_major] != nil
+      @school_id = session[:school_id_for_major]
+    end
     @major_id = params[:major_id]
     @major = Major.find(@major_id)
-    @major_review = MajorReview.new
+    @review = SchoolReview.new # Returning a School Review here because we are just using one and this has more functionality
   end
 
   # GET /major_reviews/1/edit
@@ -34,15 +38,15 @@ class MajorReviewsController < ApplicationController
   # POST /major_reviews
   # POST /major_reviews.json
   def create
-    @major_review = MajorReview.new(major_review_params)
+    @review = SchoolReview.new(major_review_params)
 
     respond_to do |format|
-      if @major_review.save
-        format.html { redirect_to @major_review, notice: 'Major review was successfully created.' }
-        format.json { render :show, status: :created, location: @major_review }
+      if @review.save
+        format.html { redirect_to @review, notice: 'Major review was successfully created.' }
+        format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new }
-        format.json { render json: @major_review.errors, status: :unprocessable_entity }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,6 +83,6 @@ class MajorReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def major_review_params
-      params.require(:major_review).permit(:school_id, :year_graduated, :recommend_this_major, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id)
+      params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id)
     end
 end

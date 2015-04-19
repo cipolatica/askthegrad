@@ -6,12 +6,22 @@
 
 <h4><%= @school.city %>, <%= @state.name %></h4>
 
-<h3>Rating: <%= number_with_precision(@school.rating_average, precision: 1) %> out of 5</h3>
-<h3>Grads recommending this school: <%= number_to_percentage(@school.recommend_average*100, precision: 0) %></h3>
-<h3>Party school rating: <%= number_with_precision(@school.party_average, precision: 1) %> out of 5</h3>
-<h3>Grads saying it was worth the money: <%= number_to_percentage(@school.worth_money_average*100,precision: 0) %></h3>
-<h3>Average starting salary after graduating <em>(past 2yrs):</em> <%= number_to_currency(@school.salary_average, precision: 2) %></h3>
-<h3>Average debt after graduating <em>(past 2yrs):</em> <%= number_to_currency(@school.debt_average, precision: 2) %></h3>
+<% if @school.rating_average == nil then %>
+    <h3>Rating: N/A</h3>
+    <h3>Grads recommending this school: N/A</h3>
+    <h3>Party school rating: N/A</h3>
+    <h3>Grads saying it was worth the money: N/A</h3>
+    <h3>Average starting salary after graduating: N/A</h3>
+    <h3>Average debt after graduating: N/A</h3>
+<% else  %>
+    <h3>Rating: <%= number_with_precision(@school.rating_average, precision: 1) %> out of 5</h3>
+    <h3>Grads recommending this school: <%= number_to_percentage(@school.recommend_average*100, precision: 0) %></h3>
+    <h3>Party school rating: <%= number_with_precision(@school.party_average, precision: 1) %> out of 5</h3>
+    <h3>Grads saying it was worth the money: <%= number_to_percentage(@school.worth_money_average*100,precision: 0) %></h3>
+    <h3>Average starting salary after graduating: <%= number_to_currency(@school.salary_average, precision: 2) %></h3>
+    <h3>Average debt after graduating: <%= number_to_currency(@school.debt_average, precision: 2) %></h3>
+<% end %>
+
 
 <p><em>New grad?</em> <%= link_to 'review a Major for this college', majors_index_path( :school_id => @school_id ) %></p>
 <% @reviews.each do |review| -%>

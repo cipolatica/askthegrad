@@ -20,8 +20,32 @@ class ApplicationController < ActionController::Base
       
       school_review.update(register_id: nil, school_id:reg.school_id, user_id:current_user.id)
       school = School.find(reg.school_id)
+      if school.college_counter == nil
+        school.college_counter = 0
+      end
+      if school.two_year_college == nil
+        school.two_year_college = 0
+      end
+      if school.recommend_average == nil
+        school.recommend_average = 0
+      end
+      if school.party_average == nil
+        school.party_average = 0
+      end
+      if school.worth_money_average == nil
+        school.worth_money_average = 0
+      end
+      if school.rating_average == nil
+        school.rating_average = 0
+      end
+      if school.salary_average == nil
+        school.salary_average = 0
+      end
+      if school.debt_average == nil
+        school.debt_average = 0
+      end
       school.recommend_average = update_bool_average(school_review.recommend_this_school, school.recommend_average, school.college_counter)
-      school.party_average = update_bool_average(school_review.party_school, school.party_average, school.college_counter)
+      school.party_average = update_num_average(school_review.party_school, school.party_average, school.college_counter)
       school.worth_money_average = update_bool_average(school_review.worth_money, school.worth_money_average, school.college_counter)
       school.rating_average = update_num_average(school_review.rating, school.rating_average, school.college_counter)
       if (school_review.year_graduated >= (Date.today.year - 2))
@@ -34,10 +58,11 @@ class ApplicationController < ActionController::Base
       reg.destroy
       resource.update(reg: nil)
       session[:reg_id] = nil
-      
+
       school_review_path(school_review.id)
     end
   end
+  
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :reg) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me, :reg) }

@@ -41,6 +41,12 @@ class SchoolReviewsController < ApplicationController
       if @school_review.update(review_params)
         @school_review.update(annual_salary:get_max_value(review.annual_salary), debt:get_max_value(review.debt))
         school = School.find(@school_review.school_id)
+        if school.college_counter == nil
+          school.college_counter = 0
+        end
+        if school.two_year_college == nil
+          school.two_year_college = 0
+        end
         school.recommend_average = update_bool_average(@school_review.recommend_this_school, school.recommend_average, school.college_counter)
         school.party_average = update_num_average(@school_review.party_school, school.party_average, school.college_counter)
         school.worth_money_average = update_bool_average(@school_review.worth_money, school.worth_money_average, school.college_counter)
@@ -74,6 +80,12 @@ class SchoolReviewsController < ApplicationController
     if @school_review.save
       if user_signed_in?
         school = School.find(@school_review.school_id)
+        if school.college_counter == nil
+          school.college_counter = 0
+        end
+        if school.two_year_college == nil
+          school.two_year_college = 0
+        end
         school.recommend_average = update_bool_average(@school_review.recommend_this_school, school.recommend_average, school.college_counter)
         school.party_average = update_num_average(@school_review.party_school, school.party_average, school.college_counter)
         school.worth_money_average = update_bool_average(@school_review.worth_money, school.worth_money_average, school.college_counter)
@@ -271,7 +283,7 @@ class SchoolReviewsController < ApplicationController
   end
   
   def review_params
-    params.require(:school_review).permit(:title, :registration_id, :school_id, :user_id, :recommend_this_school, :worth_money, :party_school, :rating, :annual_salary, :debt, :review, :year_graduated)
+    params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id)
   end
 end
 

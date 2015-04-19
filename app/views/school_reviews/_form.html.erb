@@ -6,17 +6,17 @@
 
 <script>
     $(function() {
-        $( "#slider-range-max" ).slider({
+        $( "#slider-party-school" ).slider({
             range: "max",
             min: 0,
             max: 5,
             step: 0.5,
             value: 0,
             slide: function( event, ui ) {
-                $( "#amount" ).val( ui.value );
+                $( "#amount-party-school" ).val( ui.value );
             }
         });
-        $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+        $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
         $( "#slider-rating" ).slider({
             range: "max",
@@ -109,13 +109,13 @@
         <div class="row">
           <div class="col-md-4">
             <%= f.label "Party school: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :party_school, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+            <%= f.text_field :party_school, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
 
           </div>
         </div>
       </div>
       <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
-        <div id="slider-range-max" ></div>
+        <div id="slider-party-school" ></div>
       </div>
     </div>
 
