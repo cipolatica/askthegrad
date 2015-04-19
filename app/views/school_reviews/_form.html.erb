@@ -1,22 +1,60 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 <script src="jquery.ui.touch-punch.min.js"></script>
+<style type="text/css">
+    .ui-slider-horizontal .ui-state-default {background: white url(http://stackoverflow.com/content/img/so/vote-arrow-down.png) no-repeat scroll 50% 50%;}
+</style>
+
+
 
 
 <script>
     $(function() {
-        $( "#slider-party-school" ).slider({
+        // This slider-range-max is for DIFFICULTY
+        $( "#slider-range-max" ).slider({
             range: "max",
             min: 0,
             max: 5,
             step: 0.5,
             value: 0,
             slide: function( event, ui ) {
-                $( "#amount-party-school" ).val( ui.value );
+                var displayText = ui.value;
+                if (displayText === 0){
+                    displayText = "Easy peasy"
+                } else if (displayText === 0.5 ){
+                    displayText = "Lemon squeezy"
+                } else if (displayText === 1 ){
+                    displayText = "Effortless"
+                } else if (displayText === 1.5 ){
+                    displayText = "Uncomplicated"
+                } else if (displayText === 2 ){
+                    displayText = "Not bad"
+                } else if (displayText === 2.5 ){
+                    displayText = "meh.."
+                } else if (displayText === 3 ){
+                    displayText = "Took some effort"
+                } else if (displayText === 3.5 ){
+                    displayText = "Challenging"
+                } else if (displayText === 4 ){
+                    displayText = "Very difficult"
+                }else if (displayText === 4.5 ){
+                    displayText = "Needed coffee to survive"
+                }else {
+                    displayText = "No life, just studying"
+                }
+                $( "#amount" ).val( displayText);
+                $( "#difficulty-rating-value" ).val( ui.value );
+
+                $( "#slider-range-max" ).css("background","#d0e4f7");
+                $( "#slider-range-max" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-range-max" ).css("-moz-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-range-max" ).css("box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-range-max" ).css("border","none");
             }
         });
-        $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
+        $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+        $( "#difficulty-rating-value" ).val( $( "#slider-range-max" ).slider( "value" ) );
 
         $( "#slider-rating" ).slider({
             range: "max",
@@ -25,22 +63,104 @@
             step: 0.5,
             value: 0,
             slide: function( event, ui ) {
-                $( "#rating-amount" ).val( ui.value );
+                $( "#school-rating-value" ).val( ui.value );
+                var displayText = ui.value;
+                if (displayText === 0){
+                    displayText = "Worst college ever"
+                } else if (displayText === 0.5 ){
+                    displayText = "Couldn't wait to leave"
+                } else if (displayText === 1 ){
+                    displayText = "Disliked most days"
+                } else if (displayText === 1.5 ){
+                    displayText = "Wasn't a fan"
+                } else if (displayText === 2 ){
+                    displayText = "meh.."
+                } else if (displayText === 2.5 ){
+                    displayText = "Still kind of meh.."
+                } else if (displayText === 3 ){
+                    displayText = "It was alright"
+                } else if (displayText === 3.5 ){
+                    displayText = "I enjoyed most days"
+                } else if (displayText === 4 ){
+                    displayText = "College was good"
+                }else if (displayText === 4.5 ){
+                    displayText = "School was a blast"
+                }else {
+                    displayText = "Best college ever!"
+                }
+                $( "#rating-amount" ).val( displayText );
+
+                $( "#slider-rating" ).css("background","#d0e4f7");
+                $( "#slider-rating" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-rating" ).css("-moz-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-rating" ).css("box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-rating" ).css("border","none");
+
             }
         });
         $( "#rating-amount" ).val( $( "#slider-rating" ).slider( "value" ) );
+        $( "#school-rating-value" ).val( $( "#slider-rating" ).slider( "value" ) );
+
+
+
+        $( "#slider-party-school" ).slider({
+            range: "max",
+            min: 0,
+            max: 5,
+            step: 0.5,
+            value: 0,
+            slide: function( event, ui ) {
+                var displayText = ui.value;
+                if (displayText === 0){
+                    displayText = "Never partied :-("
+                } else if (displayText === 0.5 ){
+                    displayText = "Didn't really have time"
+                } else if (displayText === 1 ){
+                    displayText = "Partied a few times"
+                } else if (displayText === 1.5 ){
+                    displayText = "Maybe once a month"
+                } else if (displayText === 2 ){
+                    displayText = "meh.."
+                } else if (displayText === 2.5 ){
+                    displayText = "Still kind of meh.."
+                } else if (displayText === 3 ){
+                    displayText = "Partied occasionally"
+                } else if (displayText === 3.5 ){
+                    displayText = "Partied often"
+                } else if (displayText === 4 ){
+                    displayText = "Always something to do"
+                }else if (displayText === 4.5 ){
+                    displayText = "Partied most days"
+                }else {
+                    displayText = "Non-stop partying!"
+                }
+                $( "#amount-party-school" ).val( displayText );
+                $( "#party-school-rating-value" ).val( ui.value );
+
+                $( "#slider-party-school" ).css("background","#d0e4f7");
+                $( "#slider-party-school" ).css("-webkit-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-party-school" ).css("-moz-box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-party-school" ).css("box-shadow","inset -2px 2px 4px 0px rgba(0,0,0,0.75)");
+                $( "#slider-party-school" ).css("border","none");
+            }
+        });
+        $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
+        $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
+
     });
 </script>
 
-<%= form_for @school_review do |f| %>
-  <% if @school_review.errors.any? %>
+
+<%= form_for @review do |f| %>
+
+    <% if @review.errors.any? %>
 
         <div class="alert alert-danger alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <strong><%= pluralize(@school_review.errors.count, "error") %> prohibited
+          <strong><%= pluralize(@review.errors.count, "error") %> prohibited
             this review from being saved!</strong>
           <ul>
-            <% @school_review.errors.each do |field,msg| %>
+            <% @review.errors.each do |field,msg| %>
                 <li><%= msg %></li>
             <% end %>
           </ul>
@@ -48,9 +168,17 @@
 
 
 
-  <% end %>
- <%= f.hidden_field :school_id, :value => @school_id  %>
+    <% end %>
+    <%= f.hidden_field :major_id, :value => @major_id  %>
+    <%= f.hidden_field :school_id, :value => @school_id  %>
 
+    <%= f.form_group :title do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Title of your review", class: "string required control-label" %>
+          <%= f.text_field :title, class: 'form-control' %>
+          <%= f.error_messages %>
+        </div>
+    <% end %>
 
 
     <% years = ["Select graduation year"] %>
@@ -59,12 +187,19 @@
          years.push(Date.today.year - i)
        end
     %>
-    <div class="form-group" style="margin-bottom:0px;" >
+    <div class="form-group"  >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
         <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.select :year_graduated, years, class: 'form-control' %>
       </div>
     </div>
+
+    <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom: 0;margin-top:7px;">
+        <h4 style="margin-bottom: 0px;"><strong>Now, some questions about your college</strong></h4>
+      </div>
+    </div>
+    <hr style="margin-top:2px; margin-bottom: 15px;">
 
 
 
@@ -75,8 +210,6 @@
       </div>
     </div>
 
-
-
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
         <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
@@ -84,67 +217,73 @@
       </div>
     </div>
 
-
-
-
+    <%= f.hidden_field :party_school, id: "party-school-rating-value", :readonly => true  %>
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9">
         <div class="row">
-          <div class="col-md-4">
-            <%= f.label "Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :rating, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
-          </div>
-        </div>
-      </div>
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:32px;">
-        <div id="slider-rating" ></div>
-      </div>
-    </div>
-
-
-
-
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-offset-2 col-md-9">
-        <div class="row">
-          <div class="col-md-4">
-            <%= f.label "Party school: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :party_school, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
+          <div class="col-md-8">
+            <%= f.label "Party school rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :party_school_f, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
 
           </div>
         </div>
       </div>
       <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
-        <div id="slider-party-school" ></div>
+        <div class="ui-slider-wrapper ui-widget horizontal">
+
+          <div class="ui-slider-labels">
+            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+            </div>
+          </div>
+
+          <div id="slider-party-school" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+          </div>
+
+        </div>
       </div>
     </div>
 
 
-    <hr style="margin:15px 0;">
 
-
-    <%= f.form_group :title do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Title of your review", class: "string required control-label" %>
-          <%= f.text_field :title, class: 'form-control' %>
-        </div>
-    <% end %>
-
-
-
-    <%= f.form_group :annual_salary do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Starting annual salary after graduating", class: 'string required control-label' %>
-          <div class="input-group">
-            <span class="input-group-addon">$</span>
-            <%= f.text_field :annual_salary, class: 'form-control', placeholder: "ex. 35999" %>
-            <span class="input-group-addon">.00</span>
+    <%= f.hidden_field :rating, id: "school-rating-value", :readonly => true  %>
+    <div class="form-group" style="margin-bottom:0px; height: 75px;" >
+      <div class="form-actions col-md-offset-2 col-md-9">
+        <div class="row">
+          <div class="col-md-8">
+            <%= f.label "School Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :rating_f, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
           </div>
         </div>
-    <% end %>
+      </div>
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:132px;">
+        <div class="ui-slider-wrapper ui-widget horizontal">
+          <div class="ui-slider-labels">
+            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span></div>
+            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span></div>
+            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span></div>
+            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span></div>
+            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span></div>
+            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span></div>
+          </div>
 
+          <div id="slider-rating" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+          </div>
 
-
+        </div>
+      </div>
+    </div>
 
 
 
@@ -161,19 +300,94 @@
 
 
 
+    <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom: 0;margin-top:7px;">
+        <h4 style="margin-bottom: 0px;"><strong>Major specific questions</strong></h4>
+      </div>
+    </div>
+    <hr style="margin-top:2px; margin-bottom: 15px;">
 
-    <%= f.form_group :review do |f| %>
+
+
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
+        <%= f.label 'Would you recommend this major? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+        <%= f.check_box :recommend_this_major, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+      </div>
+    </div>
+
+
+    <%= f.hidden_field :difficulty, id: "difficulty-rating-value", :readonly => true  %>
+    <div class="form-group" style="margin-bottom:0px;" >
+      <div class="form-actions col-md-offset-2 col-md-9">
+        <div class="row">
+          <div class="col-md-8">
+            <%= f.label "Difficulty of major: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+            <%= f.text_field :difficulty_f, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+
+          </div>
+        </div>
+      </div>
+      <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
+        <div class="ui-slider-wrapper ui-widget horizontal">
+
+          <div class="ui-slider-labels">
+            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+            </div>
+            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+            </div>
+          </div>
+
+          <div id="slider-range-max" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--<hr style="margin:15px 0;">-->
+
+    <%= f.form_group :annual_salary do |f| %>
         <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label :review, class: 'string required control-label' %>
-          <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, advice to students" %>
+          <%= f.label "Starting annual salary after graduating", class: 'string required control-label' %>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <%= f.text_field :annual_salary, class: 'form-control', placeholder: "ex. 35999" %>
+            <span class="input-group-addon">.00</span>
+          </div>
+          <%= f.error_messages %>
         </div>
     <% end %>
 
+    <%= f.form_group :position_title do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Starting job title after graduating", class: "string required control-label" %>
+          <%= f.text_field :position_title, class: 'form-control', placeholder: "ex. Software Engineer" %>
+          <%= f.error_messages %>
+        </div>
+    <% end %>
 
+    <%= f.form_group :review do |f| %>
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= f.label "Review this major", class: 'string required control-label' %>
+          <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, career satisfaction, advice to students" %>
+          <%= f.error_messages %>
+        </div>
+    <% end %>
 
     <div class="form-actions col-md-offset-2 col-md-9">
       <%= f.submit class: 'btn btn-primary' %>
-      <%= link_to "Cancel", school_reviews_path, class: 'btn' %>
+      <%= link_to "Cancel", major_reviews_path, class: 'btn' %>
     </div>
-
 <% end %>
+
+

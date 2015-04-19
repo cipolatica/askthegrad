@@ -22,7 +22,14 @@ class SchoolReviewsController < ApplicationController
     @school = params[:the_school]
     @school_id = @school["school_id"]
     @school_name = School.find(@school_id).name
-    @school_review = SchoolReview.new
+    # @school_review = SchoolReview.new
+
+    if session[:school_id_for_major] != nil
+      @school_id = session[:school_id_for_major]
+    end
+    @major_id = params[:major_id]
+    @major = Major.find(@major_id)
+    @review = SchoolReview.new
   end
   
   def edit
@@ -70,44 +77,44 @@ class SchoolReviewsController < ApplicationController
   
   def create
     #render plain: params[:school_review].inspect
-    @school_review = SchoolReview.new(review_params)
-    @school_id = @school_review.school_id
-    if @school_review.valid?
-      @school_review.annual_salary = get_max_value(@school_review.annual_salary)
-      @school_review.debt = get_max_value(@school_review.debt)
+    @review = SchoolReview.new(review_params)
+    @school_id = @review.school_id
+    if @review.valid?
+      @review.annual_salary = get_max_value(@review.annual_salary)
+      @review.debt = get_max_value(@review.debt)
     end
-    @school_review.user_id = user_signed_in? ? current_user.id : nil;
-    if @school_review.save
+    @review.user_id = user_signed_in? ? current_user.id : nil;
+    if @review.save
       if user_signed_in?
-        school = School.find(@school_review.school_id)
+        school = School.find(@review.school_id)
         if school.college_counter == nil
           school.college_counter = 0
         end
         if school.two_year_college == nil
           school.two_year_college = 0
         end
-        school.recommend_average = update_bool_average(@school_review.recommend_this_school, school.recommend_average, school.college_counter)
-        school.party_average = update_num_average(@school_review.party_school, school.party_average, school.college_counter)
-        school.worth_money_average = update_bool_average(@school_review.worth_money, school.worth_money_average, school.college_counter)
-        school.rating_average = update_num_average(@school_review.rating, school.rating_average, school.college_counter)
-        if (@school_review.year_graduated >= (Date.today.year - 2))
-          school.salary_average = update_num_average(@school_review.annual_salary, school.salary_average, school.two_year_college)
-          school.debt_average = update_num_average(@school_review.debt, school.debt_average, school.two_year_college)
+        school.recommend_average = update_bool_average(@review.recommend_this_school, school.recommend_average, school.college_counter)
+        school.party_average = update_num_average(@review.party_school, school.party_average, school.college_counter)
+        school.worth_money_average = update_bool_average(@review.worth_money, school.worth_money_average, school.college_counter)
+        school.rating_average = update_num_average(@review.rating, school.rating_average, school.college_counter)
+        if (@review.year_graduated >= (Date.today.year - 2))
+          school.salary_average = update_num_average(@review.annual_salary, school.salary_average, school.two_year_college)
+          school.debt_average = update_num_average(@review.debt, school.debt_average, school.two_year_college)
           school.two_year_college += 1
         end
         school.college_counter += 1
         school.save
         
-        redirect_to @school_review
+        redirect_to @review
       else
-        reg = Registration.new(school_review_id:@school_review.id, school_id:@school_review.school_id)
+        reg = Registration.new(school_review_id:@review.id, school_id:@review.school_id)
         reg.save
-        @school_review.update(register_id: reg.id, school_id:nil)
+        @review.update(register_id: reg.id, school_id:nil)
         session[:reg_id] = reg.id
         redirect_to authentication_required_index_path
       end
     else
-      render "new"
+      render "major_reviews/new"
     end
   end
   

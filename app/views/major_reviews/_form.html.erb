@@ -152,9 +152,25 @@
 
 
 <%= form_for @review do |f| %>
+
+    <% if @review.errors.any? %>
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <strong><%= pluralize(@review.errors.count, "error") %> prohibited
+            this review from being saved!</strong>
+          <ul>
+            <% @review.errors.each do |field,msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+
+
+
+    <% end %>
   <%= f.hidden_field :major_id, :value => @major_id  %>
     <%= f.hidden_field :school_id, :value => @school_id  %>
-  <%= f.error_notification %>
 
     <%= f.form_group :title do |f| %>
         <div class="form-actions col-md-offset-2 col-md-9">
