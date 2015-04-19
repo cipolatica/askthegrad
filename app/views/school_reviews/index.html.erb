@@ -4,42 +4,78 @@
   <% end %>
 <% end %>
 
-<h4><%= @school.city %>, <%= @state.name %></h4>
+<% @small_text = @school.city + ", " + @state.name %>
 
-<% if @school.rating_average == nil then %>
-    <h3>Rating: N/A</h3>
-    <h3>Grads recommending this school: N/A</h3>
-    <h3>Party school rating: N/A</h3>
-    <h3>Grads saying it was worth the money: N/A</h3>
-    <h3>Average starting salary after graduating: N/A</h3>
-    <h3>Average debt after graduating: N/A</h3>
-<% else  %>
-    <h3>Rating: <%= number_with_precision(@school.rating_average, precision: 1) %> out of 5</h3>
-    <h3>Grads recommending this school: <%= number_to_percentage(@school.recommend_average*100, precision: 0) %></h3>
-    <h3>Party school rating: <%= number_with_precision(@school.party_average, precision: 1) %> out of 5</h3>
-    <h3>Grads saying it was worth the money: <%= number_to_percentage(@school.worth_money_average*100,precision: 0) %></h3>
-    <h3>Average starting salary after graduating: <%= number_to_currency(@school.salary_average, precision: 2) %></h3>
-    <h3>Average debt after graduating: <%= number_to_currency(@school.debt_average, precision: 2) %></h3>
-<% end %>
+
+<div class="container-fluid">  <!-- This is your outer page container, just here so it works as a standalone example -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8" style="position: relative;left: -18px;">
+            <dl class="dl-horizontal">
+              <% if @school.rating_average == nil then %>
+                  <dt id="atg-dt-index-description">School Rating: </dt>
+                  <dd id="atg-dd-index-description">N/A</dd>
+                  <dt id="atg-dt-index-description">Grads Recommending This School: </dt>
+                  <dd id="atg-dd-index-description">N/A</dd>
+                  <dt id="atg-dt-index-description">Party School Rating:  </dt>
+                  <dd id="atg-dd-index-description">N/A</dd>
+                  <dt id="atg-dt-index-description">Grads Saying It Was Worth The Money: </dt>
+                  <dd id="atg-dd-index-description">N/A</dd>
+                  <dt id="atg-dt-index-description">Average Starting Salary After Graduating: </dt>
+                  <dd id="atg-dd-index-description">N/A</dd>
+                  <dt id="atg-dt-index-description">Average Debt After Graduating: </dt>
+                  <dd id="atg-dd-index-description">N/A</dd>
+              <% else  %>
+                  <dt id="atg-dt-index-description">School Rating: </dt>
+                  <dd id="atg-dd-index-description"><%= number_with_precision(@school.rating_average, precision: 1) %> <small><em>out of 5</em></small></dd>
+                  <dt id="atg-dt-index-description">Party School Rating:  </dt>
+                  <dd id="atg-dd-index-description"><%= number_with_precision(@school.party_average, precision: 1) %> <small><em>out of 5</em></small></dd>
+                  <dt id="atg-dt-index-description">Grads Recommending This School: </dt>
+                  <dd id="atg-dd-index-description"><%= number_to_percentage(@school.recommend_average*100, precision: 0) %></dd>
+                  <dt id="atg-dt-index-description">Grads Saying It Was Worth The Money: </dt>
+                  <dd id="atg-dd-index-description"><%= number_to_percentage(@school.worth_money_average*100,precision: 0) %></dd>
+                  <dt id="atg-dt-index-description">Average Starting Salary After Graduating: </dt>
+                  <dd id="atg-dd-index-description"><%= number_to_currency(@school.salary_average, precision: 2) %></dd>
+                  <dt id="atg-dt-index-description">Average Debt After Graduating: </dt>
+                  <dd id="atg-dd-index-description"><%= number_to_currency(@school.debt_average, precision: 2) %></dd>
+              <% end %>
+            </dl>
+          </div>
+          <!--</div>-->
+          <div class="col-md-4">
+            <!--<div class="well">-->
+              <div class="thumbnail">
+                <div class="caption">
+                  <h3>Top paying Majors from this College</h3>
+                  <dl>
+                    <dt><a>Computer Science</a></dt>
+                    <dd>$79,444.00</dd>
+                    <dt><a>Law</a></dt>
+                    <dd>$78,345.00</dd>
+                    <dt><a>Chemical Engineering</a></dt>
+                    <dd>$78,001.00</dd>
+                    <dt><a>Teaching</a></dt>
+                    <dd>$77,990.00</dd>
+                  </dl>
+                </div>
+              </div>
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <p><em>New grad?</em> <%= link_to 'review a Major for this college', majors_index_path( :school_id => @school_id ) %></p>
-<% @reviews.each do |review| -%>
-  <p><%= link_to review.year_graduated,  school_review_path(review) %></p>
-<% end -%>
+
 
 
 <div class="sheet sheet-condensed">
   <div class="sheet-inner" style="padding-top: 10px;">
-    <table class="table">
-    <thead class="row">
-    <tr class="col-xs-12">
-      <th class="col-xs-4 ">Title</th>
-      <th class="col-xs-8">Year graduated</th>
-
-    </tr>
-    </thead>
-      </table>
     <div class="container-fluid">  <!-- This is your outer page container, just here so it works as a standalone example -->
       <div class="row">
         <div class="col-xs-12">
@@ -149,47 +185,47 @@
 </div>
 
 
-<div class="sheet sheet-condensed">
-  <div class="sheet-inner">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Year graduated</th>
-          <th>Recommend this college</th>
-          <th>Rating</th>
-          <th>Party school</th>
-          <th>Annual salary</th>
-          <th>Worth money</th>
-          <th>Debt</th>
-          <th>Review</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @reviews.each do |review| %>
-        <tr>
-          <td><%= review.title %></td>
-          <td><%= review.year_graduated %></td>
-          <td><%= review.recommend_this_school %></td>
-          <td><%= review.rating %></td>
-          <td><%= review.party_school %></td>
-          <td><%= review.annual_salary %></td>
-          <td><%= review.worth_money %></td>
-          <td><%= review.debt %></td>
-          <td><%= review.review %></td>
-          <td class="actions">
-            <%= link_to icon_tag("eye"), review, rel: 'tooltip', title: 'Show' %>
-            <%= link_to icon_tag("pencil"), edit_school_review_path(review), rel: 'tooltip', title: 'Edit' %>
-            <%= link_to icon_tag("trash-o"), review, rel: 'tooltip', title: 'Delete',
-                        data: { confirm: 'Are you sure?' }, method: :delete %>
-          </td>
-        </tr>
-      <% end %>
-      <% if @reviews.length == 0 %>
-        <tr><td colspan=42 class='text-center'>No College Reviews. Be the first!</td></tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div><!-- /.sheet-inner -->
-</div><!-- /.sheet -->
+<!--<div class="sheet sheet-condensed">-->
+  <!--<div class="sheet-inner">-->
+    <!--<table class="table">-->
+      <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>Title</th>-->
+          <!--<th>Year graduated</th>-->
+          <!--<th>Recommend this college</th>-->
+          <!--<th>Rating</th>-->
+          <!--<th>Party school</th>-->
+          <!--<th>Annual salary</th>-->
+          <!--<th>Worth money</th>-->
+          <!--<th>Debt</th>-->
+          <!--<th>Review</th>-->
+          <!--<th></th>-->
+        <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<% @reviews.each do |review| %>-->
+        <!--<tr>-->
+          <!--<td><%= review.title %></td>-->
+          <!--<td><%= review.year_graduated %></td>-->
+          <!--<td><%= review.recommend_this_school %></td>-->
+          <!--<td><%= review.rating %></td>-->
+          <!--<td><%= review.party_school %></td>-->
+          <!--<td><%= review.annual_salary %></td>-->
+          <!--<td><%= review.worth_money %></td>-->
+          <!--<td><%= review.debt %></td>-->
+          <!--<td><%= review.review %></td>-->
+          <!--<td class="actions">-->
+            <!--<%= link_to icon_tag("eye"), review, rel: 'tooltip', title: 'Show' %>-->
+            <!--<%= link_to icon_tag("pencil"), edit_school_review_path(review), rel: 'tooltip', title: 'Edit' %>-->
+            <!--<%= link_to icon_tag("trash-o"), review, rel: 'tooltip', title: 'Delete',
+                        data: { confirm: 'Are you sure?' }, method: :delete %>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--<% end %>-->
+      <!--<% if @reviews.length == 0 %>-->
+        <!--<tr><td colspan=42 class='text-center'>No College Reviews. Be the first!</td></tr>-->
+      <!--<% end %>-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>&lt;!&ndash; /.sheet-inner &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.sheet &ndash;&gt;-->
