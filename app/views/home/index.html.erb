@@ -1,25 +1,119 @@
-<h1>Welcome To Ask The Grad!</h1>
+<% content_for :body_class, "landing" %>
 
-<!--<div class="col-md-9">-->
-<div class="bs-docs-example ">
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#college_search" role="tab" data-toggle="tab">Search for reviewed Majors by college</a></li>
-    <li><a href="#major" role="tab" data-toggle="tab">Search for reviewed Majors by name</a></li>
-  </ul>
-
-  <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade in active" id="college_search">
-      <p style="margin-top:15px;">
-        <%= render "college_search" %>
-      </p>
+<% content_for :header do %>
+    <div class='container'>
+      <div class='row'>
+        <%= render "layouts/flashes" %>
+      </div>
     </div>
-    <div class="tab-pane fade" id="major">
-      <p style="margin-top:15px;">
-        <%= render "major_search" %>
-      </p>
+    <header>
+      <div class="bg"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-xs-12">
+            <div class="text">
+              <h2>Graduates helping Students by reviewing their college major.</h2>
+              <p class='lead'>A place where Grads can review their major and Students can ask the grads questions.</p>
+              <!--<p class='lead'>Grads can post reviews of their college majors while-->
+              <!--students can ask the grads questions about their major and find out how much people are making out of college.</p>-->
+              <a href="#" class='btn btn-outline-default btn-lg'>Learn More &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+<% end %>
+
+<section class="features">
+  <!--<h2 class='h1'>Amazing App Benefit</h2>-->
+  <!--<p class="lead">This is the best application you could ever buy. You'd be crazy not to buy it. Especially as it's been endorsed by the product teaching mafia.</p>-->
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <section>
+          <i class='fa fa-pencil-square'></i>
+          <h4>Grads, write your review</h4>
+          <p>Post a review of your college major. Write about its pros, cons, career satisfaction, and advice to students.</p>
+        </section>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <section>
+          <i class='fa fa-question'></i>
+          <h4>Students, ask the grad</h4>
+          <p>Check out reviews of majors from your college and ask the grads questions based on those reviews.</p>
+        </section>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <section>
+          <i class='fa fa-money'></i>
+          <h4>Show me the money!!</h4>
+          <p>Find out what grads are getting paid out of school based on their college and major.</p>
+        </section>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<%= link_to 'Find reviewed Majors by college ', :controller => 'states', :action => 'index'  %> <br >
-<%= link_to 'Find reviewed Majors by name', majors_index_path(:clr_sch => "true")  %>
+
+
+<section class="features" style="background-color: #EDF0F2;">
+  <div class="container-fluid">
+    <!--<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">-->
+    <div class="row">
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="panel panel-metric">
+              <div class="panel-body">
+                <div class="metric-content">
+                  <div class="row" style="margin-bottom: 15px;">
+                    <header class='col-xs-12' style="margin-bottom: 15px;">
+                      <h3>Search for your major by college</h3>
+                    </header>
+                    <%= render "college_search" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="panel panel-metric">
+              <div class="panel-body">
+                <div class="metric-content">
+                  <div class="row" style="margin-bottom: 15px;">
+                    <header class='col-xs-12' style="margin-bottom: 15px;">
+                      <h3>Search for your major by name</h3>
+                    </header>
+                    <%= render "major_search" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <!--</div>-->
+    </div>
+  </div>
+</section>
+
+
+
+<section class="getting-started">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-5 text-xs-center text-md-left">
+          <h1>Start Posting!</h1>
+          <p>Sign up today. It takes less than 2 minutes.</p>
+        </div>
+        <div class="col-md-7 text-xs-center text-right ctas">
+          <a class="btn btn-outline-default" href="#">Sign Up</a>
+          <a class="btn btn-outline-primary" href="#">or Login</a>
+          <!--<a class="btn btn-outline-primary" href="#">or see features &raquo;</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

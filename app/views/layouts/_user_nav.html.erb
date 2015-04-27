@@ -1,16 +1,37 @@
 <%# Links for current user. %>
-<div class="navbar-text pull-right">
+<% content_for :navbar do %>
+    <div class="navbar">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar" style="display: block;width: 10px;height: 2px;background-color: #385e80;"></span>
+          <span class="icon-bar" style="display: block;width: 10px;height: 2px;background-color: #385e80;"></span>
+          <span class="icon-bar" style="display: block;width: 10px;height: 2px;background-color: #385e80;"></span>
+        </button>
+        <a href="#" class="navbar-brand">ask the grad</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-center">
+          <%= activatable_li_tag_with_link "Home", root_path %>
+          <%= activatable_li_tag_with_link "Colleges", states_path %>
+          <%= activatable_li_tag_with_link "Majors", majors_index_path(:clr_sch => "true") %> <!-- clr_sch = clear_school_id -->
+          <%= activatable_li_tag_with_link "Stats", majors_index_path %>
+        </ul>
+        <div class="navbar-text pull-right">
+          <% if user_signed_in? %>
+              <%= fa_icon_tag "user" %> Welcome, <strong><%= current_user.email %></strong>
+              <span class="divider">|</span>
+              <%= link_to 'Settings', edit_user_registration_path %>
+              <span class="divider">|</span>
+              <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+          <% else %>
+              <%= link_to 'Register', new_user_registration_path %>
+              <span class="divider">|</span>
+              <%= link_to 'Login', new_user_session_path %>
+          <% end %>
 
-  <% if user_signed_in? %>
-    <%= icon_tag "user" %> Welcome, <strong><%= current_user.username %></strong>
-    <span class="divider">|</span>
-    <%= link_to 'Settings', edit_user_registration_path %>
-    <span class="divider">|</span>
-    <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-  <% else %>
-    <%= link_to 'Register', new_user_registration_path %>
-    <span class="divider">|</span>
-    <%= link_to 'Login', new_user_session_path %>
-  <% end %>
-
-</div>
+        </div>
+      </div>
+    </div>
+<% end %>

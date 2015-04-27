@@ -1,6 +1,6 @@
 class SchoolsController < ApplicationController
   def index
-    @title = "Schools"
+    @title = "Choose your College"
     if params[:the_state]
       state_id = params[:the_state]
       @schools = School.where(state_id:state_id["state_id"]).order(:name)

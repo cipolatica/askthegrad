@@ -1,4 +1,5 @@
 <div id="college">
+  <%= link_to 'Click Here ', :controller => 'states', :action => 'index'  %> to search for your college<br > OR <br >
 <%= form_tag  schools_index_path, :method => "get" do %>
   Enter your <strong>college</strong> to see its reviews! <br>
   <%= text_field_tag :search, params[:search] %>

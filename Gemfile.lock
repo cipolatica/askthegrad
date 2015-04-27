@@ -1,6 +1,6 @@
 GEM
   remote: https://rubygems.org/
-  remote: https://dresssed.com/gems/9b3c48b7ae2a4453da59/
+  remote: https://dresssed.com/gems/25d41039f2a06c40d249/
   specs:
     actionmailer (4.1.1)
       actionpack (= 4.1.1)
@@ -47,7 +47,7 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    dresssed-gimlet (3.0.4)
+    dresssed-ives (1.0.1)
       jquery-rails
       rails (>= 3.1)
     erubis (2.7.0)
@@ -135,7 +135,7 @@ DEPENDENCIES
   activerecord-reputation-system
   coffee-rails (~> 4.0.0)
   devise
-  dresssed-gimlet (~> 3.0.0)
+  dresssed-ives!
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails

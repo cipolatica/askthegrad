@@ -1,4 +1,5 @@
 <div id="major">
+  <%= link_to 'Click Here', majors_index_path(:clr_sch => "true")  %> to search for your major<br > OR <br >
 <%= form_tag  majors_index_path, :method => "get" do %>
   Enter your <strong>major</strong> to see its reviews<br>
   <%= text_field_tag :major_search, params[:major_search] %>

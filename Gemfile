@@ -30,8 +30,12 @@ gem 'spring',        group: :development
 
 gem 'activerecord-reputation-system', require: 'reputation_system'
 
-source 'https://dresssed.com/gems/9b3c48b7ae2a4453da59/'
-gem 'dresssed-gimlet', '~> 3.0.0'  # For Bootsrap 3
+
+source 'https://dresssed.com/gems/25d41039f2a06c40d249/' do
+  gem 'dresssed-ives'
+end
+#source 'https://dresssed.com/gems/9b3c48b7ae2a4453da59/'
+#gem 'dresssed-gimlet', '~> 3.0.0'  # For Bootsrap 3
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

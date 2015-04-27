@@ -1,7 +1,7 @@
 
 <% content_for :actions do %>
   <%= link_to new_major_review_path(:major_id => @major_id), class: 'btn btn-danger btn-large pull-right' do %>
-    <%= icon_tag "plus" %> Add Major review
+        Add Major review
   <% end %>
 <% end %>
 
@@ -49,9 +49,9 @@
           <td><%= major_review.vote_count %></td>
           <td><%= major_review.comment_count %></td>
           <td class="actions">
-            <%= link_to icon_tag("eye"), major_review, rel: 'tooltip', title: 'Show' %>
-            <%= link_to icon_tag("pencil"), edit_major_review_path(major_review), rel: 'tooltip', title: 'Edit' %>
-            <%= link_to icon_tag("trash-o"), major_review, rel: 'tooltip', title: 'Delete',
+            <%= link_to root_path, major_review, rel: 'tooltip', title: 'Show' %>
+            <%= link_to root_path, edit_major_review_path(major_review), rel: 'tooltip', title: 'Edit' %>
+            <%= link_to root_path, major_review, rel: 'tooltip', title: 'Delete',
                         data: { confirm: 'Are you sure?' }, method: :delete %>
           </td>
         </tr>

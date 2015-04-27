@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   #get 'school_review/edit'
 
   get 'schools/index'
+  get 'home/index'
+  get 'dashdel/index'
 
   devise_for :users, :controllers => { :registrations => "my_devise/registrations"}
   
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
   resources :states
   resources :votes
   root to: "home#index"
+  # root to: "landing#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

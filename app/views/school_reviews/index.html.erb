@@ -1,6 +1,6 @@
 <% content_for :actions do %>
   <%= link_to majors_index_path( :school_id => @school_id ), class: 'btn btn-primary btn-large pull-right' do %>
-    <%= icon_tag "plus" %> Post Major Review
+         Post Major Review
   <% end %>
 <% end %>
 
@@ -215,9 +215,9 @@
           <!--<td><%= review.debt %></td>-->
           <!--<td><%= review.review %></td>-->
           <!--<td class="actions">-->
-            <!--<%= link_to icon_tag("eye"), review, rel: 'tooltip', title: 'Show' %>-->
-            <!--<%= link_to icon_tag("pencil"), edit_school_review_path(review), rel: 'tooltip', title: 'Edit' %>-->
-            <!--<%= link_to icon_tag("trash-o"), review, rel: 'tooltip', title: 'Delete',
+            <!--<%= link_to root_path, review, rel: 'tooltip', title: 'Show' %>-->
+            <!--<%= link_to root_path, edit_school_review_path(review), rel: 'tooltip', title: 'Edit' %>-->
+            <!--<%= link_to root_path, review, rel: 'tooltip', title: 'Delete',
                         data: { confirm: 'Are you sure?' }, method: :delete %>-->
           <!--</td>-->
         <!--</tr>-->
