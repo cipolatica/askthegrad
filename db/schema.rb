@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418221241) do
+ActiveRecord::Schema.define(version: 20150430041757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,21 @@ ActiveRecord::Schema.define(version: 20150418221241) do
     t.string   "searchable"
     t.string   "searchable_name"
     t.integer  "popularity"
+    t.integer  "top_major_id_1"
+    t.integer  "top_major_id_2"
+    t.integer  "top_major_id_3"
+    t.integer  "top_major_id_4"
+    t.integer  "top_major_id_5"
+    t.string   "top_major_name_1"
+    t.string   "top_major_name_2"
+    t.string   "top_major_name_3"
+    t.string   "top_major_name_4"
+    t.string   "top_major_name_5"
+    t.float    "top_major_amount_1"
+    t.float    "top_major_amount_2"
+    t.float    "top_major_amount_3"
+    t.float    "top_major_amount_4"
+    t.float    "top_major_amount_5"
   end
 
   create_table "search_suggestions", force: true do |t|

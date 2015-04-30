@@ -6,63 +6,255 @@
 
 <% @small_text = @school.city + ", " + @state.name %>
 
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <div class="row" >
+        <div class="col-lg-8">
+          <h3 style="margin:0;">Here are some quick stats for this college</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <div class="row" >
+        <div class="col-lg-6">
+          <div class="panel panel-danger" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-star-half-full">
+                </i>
+                OVERALL <b>SCHOOL RATING</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-red-400">
+                <% if @school.rating_average != nil %>
+                    <%= number_with_precision(@school.rating_average, precision: 1) %> <small>out of 5</small>
+                <% else %>
+                    0.0 <small>out of 5</small>
+                <% end %>
 
-<div class="container-fluid">  <!-- This is your outer page container, just here so it works as a standalone example -->
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-8" style="position: relative;left: -18px;">
-            <dl class="dl-horizontal">
-              <% if @school.rating_average == nil then %>
-                  <dt id="atg-dt-index-description">School Rating: </dt>
-                  <dd id="atg-dd-index-description">N/A</dd>
-                  <dt id="atg-dt-index-description">Grads Recommending This School: </dt>
-                  <dd id="atg-dd-index-description">N/A</dd>
-                  <dt id="atg-dt-index-description">Party School Rating:  </dt>
-                  <dd id="atg-dd-index-description">N/A</dd>
-                  <dt id="atg-dt-index-description">Grads Saying It Was Worth The Money: </dt>
-                  <dd id="atg-dd-index-description">N/A</dd>
-                  <dt id="atg-dt-index-description">Average Starting Salary After Graduating: </dt>
-                  <dd id="atg-dd-index-description">N/A</dd>
-                  <dt id="atg-dt-index-description">Average Debt After Graduating: </dt>
-                  <dd id="atg-dd-index-description">N/A</dd>
-              <% else  %>
-                  <dt id="atg-dt-index-description">School Rating: </dt>
-                  <dd id="atg-dd-index-description"><%= number_with_precision(@school.rating_average, precision: 1) %> <small><em>out of 5</em></small></dd>
-                  <dt id="atg-dt-index-description">Party School Rating:  </dt>
-                  <dd id="atg-dd-index-description"><%= number_with_precision(@school.party_average, precision: 1) %> <small><em>out of 5</em></small></dd>
-                  <dt id="atg-dt-index-description">Grads Recommending This School: </dt>
-                  <dd id="atg-dd-index-description"><%= number_to_percentage(@school.recommend_average*100, precision: 0) %></dd>
-                  <dt id="atg-dt-index-description">Grads Saying It Was Worth The Money: </dt>
-                  <dd id="atg-dd-index-description"><%= number_to_percentage(@school.worth_money_average*100,precision: 0) %></dd>
-                  <dt id="atg-dt-index-description">Average Starting Salary After Graduating: </dt>
-                  <dd id="atg-dd-index-description"><%= number_to_currency(@school.salary_average, precision: 2) %></dd>
-                  <dt id="atg-dt-index-description">Average Debt After Graduating: </dt>
-                  <dd id="atg-dd-index-description"><%= number_to_currency(@school.debt_average, precision: 2) %></dd>
+              </h2>
+            </div>
+            <div class="panel-footer">
+              <% if @school.rating_average != nil && @school.rating_average > 0 %>
+                  <% if @school.rating_average < 1 %>
+                      This college is terrible
+                  <% elsif @school.rating_average < 2 %>
+                        Not a great college
+                  <% elsif @school.rating_average < 3 %>
+                        This college is just kind of meh..
+                  <% elsif @school.rating_average < 4 %>
+                        This college is good
+                  <% elsif @school.rating_average < 5 %>
+                        This college is great
+                  <% else %>
+                        Best college ever!
+                  <% end %>
+              <% else %>
+                Average school rating for this college
               <% end %>
-            </dl>
+
+            </div>
           </div>
-          <!--</div>-->
-          <div class="col-md-4">
-            <!--<div class="well">-->
-              <div class="thumbnail">
-                <div class="caption">
-                  <h3>Top paying Majors from this College</h3>
-                  <dl>
-                    <dt><a>Computer Science</a></dt>
-                    <dd>$79,444.00</dd>
-                    <dt><a>Law</a></dt>
-                    <dd>$78,345.00</dd>
-                    <dt><a>Chemical Engineering</a></dt>
-                    <dd>$78,001.00</dd>
-                    <dt><a>Teaching</a></dt>
-                    <dd>$77,990.00</dd>
-                  </dl>
-                </div>
-              </div>
-            <!--</div>-->
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-danger" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-users">
+                </i>
+                PARTY <b>SCHOOL RATING</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-red-400">
+                <% if @school.party_average != nil %>
+                    <%= number_with_precision(@school.party_average, precision: 1) %> <small>out of 5</small>
+                <% else %>
+                    0.0 <small>out of 5</small>
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              <% if @school.party_average != nil && @school.party_average > 0 %>
+                  <% if @school.party_average < 1 %>
+                      Pretty much no parties here :-(
+                  <% elsif @school.party_average < 2 %>
+                      Not a great party school
+                  <% elsif @school.party_average < 3 %>
+                      Partying here is kind of meh..
+                  <% elsif @school.party_average < 4 %>
+                      Good party school
+                  <% elsif @school.party_average < 5 %>
+                      This is a great party school
+                  <% else %>
+                      Best party school ever!
+                  <% end %>
+              <% else %>
+                  Average party rating for this college
+              <% end %>
+            </div>
           </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-success" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-smile-o">
+                </i>
+                AVERAGE <b>STARTING SALARY</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-green-400">
+                <% if @school.salary_average != nil %>
+                    <%= number_to_currency(@school.salary_average, precision: 2) %>
+                <% else %>
+                    $0.00
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              Average starting salary after graduation
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-success" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-frown-o">
+                </i>
+                AVERAGE <b>COLLEGE DEBT</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-green-400">
+                <% if @school.debt_average != nil %>
+                    <%= number_to_currency(@school.debt_average, precision: 2) %>
+                <% else %>
+                    $0.00
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              Average tuition debt after graduating
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-info" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-dollar">
+                </i>
+                WORTH THE <b>MONEY?</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-light-blue-400">
+                <% if @school.worth_money_average != nil %>
+                    <%= number_to_percentage(@school.worth_money_average*100,precision: 0) %>
+                <% else %>
+                    0.0%
+                <% end %>
+              </h2>
+            </div>
+            <div class="panel-footer">
+              Grads saying this college was worth tuition
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-info" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-thumbs-o-up">
+                </i>
+                BEING <b>RECOMMENDED</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-light-blue-400">
+                <% if @school.recommend_average != nil %>
+                    <%= number_to_percentage(@school.recommend_average*100, precision: 0) %>
+                <% else %>
+                    0.0%
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              Grads recommending this college
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Top paying Majors from this college</h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+              <tbody>
+              <% (1..5).each do |index|%>
+                <tr>
+                  <td><%= index %></td>
+                  <td>
+                    <ul class="list-unstyled small">
+                      <li class="mb10">
+                        <% if eval("@school.top_major_amount_#{index}") != nil %>
+                            <b><%= link_to eval("@school.top_major_name_#{index}"), majors_index_path( :school_id => @school_id ) %></b><br/>
+                            <%= number_to_currency(eval("@school.top_major_amount_#{index}"), precision: 2) %>
+                        <% else %>
+                            <b>N/A</b>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="container-fluid animate-fade-in-500" style="margin-bottom: 8px;">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <div class="row" >
+        <div class="col-lg-6">
+          <h3 style="margin:0;">50 Reviewed Majors for this College</h3>
+        </div>
+        <div class="col-lg-6">
+          <p style="margin: 6px 0 0 0;"><em>New grad?</em> <%= link_to 'review a Major for this college', majors_index_path( :school_id => @school_id ) %></p>
         </div>
       </div>
     </div>
@@ -70,21 +262,19 @@
 </div>
 
 
-<p><em>New grad?</em> <%= link_to 'review a Major for this college', majors_index_path( :school_id => @school_id ) %></p>
 
-
-
+<div id="content" class="col-md-8">
 <div class="sheet sheet-condensed">
   <div class="sheet-inner" style="padding-top: 10px;">
     <div class="container-fluid">  <!-- This is your outer page container, just here so it works as a standalone example -->
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-xs-4 "><em>
+              <div class="col-xs-4 col-md-6 col-lg-5"><em>
                 Class of <a>2015</a>
               </em></div>
-              <div class="col-xs-8">
+              <div class="col-xs-8 col-md-6 col-lg-7">
                 <strong>
                   This is my subject title!
                 </strong>
@@ -92,7 +282,7 @@
             </div>
             <div class="row">
               <!--<div class="col-xs-3" style="background-color: #666666;">-->
-              <div class="col-xs-4" style="position: relative;left: -18px;">
+              <div class="col-xs-4 col-md-6 col-lg-5" style="position: relative;left: -18px;">
                 <dl class="dl-horizontal">
                   <dt>Rating:</dt>
                   <dd>4.5</dd>
@@ -102,14 +292,14 @@
                   <dd>Yes</dd>
                   <dt>Worth the money:</dt>
                   <dd>Yes</dd>
-                  <dt>Starting annual salary:</dt>
+                  <dt>Starting salary:</dt>
                   <dd>1Million+</dd>
-                  <dt>Debt after graduating:</dt>
+                  <dt>Starting debt:</dt>
                   <dd>$24,000</dd>
                 </dl>
               </div>
               <!--</div>-->
-              <div class="col-xs-8">
+              <div class="col-xs-8 col-md-6 col-lg-7">
                 <div class="well">
                   On March 31, when the official college decisions were posted online, Harold Ekeh logged onto his computer in Elmont, New York. The 17-year-old was shocked to discover he was accepted to all eight Ivies, as well as the Massachusetts Institute of Technology, Johns Hopkins, Vanderbilt, New York University and SUNY Stony Brook
                 </div>
@@ -183,7 +373,7 @@
 
   </div>
 </div>
-
+</div>
 
 <!--<div class="sheet sheet-condensed">-->
   <!--<div class="sheet-inner">-->

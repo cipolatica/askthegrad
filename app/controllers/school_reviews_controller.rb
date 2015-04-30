@@ -7,6 +7,7 @@ class SchoolReviewsController < ApplicationController
     
     @school = School.find(@school_id)
     @title = @school.name
+    @small_text = @school.city
     @state = State.find(@school.state_id)
   end
 
