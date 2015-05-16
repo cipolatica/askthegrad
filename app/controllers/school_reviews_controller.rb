@@ -102,6 +102,32 @@ class SchoolReviewsController < ApplicationController
           school.salary_average = update_num_average(@review.annual_salary, school.salary_average, school.two_year_college)
           school.debt_average = update_num_average(@review.debt, school.debt_average, school.two_year_college)
           school.two_year_college += 1
+          # Find top 5 highest paying colleges
+          review_list = SchoolReview.where(school_id:@school_id, year_graduated:(Date.today.year - 2)..Date.today.year).order(:major_id)
+          school.top_major_ids = "^^^^"
+          school.top_major_amounts = "^^^^"
+          salary_average = 0.0
+          current_major_id = review_list[0].major_id
+          current_major_counter = 0
+          review_list.each do |r|
+            if r.major_id != current_major_id
+              salary_average = salary_average / current_major_counter
+              if does_top_major_list_need_update(salary_average, school.top_major_amounts)
+                school.top_major_ids, school.top_major_amounts = update_top_majors(school.top_major_ids, school.top_major_amounts, salary_average,current_major_id)
+              end
+              salary_average = 0.0
+              current_major_id = r.major_id
+              current_major_counter = 0
+            end
+            salary_average = salary_average + r.annual_salary
+            current_major_counter = current_major_counter + 1
+          end
+          salary_average = salary_average / current_major_counter
+          if does_top_major_list_need_update(salary_average, school.top_major_amounts)
+            school.top_major_ids, school.top_major_amounts = update_top_majors(school.top_major_ids, school.top_major_amounts, salary_average,current_major_id)
+          end
+          school.top_major_names = update_top_major_names(school.top_major_ids)
+          # DONE with Finding top 5 highest paying colleges
         end
         school.college_counter += 1
         school.save
@@ -224,7 +250,53 @@ class SchoolReviewsController < ApplicationController
   end
   
   private
-  
+  def update_top_major_names(top_major_ids)
+    ids_array = top_major_ids.split("^")
+    top_major_ids = ""
+    for i in 0..4
+      if ids_array[i].to_s == nil || ids_array[i].to_s == ""
+        top_major_ids.concat("")
+      else
+        top_major_ids.concat(Major.find(ids_array[i].to_i).name)
+      end
+      if i != 4
+        top_major_ids.concat("^")
+      end
+    end
+    return top_major_ids
+  end
+
+  def swap_value (value1, value2)
+    return value2, value1
+  end
+
+  def update_top_majors(top_major_ids, top_major_amounts, salary_average, current_major_id)
+    amounts_array = top_major_amounts.split("^")
+    ids_array = top_major_ids.split("^")
+    for index in (4).downto(0)
+      if amounts_array[index].to_s == nil || amounts_array[index].to_s == "" || amounts_array[index].to_f < salary_average.to_f
+        if index == 4
+          amounts_array[4] = salary_average.to_s
+          ids_array[4] = current_major_id.to_s
+        else
+          amounts_array[index], amounts_array[index+1] = swap_value(amounts_array[index], amounts_array[index+1])
+          ids_array[index], ids_array[index+1] = swap_value(ids_array[index], ids_array[index+1])
+        end
+      end
+    end
+    top_major_ids = ids_array[0].to_s + "^" + ids_array[1].to_s + "^" + ids_array[2].to_s + "^" + ids_array[3].to_s + "^" + ids_array[4].to_s
+    top_major_amounts = amounts_array[0].to_s + "^" + amounts_array[1].to_s + "^" + amounts_array[2].to_s + "^" + amounts_array[3].to_s + "^" + amounts_array[4].to_s
+    return top_major_ids, top_major_amounts
+  end
+
+  def does_top_major_list_need_update(salary_average, top_major_amounts)
+    amounts_array = top_major_amounts.split("^")
+    if amounts_array[4].to_s == nil || amounts_array[4].to_s == "" || amounts_array[4].to_f < salary_average.to_f
+      return true
+    end
+    return false
+  end
+
   def get_lineage (full_string, index)
     str = full_string.split('_')[index]
 	  n1 = str[0].ord
