@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   get 'schools/index'
   get 'home/index'
-  get 'dashdel/index'
+  #get 'dashdel/index'
 
   devise_for :users, :controllers => { :registrations => "my_devise/registrations"}
   

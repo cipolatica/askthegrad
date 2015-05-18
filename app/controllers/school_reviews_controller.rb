@@ -3,7 +3,19 @@ class SchoolReviewsController < ApplicationController
   def index
     @school = params[:the_school]
     @school_id = @school["school_id"]
-    @reviews = SchoolReview.where(school_id:@school_id)
+    if params[:sort] != nil
+      if params[:sort] == "most_recent"
+        @reviews = SchoolReview.where(school_id:@school_id).order(created_at: :desc)
+      elsif params[:sort] == "graduation_year"
+        @reviews = SchoolReview.where(school_id:@school_id).order(year_graduated: :desc)
+      elsif params[:sort] == "highest_paying"
+        @reviews = SchoolReview.where(school_id:@school_id).order(annual_salary: :desc)
+      elsif params[:sort] == "major_name_alphabetical"
+        @reviews = SchoolReview.where(school_id:@school_id).order(:major_name)
+      end
+    else
+      @reviews = SchoolReview.where(school_id:@school_id).order(created_at: :desc)
+    end
     
     @school = School.find(@school_id)
     @title = @school.name
@@ -83,8 +95,10 @@ class SchoolReviewsController < ApplicationController
     if @review.valid?
       @review.annual_salary = get_max_value(@review.annual_salary)
       @review.debt = get_max_value(@review.debt)
+      @review.major_name = Major.find(@review.major_id).name
+      @review.user_id = user_signed_in? ? current_user.id : nil;
+      @review.user_name = user_signed_in? ? current_user.username : nil;
     end
-    @review.user_id = user_signed_in? ? current_user.id : nil;
     if @review.save
       if user_signed_in?
         school = School.find(@review.school_id)
@@ -93,6 +107,24 @@ class SchoolReviewsController < ApplicationController
         end
         if school.two_year_college == nil
           school.two_year_college = 0
+        end
+        if school.recommend_average == nil
+          school.recommend_average = 0
+        end
+        if school.party_average == nil
+          school.party_average = 0
+        end
+        if school.worth_money_average == nil
+          school.worth_money_average = 0
+        end
+        if school.rating_average == nil
+          school.rating_average = 0
+        end
+        if school.salary_average == nil
+          school.salary_average = 0
+        end
+        if school.debt_average == nil
+          school.debt_average = 0
         end
         school.recommend_average = update_bool_average(@review.recommend_this_school, school.recommend_average, school.college_counter)
         school.party_average = update_num_average(@review.party_school, school.party_average, school.college_counter)
@@ -141,13 +173,14 @@ class SchoolReviewsController < ApplicationController
         redirect_to authentication_required_index_path
       end
     else
+      @major_id = @review.major_id
       render "major_reviews/new"
     end
   end
   
   def destroy
   end
-  
+
   def comment
     @comment = Comment.new
     @school_review = SchoolReview.find(params[:id])
