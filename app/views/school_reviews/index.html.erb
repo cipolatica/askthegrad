@@ -227,7 +227,7 @@
                     <ul class="list-unstyled small">
                       <li class="mb10">
                         <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                            <b><%= link_to names_array[index].to_s, majors_index_path( :school_id => @school_id ) %></b><br/>
+                            <b><%= link_to names_array[index].to_s, :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => ids_array[index].to_s  %></b><br/>
                             <%= number_to_currency(amounts_array[index].to_i, precision: 2) %>
                         <% else %>
                             <b>N/A</b>
@@ -268,8 +268,6 @@
 
 
 <div id="content" class="col-md-9">
-  <!--<div class="sheet sheet-condensed">-->
-    <!--<div class="sheet-inner">-->
       <table class="table">
         <div class="panel panel-default" style="margin-bottom: 0">
             <div class="panel-heading">
@@ -285,84 +283,52 @@
         </div>
         <tbody>
         <% if @reviews != nil && @reviews.length > 0 %>
-        <% @reviews.each do |review| %>
-        <tr>
-          <td>
-            <ol class="list-unstyled">
-            <li>
-              <h3 style="margin-bottom: 3px; margin-top: 10px">
-                <% if review.title != nil && review.title.length > 0 %>
-                <%= review.title %>
-                <% else %>
-                <%= review.major_name %>
-                <% end %>
-              </h3>
-              <div class="article-meta media color-grey-50" style="margin-top: 0;">
-                <div class="media-body">
-                  <p class="m0 media-heading">
-                    Starting Annual Salary: <span class="page-hits m0 text-green-400"><strong><%= number_to_currency(review.annual_salary, precision: 2) %></strong></span>
-                  </p>
-                </div>
-              </div>
-              <div class="article-meta media color-grey-50">
-                <div class="media-body">
-                  <p class="m0 media-heading">
-                    <a href="#">by <%= review.user_name %></a>
-                    majoring in
-                    <a href="#"><%= review.major_name %></a>
-                    •
-                    <time><em>Class of <%= review.year_graduated %></em></time>
-                    <time class="pull-right"><%= review.created_at.strftime("%m/%d/%Y") %></time>
-                  </p>
-                </div>
-              </div>
+            <% @reviews.each do |review| %>
+            <tr>
+              <td>
+                <ol class="list-unstyled">
+                <li>
+                  <h3 style="margin-bottom: 3px; margin-top: 10px">
+                    <% if review.title != nil && review.title.length > 0 %>
+                    <%= review.title %>
+                    <% else %>
+                    <%= review.major_name %>
+                    <% end %>
+                  </h3>
+                  <div class="article-meta media color-grey-50" style="margin-top: 0;">
+                    <div class="media-body">
+                      <p class="m0 media-heading">
+                        Starting Annual Salary: <span class="page-hits m0 text-green-400"><strong><%= number_to_currency(review.annual_salary, precision: 2) %></strong></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="article-meta media color-grey-50">
+                    <div class="media-body">
+                      <p class="m0 media-heading">
+                        <%= link_to 'By '+ review.user_name, school_review_path(review) %>
+                        majoring in
+                        <%= link_to review.major_name,  major_reviews_path(:major_id => review.major_id ) %>
+                        •
+                        <time><em>Class of <%= review.year_graduated %></em></time>
+                        <time class="pull-right"><%= review.created_at.strftime("%m/%d/%Y") %></time>
+                      </p>
+                    </div>
+                  </div>
 
-              <p style="margin-bottom: 8px;">
-                <%= review.review %>
-              </p>
-              <a href="003_app_pages@fa-laptop%2F010_blog_pages%2F001_blog_post_page_fullpage">Read more →</a>
-            </li>
-          </ol>
-          </td>
-        </tr>
-        <% end %>
+                  <p style="margin-bottom: 8px;">
+                    <%= review.review %>
+                  </p>
+                  <%= link_to 'Read more or ask this grad →', school_review_path(review) %>
+                </li>
+              </ol>
+              </td>
+            </tr>
+            <% end %>
         <% else %>
         <% end %>
-        <!--<tr>-->
-          <!--<td>Roger Sterling</td>-->
-          <!--<td></td>-->
-          <!--<td class="actions">-->
-            <!--<a href="#" rel="tooltip" title="Show"><i class="fa fa-eye-open"></i></a>-->
-            <!--<a href="#" rel="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>-->
-            <!--<a confirm="Are you sure?" data-method="delete" href="#" rel="tooltip nofollow" title="Delete"><i class="fa fa-trash-o"></i></a>-->
-          <!--</td></tr>-->
         </tbody>
       </table>
-    <!--</div>-->
-  <!--</div>&lt;!&ndash; /.sheet &ndash;&gt;-->
-
-  <div >
-    <ul class="pagination">
-      <li class="prev disabled">
-        <a href="#" rel="prev">‹ Prev</a>
-      </li>
-
-      <li class="page active">
-        <a href="#">1</a>
-      </li>
-
-      <li class="page">
-        <a href="#" rel="next">2</a>
-      </li>
-
-      <li class="next_page ">
-        <a href="#" rel="next">Next ›</a>
-      </li>
-
-    </ul>
-  </div>
-
-
+  <hr>
 </div> <!-- /#content -->
 
 <%= render "layouts/footer" %> <br >

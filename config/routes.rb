@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     member { post :post_comments }
   end
   resources :states
+  resources :stats
   resources :votes
   root to: "home#index"
   # root to: "landing#index"

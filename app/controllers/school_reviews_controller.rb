@@ -12,6 +12,8 @@ class SchoolReviewsController < ApplicationController
         @reviews = SchoolReview.where(school_id:@school_id).order(annual_salary: :desc)
       elsif params[:sort] == "major_name_alphabetical"
         @reviews = SchoolReview.where(school_id:@school_id).order(:major_name)
+      else
+        @reviews = SchoolReview.where(school_id:@school_id, major_id:params[:sort].to_i).order(created_at: :desc)
       end
     else
       @reviews = SchoolReview.where(school_id:@school_id).order(created_at: :desc)

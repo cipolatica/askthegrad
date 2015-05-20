@@ -1,6 +1,6 @@
 class MajorsController < ApplicationController
   def index
-    @title = "Majors"
+    @title = "Choose your Major"
     if params[:clr_sch] != nil
       session[:school_id_for_major] = nil
       @majors = Major.all.order(:name)
