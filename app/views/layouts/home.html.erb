@@ -1,5 +1,5 @@
 <% content_for :navbar do %>
-<div class="navbar">
+<div class="navbar" xmlns="http://www.w3.org/1999/html">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -12,6 +12,13 @@
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
+      <li>
+            <form class="navbar-form search-form" role="search">
+              <input type="text" class="form-control" id="searchbox" placeholder="Search College">
+              <span class="search-button" style="position: relative; right: 26px;"><i class="fa fa-search"></i></span>
+              </input>
+            </form>
+      </li>
       <li class="active">
         <%= activatable_li_tag_with_link "Home", root_path %>
       </li>

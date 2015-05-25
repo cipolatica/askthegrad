@@ -150,8 +150,7 @@
   });
   </script>
 
-
-<%= form_for @review do |f| %>
+<%= form_for @review  do |f| %>
 
     <% if @review.errors.any? %>
 
@@ -170,8 +169,17 @@
 
     <% end %>
   <%= f.hidden_field :major_id, :value => @major_id  %>
-    <%= f.hidden_field :school_id, :value => @school_id  %>
-
+    <% if @school_id != nil %>
+        <%= f.hidden_field :school_id, :value => @school_id  %>
+    <% else %>
+        <!--<div id="college">-->
+        <div class="form-actions col-md-offset-2 col-md-9">
+          <%= form_tag  schools_index_path, :method => "get" do %>
+              <%= text_field_tag :search, params[:search] %>
+              <%= submit_tag "Search College", :name => nil, :class => "btn btn-default" %>
+          <% end %>
+        </div>
+    <% end %>
     <%= f.form_group :title do |f| %>
         <div class="form-actions col-md-offset-2 col-md-9">
           <%= f.label "Title of your review", class: "string required control-label" %>

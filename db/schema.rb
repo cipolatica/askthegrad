@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517030840) do
+ActiveRecord::Schema.define(version: 20150520044035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,9 @@ ActiveRecord::Schema.define(version: 20150517030840) do
     t.integer  "popularity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "top_school_ids"
+    t.string   "top_school_names"
+    t.string   "top_school_amounts"
   end
 
   create_table "registrations", force: true do |t|
@@ -175,6 +178,7 @@ ActiveRecord::Schema.define(version: 20150517030840) do
     t.string   "party_school_f"
     t.string   "major_name"
     t.string   "user_name"
+    t.string   "school_name"
   end
 
   create_table "schools", force: true do |t|

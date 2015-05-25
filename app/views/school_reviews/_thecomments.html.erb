@@ -1,15 +1,12 @@
 <% @comments.each do |c| %>
   <% if c.is_parent == true %>
-  <div class="media">
+  <div class="media" style="margin-bottom: 20px;">
   <% else %>
-  <div class="media" style="margin-left:50px" >
+  <div class="media" style="margin-left:50px; margin-bottom: 20px;" >
   <% end %>
-    <div class="pull-left" href="#">
-      <%= image_tag "user_placeholder.png", :class =>"media-object" %>
-    </div>
     <div class="media-body">
-      <h4 class="media-heading"><%= c.username %></h4>
-      <%= simple_format c.content %>
+      <h3 class="media-heading"><%= c.username %></h3>
+      <%= simple_format( c.content, style: 'margin-bottom:2px;') %>
       <%= link_to "Reply", comment_school_review_path(@school_review, comm_id: c.id ), id: "comm_#{c.id}", remote:true %>
     </div>
   </div>

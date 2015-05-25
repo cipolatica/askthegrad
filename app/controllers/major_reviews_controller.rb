@@ -8,10 +8,25 @@ class MajorReviewsController < ApplicationController
       redirect_to new_major_review_path(:major_id => params[:major_id]) and return
     end
     @major_id = params[:major_id]
-    @major_reviews = MajorReview.where(major_id:@major_id)
+    #@major_reviews = MajorReview.where(major_id:@major_id)
     
     @major = Major.find(@major_id)
     @title = @major.name
+    if params[:sort] != nil
+      if params[:sort] == "most_recent"
+        @reviews = SchoolReview.where(major_id:@major_id).order(created_at: :desc)
+      elsif params[:sort] == "graduation_year"
+        @reviews = SchoolReview.where(major_id:@major_id).order(year_graduated: :desc)
+      elsif params[:sort] == "highest_paying"
+        @reviews = SchoolReview.where(major_id:@major_id).order(annual_salary: :desc)
+      elsif params[:sort] == "college_name_alphabetical"
+        @reviews = SchoolReview.where(major_id:@major_id).order(:school_name)
+      else
+        @reviews = SchoolReview.where(major_id:@major_id, school_id:params[:sort].to_i).order(created_at: :desc)
+      end
+    else
+      @reviews = SchoolReview.where(major_id:@major_id).order(created_at: :desc)
+    end
 
   end
 
@@ -21,6 +36,19 @@ class MajorReviewsController < ApplicationController
   end
 
   # GET /major_reviews/new
+  # def new
+  #   @school = params[:the_school]
+  #   @school_id = @school["school_id"]
+  #   @school_name = School.find(@school_id).name
+  #   # @school_review = SchoolReview.new
+  #
+  #   if session[:school_id_for_major] != nil
+  #     @school_id = session[:school_id_for_major]
+  #   end
+  #   @major_id = params[:major_id]
+  #   @major = Major.find(@major_id)
+  #   @review = SchoolReview.new
+  # end
   def new
     @school_id = nil
     if session[:school_id_for_major] != nil
@@ -28,7 +56,7 @@ class MajorReviewsController < ApplicationController
     end
     @major_id = params[:major_id]
     @major = Major.find(@major_id)
-    @review = SchoolReview.new # Returning a School Review here because we are just using one and this has more functionality
+    @review = SchoolReview.new # Returning a School Review here because we are just using one review object and this has more functionality
   end
 
   # GET /major_reviews/1/edit
@@ -38,17 +66,18 @@ class MajorReviewsController < ApplicationController
   # POST /major_reviews
   # POST /major_reviews.json
   def create
-    @review = SchoolReview.new(major_review_params)
+    # render plain: params[:school_review].inspect
 
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to @review, notice: 'Major review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
-      else
-        format.html { render :new }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
-    end
+    # @review = SchoolReview.new(major_review_params)
+    # respond_to do |format|
+    #   if @review.save
+    #     format.html { redirect_to @review, notice: 'Major review was successfully created.' }
+    #     format.json { render :show, status: :created, location: @review }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @review.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /major_reviews/1
@@ -83,6 +112,6 @@ class MajorReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def major_review_params
-      params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id)
+      params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id, :school_name)
     end
 end

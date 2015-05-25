@@ -1,61 +1,204 @@
-  <p>
-    <strong>Title: </strong>
-    <%= @school_review.title %>
-  </p>
-  <p>
-    <strong>Year Graduated: </strong>
-    <%= @school_review.year_graduated %>
-  </p>
-  <p>
-    <strong>Recommend: </strong>
-    <%= @school_review.recommend_this_school %>
-  </p>
-  <p>
-    <strong>Worth Money: </strong>
-    <%= @school_review.worth_money %>
-  </p>
-  <p>
-    <strong>Party School: </strong>
-    <%= @school_review.party_school %>
-  </p>
-  <p>
-    <strong>Rating: </strong>
-    <%= @school_review.rating %>
-  </p>
-  <p>
-    <strong>Annual Salary: </strong>
-    <% if @school_review.annual_salary > 1000000 %>
-      $1 Million+
-      <% else %>
-      <%= number_to_currency(@school_review.annual_salary, precision: 2) %>
+
+
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <h3 style="margin-bottom: 30px; margin-top: 10px">
+        This is my cool Title man and i think it was cool when we had to do really fun things with a lot of people so now we have to do it.
+      </h3>
+      <div style="margin-bottom: 30px;">
+      <div class="row" >
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Class of: <span class="page-hits m0 text-green-400 pull-right"><strong>2015</strong></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Majoring in: <span class="page-hits m0 text-green-400 pull-right"><strong>Computer Science</strong></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong>3.5</strong><small style="color: black;"> out of 5</small></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Party School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong>3.5</strong><small style="color: black;"> out of 5</small></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" >
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Starting Annual Salary after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong>$70,500.00</strong></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Debt after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong>$70,500.00</strong></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Recommending this College: <span class="page-hits m0 text-green-400 pull-right"><strong>Yes</strong></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="article-meta media color-grey-50" style="margin-top: 0;">
+            <div class="media-body">
+              <p class="m0 media-heading">
+                Was it Worth the Money? <span class="page-hits m0 text-green-400 pull-right"><strong>Yes</strong></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="article-meta media color-grey-50">
+        <div class="media-body">
+          <p class="m0 media-heading">
+            By
+            <%= link_to 'Someone', root_path %>
+            on
+            <time>05/23/1983</time>
+          </p>
+        </div>
+      </div>
+      <p style="margin-bottom: 8px;">
+        In an era where Americans have forsaken cars for SUVs, especially those with just two doors, sports cars in general command a fraction of the market they once held in their late ‘60s and early '70s heyday. Compared to the volume of Chevrolet’s other passenger cars and pickups, Camaro production is a side line.
+      </p>
+      <% if @school_review.vote_count %>
+          <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
+          <% dislikes = @school_review.vote_count - likes %>
+      <% elsif %>
+          <% likes = 0 %>
+          <% dislikes = 0 %>
       <% end %>
-  </p>
-  <p>
-    <strong>debt: </strong>
-    <% if @school_review.debt > 1000000 %>
-      $1 Million+
-      <% else %>
-      <%= number_to_currency(@school_review.debt, precision: 2) %>
-      <% end %>
-  </p>
-  <p>
-    <strong>Review: </strong>
-    <%= @school_review.review %>
-  </p>
-  <% if @school_review.vote_count %>
-    <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
-    <% dislikes = @school_review.vote_count - likes %>
-  <% elsif %>
-    <% likes = 0 %>
-    <% dislikes = 0 %>
-  <% end %>
-  
-  <%= link_to "like", vote_school_review_path(@school_review, type: "up"), id: "like", remote: true, method: "post" %> (<span id="show-likes"><%= likes.to_i %></span>) |
-  <%= link_to "dislike", vote_school_review_path(@school_review, type: "down"), id: "dislike", remote:true, method: "post" %> (<span id="show-dislikes"><%= dislikes.to_i %></span>)<br>
-  
-  
-  <%= link_to 'Back', school_reviews_path(:the_school => { :school_id => @school_review.school_id }) %> |
-  <%= link_to 'Edit', edit_school_review_path(@school_review) %><br>
+
+      <%= link_to content_tag(:i, nil, class: 'fa fa-thumbs-o-up'), vote_school_review_path(@school_review, type: "up"), id: "like", remote: true, method: "post" %> (<span id="show-likes"><%= likes.to_i %></span>) |
+      <%= link_to content_tag(:i, nil, class: 'fa fa-thumbs-o-down'), vote_school_review_path(@school_review, type: "down"), id: "dislike", remote:true, method: "post" %> (<span id="show-dislikes"><%= dislikes.to_i %></span>)<br>
+
+
+      <hr>
+
+
+
+
+
+
+
+
+      <section class='comments row'>
+        <div class="col-xs-12">
+          <!--<hr>-->
+          <h3>4 Comments</h3>
+            <div class="bs-docs-example ">
+
+              <span id="show-comments">
+                <% if @comments && @comments.length > 0 %>
+                  <%= render 'thecomments' %>
+                <% else %>
+                    <p>There are no comments for this post. Be the first!</p>
+                <% end %>
+              </span>
+
+              <div class="well  mt50 mb50">
+                <form action="003_app_pages@fa-laptop%252F010_blog_pages%252F001_blog_post_page_fullpage.html#" method="post" novalidate="" class="form">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="visibility: visible;">
+                      <div class="form-group">
+                        <label class="control-label" for="contact-message">Join the discussion</label>
+                        <div class="controls">
+                          <textarea name="comments" placeholder="Please be civil." class="form-control requiredField" rows="3" data-error-empty="Please enter comment"></textarea>
+                          <span class="help-block text-muted">* required</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="form-group">
+                            <button name="submit" type="submit" class="form-control btn btn-primary btn-flat" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Comment Sent">Send Comment</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+      </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 <div class="bs-docs-example "> 
 <span id="show-comments">

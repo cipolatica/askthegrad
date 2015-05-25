@@ -1,66 +1,282 @@
-
 <% content_for :actions do %>
-  <%= link_to new_major_review_path(:major_id => @major_id), class: 'btn btn-danger btn-large pull-right' do %>
-        Add Major review
-  <% end %>
+    <%= link_to new_major_review_path( :major_id => @major_id ), class: 'btn btn-primary btn-large pull-right' do %>
+        Post Major Review
+    <% end %>
 <% end %>
 
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <div class="row" >
+        <div class="col-lg-8">
+          <h3 style="margin:0;">Here are some quick stats for this major</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <div class="row" >
+        <div class="col-lg-6">
+          <div class="panel panel-danger" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-star-half-full">
+                </i>
+                DIFFICULTY <b>RATING</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-red-400">
+                <% if @major.difficulty_average != nil %>
+                    <%= number_with_precision(@major.difficulty_average, precision: 1) %> <small>out of 5</small>
+                <% else %>
+                    0.0 <small>out of 5</small>
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              <% if @major.difficulty_average != nil && @major.difficulty_average > 0 %>
+                  <% if @major.difficulty_average < 1 %>
+                      This college is terrible
+                  <% elsif @major.difficulty_average < 2 %>
+                      Not a great college
+                  <% elsif @major.difficulty_average < 3 %>
+                      This college is just kind of meh..
+                  <% elsif @major.difficulty_average < 4 %>
+                      This college is good
+                  <% elsif @major.difficulty_average < 5 %>
+                      This college is great
+                  <% else %>
+                      Best college ever!
+                  <% end %>
+              <% else %>
+                  Average school rating for this college
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-danger" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-thumbs-o-up">
+                </i>
+                BEING <b>RECOMMENDED</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-red-400">
+                <% if @major.recommend_average != nil %>
+                    <%= number_with_precision(@major.recommend_average, precision: 1) %> <small>out of 5</small>
+                <% else %>
+                    0.0 <small>out of 5</small>
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              <% if @major.recommend_average != nil && @major.recommend_average > 0 %>
+                  <% if @major.recommend_average < 1 %>
+                      Pretty much no parties here :-(
+                  <% elsif @major.recommend_average < 2 %>
+                      Not a great party school
+                  <% elsif @major.recommend_average < 3 %>
+                      Partying here is kind of meh..
+                  <% elsif @major.recommend_average < 4 %>
+                      Good party school
+                  <% elsif @major.recommend_average < 5 %>
+                      This is a great party school
+                  <% else %>
+                      Best party school ever!
+                  <% end %>
+              <% else %>
+                  Average party rating for this college
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-<dl class="dl=horizontal">
-  <dt>one</dt>
-  <dd>two</dd>
-  <dt>three</dt>
-  <dd>four</dd>
-</dt>
-<div class="sheet sheet-condensed">
-  <div class="sheet-inner">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Year graduated</th>
-          <th>Recommend this major</th>
-          <th>Difficulty</th>
-          <th>Rating</th>
-          <th>Annual salary</th>
-          <th>Worth money</th>
-          <th>Debt</th>
-          <th>Review</th>
-          <th>Position title</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @major_reviews.each do |major_review| %>
-        <tr>
-          <td><%= major_review.year_graduated %></td>
-          <td><%= major_review.recommend_this_major %></td>
-          <td><%= major_review.difficulty %></td>
-          <td><%= major_review.rating %></td>
-          <td><%= major_review.annual_salary %></td>
-          <td><%= major_review.user_id %></td>
-          <td><%= major_review.worth_money %></td>
-          <td><%= major_review.debt %></td>
-          <td><%= major_review.review %></td>
-          <td><%= major_review.title %></td>
-          <td><%= major_review.position_title %></td>
-          <td><%= major_review.register_id %></td>
-          <td><%= major_review.vote_count %></td>
-          <td><%= major_review.comment_count %></td>
-          <td class="actions">
-            <%= link_to root_path, major_review, rel: 'tooltip', title: 'Show' %>
-            <%= link_to root_path, edit_major_review_path(major_review), rel: 'tooltip', title: 'Edit' %>
-            <%= link_to root_path, major_review, rel: 'tooltip', title: 'Delete',
-                        data: { confirm: 'Are you sure?' }, method: :delete %>
-          </td>
-        </tr>
-      <% end %>
-      <% if @major_reviews.length == 0 %>
-        <tr><td colspan=42 class='text-center'>No major_reviews.</td></tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div><!-- /.sheet-inner -->
-</div><!-- /.sheet -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-success" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-smile-o">
+                </i>
+                AVERAGE <b>STARTING SALARY</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-green-400">
+                <% if @major.salary_average != nil %>
+                    <%= number_to_currency(@major.salary_average, precision: 2) %>
+                <% else %>
+                    $0.00
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              Average starting salary after graduation
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-success" id="panels">
+            <div class="panel-heading">
+              <p class="lead">
+                <i class="fa fa-frown-o">
+                </i>
+                AVERAGE <b>COLLEGE DEBT</b>
+              </p>
+            </div>
+            <div class="panel-body text-xs-center text-md-center text-lg-center" >
+              <h2 class="page-hits m0 text-green-400">
+                <% if @major.debt_average != nil %>
+                    <%= number_to_currency(@major.debt_average, precision: 2) %>
+                <% else %>
+                    $0.00
+                <% end %>
+
+              </h2>
+            </div>
+            <div class="panel-footer">
+              Average tuition debt after graduating
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Top paying Colleges for this major for class of <%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, and <%= (Date.today.year - 2) %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <tbody>
+              <% amounts_array = @major.top_school_amounts.to_s.split("^")%>
+              <% ids_array = @major.top_school_ids.to_s.split("^")%>
+              <% names_array = @major.top_school_names.to_s.split("^")%>
+              <% (0..4).each do |index|%>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td>
+                      <ul class="list-unstyled small">
+                        <li class="mb10">
+                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                              <b><%= link_to names_array[index].to_s, :action => "index", :id => @major_id, :sort => ids_array[index].to_s  %></b><br/>
+                              <%= number_to_currency(amounts_array[index].to_i, precision: 2) %>
+                          <% else %>
+                              <b>N/A</b>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid animate-fade-in-500" style="margin-bottom: 8px;">
+  <div class="row mt20">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+      <div class="row" >
+        <div class="col-lg-6">
+          <h3 style="margin:0;"><%= @reviews.length %> Review<% if @reviews.length != 1 %>s<% end %> for this Major</h3>
+        </div>
+        <div class="col-lg-6">
+          <p style="margin: 6px 0 0 0;"><em>New grad?</em> <%= link_to 'review a Major for this college', majors_index_path( :school_id => @school_id ) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div id="content" class="col-md-9">
+  <table class="table">
+    <div class="panel panel-default" style="margin-bottom: 0">
+      <div class="panel-heading">
+        Reviews for <%= @major.name %>
+        <div class="pull-right">
+          Sort by:
+          <%= link_to 'Most Recent', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'most_recent'  %> |
+          <%= link_to 'Graduation Year', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'graduation_year'  %> |
+          <%= link_to 'Highest Paying', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'highest_paying'  %> |
+          <%= link_to 'College Name', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'college_name_alphabetical'  %>
+        </div>
+      </div>
+    </div>
+    <tbody>
+    <% if @reviews != nil && @reviews.length > 0 %>
+        <% @reviews.each do |review| %>
+            <tr>
+              <td>
+                <ol class="list-unstyled">
+                  <li>
+                    <h3 style="margin-bottom: 3px; margin-top: 10px">
+                      <% if review.title != nil && review.title.length > 0 %>
+                          <%= review.title %>
+                      <% else %>
+                          <%= review.major_name %>
+                      <% end %>
+                    </h3>
+                    <div class="article-meta media color-grey-50" style="margin-top: 0;">
+                      <div class="media-body">
+                        <p class="m0 media-heading">
+                          Starting Annual Salary: <span class="page-hits m0 text-green-400"><strong><%= number_to_currency(review.annual_salary, precision: 2) %></strong></span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="article-meta media color-grey-50">
+                      <div class="media-body">
+                        <p class="m0 media-heading">
+                          <%= link_to 'By '+ review.user_name, school_review_path(review) %>
+                          at
+                          <%= link_to review.school_name,  school_reviews_path(:the_school => { :school_id => review.school_id } ) %>
+                          •
+                          <time><em>Class of <%= review.year_graduated %></em></time>
+                          <time class="pull-right"><%= review.created_at.strftime("%m/%d/%Y") %></time>
+                        </p>
+                      </div>
+                    </div>
+
+                    <p style="margin-bottom: 8px;">
+                      <%= review.review %>
+                    </p>
+                    <%= link_to 'Read more or ask this grad →', school_review_path(review) %>
+                  </li>
+                </ol>
+              </td>
+            </tr>
+        <% end %>
+    <% else %>
+    <% end %>
+    </tbody>
+  </table>
+  <hr>
+</div> <!-- /#content -->
+
+<%= render "layouts/footer" %> <br >
+
 
