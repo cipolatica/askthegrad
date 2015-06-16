@@ -209,7 +209,12 @@ class SchoolReviewsController < ApplicationController
       comment.user_id = current_user.id
       comment.college_review_id = params[:id]
       comment.is_parent = is_parent
-      if comment.save
+      if comment.content == nil || (comment.content != nil && (comment.content.length >= 150 || comment.content.length < 1))
+        respond_to do |format|
+          format.html { redirect_to :back, notice: "You must be signed in to comment" }
+          format.js { render :js => "alert('Your comment must be at between 1 - 150 characters');" }
+        end
+      elsif comment.save
         if @school_review.comment_count == nil
           @school_review.update(comment_count:1)
         else
@@ -239,11 +244,11 @@ class SchoolReviewsController < ApplicationController
           format.js
         end
       end
-      
+
     else
       respond_to do |format|
-        format.html { redirect_to :back, notice: "You must be signed in to vote" }
-        format.js { render :js => "alert('You must be signed in to vote');" }
+        format.html { redirect_to :back, notice: "You must be signed in to comment" }
+        format.js { render :js => "alert('You must be signed in to comment');" }
       end
     end
   end

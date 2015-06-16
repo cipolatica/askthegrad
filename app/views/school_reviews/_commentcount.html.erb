@@ -1,0 +1,5 @@
+<% if @school_review.comment_count %>
+    <%= @school_review.comment_count %> Commment<% if @school_review.comment_count != 1 %>s<% end %>
+<% else %>
+    0 Comments
+<% end %>

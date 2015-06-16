@@ -1,2 +1,6 @@
 $("#show-comments").empty();
 $("#show-comments").append('<%= j render("thecomments") %>');
+$("#show-single-comment").empty();
+$("#show-single-comment").append('<%= j render("comment") %>');
+$("#show-comment-count").empty();
+$("#show-comment-count").append('<%= j render("commentcount") %>');

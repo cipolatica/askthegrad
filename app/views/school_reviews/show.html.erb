@@ -4,7 +4,11 @@
   <div class="row mt20">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
       <h3 style="margin-bottom: 30px; margin-top: 10px">
-        This is my cool Title man and i think it was cool when we had to do really fun things with a lot of people so now we have to do it.
+        <% if @school_review.title != nil && @school_review.title.length > 0 %>
+            <%= @school_review.title %>
+        <% else %>
+            <%= @school_review.major_name %>
+        <% end %>
       </h3>
       <div style="margin-bottom: 30px;">
       <div class="row" >
@@ -12,7 +16,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Class of: <span class="page-hits m0 text-green-400 pull-right"><strong>2015</strong></span>
+                Class of: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.year_graduated %></strong></span>
               </p>
             </div>
           </div>
@@ -21,7 +25,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Majoring in: <span class="page-hits m0 text-green-400 pull-right"><strong>Computer Science</strong></span>
+                Majoring in: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.major_name %></strong></span>
               </p>
             </div>
           </div>
@@ -32,7 +36,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong>3.5</strong><small style="color: black;"> out of 5</small></span>
+                School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.rating %></strong><small style="color: black;"> out of 5</small></span>
               </p>
             </div>
           </div>
@@ -41,7 +45,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Party School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong>3.5</strong><small style="color: black;"> out of 5</small></span>
+                Party School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.party_school %></strong><small style="color: black;"> out of 5</small></span>
               </p>
             </div>
           </div>
@@ -53,7 +57,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Starting Annual Salary after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong>$70,500.00</strong></span>
+                Starting Annual Salary after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong><%= number_to_currency(@school_review.annual_salary, precision: 2) %></strong></span>
               </p>
             </div>
           </div>
@@ -62,7 +66,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Debt after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong>$70,500.00</strong></span>
+                Debt after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong><%= number_to_currency(@school_review.debt, precision: 2) %></strong></span>
               </p>
             </div>
           </div>
@@ -73,7 +77,12 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Recommending this College: <span class="page-hits m0 text-green-400 pull-right"><strong>Yes</strong></span>
+                Recommending this College: <span class="page-hits m0 text-green-400 pull-right"><strong>
+                <% if @school_review.recommend_this_school %>
+                    Yes
+                <% else %>
+                    No
+                <% end %></strong></span>
               </p>
             </div>
           </div>
@@ -82,7 +91,12 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Was it Worth the Money? <span class="page-hits m0 text-green-400 pull-right"><strong>Yes</strong></span>
+                Recommending this Major: <span class="page-hits m0 text-green-400 pull-right"><strong>
+                <% if @school_review.recommend_this_major %>
+                    Yes
+                <% else %>
+                    No
+                <% end %></strong></span>
               </p>
             </div>
           </div>
@@ -92,10 +106,7 @@
       <div class="article-meta media color-grey-50">
         <div class="media-body">
           <p class="m0 media-heading">
-            By
-            <%= link_to 'Someone', root_path %>
-            on
-            <time>05/23/1983</time>
+            Review by <b><%= @school_review.user_name %></b> on <time><%= @school_review.created_at.strftime("%m/%d/%Y") %></time>
           </p>
         </div>
       </div>
@@ -105,7 +116,7 @@
       <% if @school_review.vote_count %>
           <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
           <% dislikes = @school_review.vote_count - likes %>
-      <% elsif %>
+      <% else %>
           <% likes = 0 %>
           <% dislikes = 0 %>
       <% end %>
@@ -126,8 +137,11 @@
       <section class='comments row'>
         <div class="col-xs-12">
           <!--<hr>-->
-          <h3>4 Comments</h3>
-            <div class="bs-docs-example ">
+
+          <h3 id="show-comment-count">
+            <%= render 'commentcount' %>
+          </h3>
+            <!--<div class="bs-docs-example ">-->
 
               <span id="show-comments">
                 <% if @comments && @comments.length > 0 %>
@@ -138,80 +152,25 @@
               </span>
 
               <div class="well  mt50 mb50">
-                <form action="003_app_pages@fa-laptop%252F010_blog_pages%252F001_blog_post_page_fullpage.html#" method="post" novalidate="" class="form">
+                <!--<form action="003_app_pages@fa-laptop%252F010_blog_pages%252F001_blog_post_page_fullpage.html#" method="post" novalidate="" class="form">-->
                   <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12" style="visibility: visible;">
                       <div class="form-group">
-                        <label class="control-label" for="contact-message">Join the discussion</label>
-                        <div class="controls">
-                          <textarea name="comments" placeholder="Please be civil." class="form-control requiredField" rows="3" data-error-empty="Please enter comment"></textarea>
-                          <span class="help-block text-muted">* required</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                          <div class="form-group">
-                            <button name="submit" type="submit" class="form-control btn btn-primary btn-flat" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Comment Sent">Send Comment</button>
-                          </div>
-                        </div>
+                        <span id="show-single-comment">
+                        <%= render 'comment' %>
+                        </span>
                       </div>
                     </div>
                   </div>
-                </form>
+                <!--</form>-->
               </div>
-            </div>
+            <!--</div>-->
         </div>
       </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-<div class="bs-docs-example "> 
-<span id="show-comments">
-<% if @comments && @comments.length > 0 %>
-  <%= render 'thecomments' %>
-<% else %>
-  <p>There are no comments for this post. Be the first!</p>
-<% end %>
-
-</span>
-
-<%= render 'comment' %>
-</div>
 
 <noscript>Please enable JavaScript to view the comments</noscript>
 

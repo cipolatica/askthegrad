@@ -33,13 +33,27 @@
   <% end %>
   <%= f.hidden_field :comm_id, :value => comm_id %>
   <%= f.hidden_field :lineage, :value => lineage %>
-  <p>
-    <%= f.label "Ask this Grad a question or post a comment" %>
-    <%= f.text_area :content %>
-  </p>
- 
-  <p>
-    <%= f.submit "Post"%>
-  </p>
+    <% if comm_id == nil %>
+        <label class="control-label" for="contact-message">Join the discussion</label>
+    <% end %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12" style="visibility: visible;">
+        <div class="form-group">
+          <!--<label class="control-label" for="contact-message">Join the discussion</label>-->
+          <div class="controls">
+            <%= f.text_area :content, placeholder:"Please be civil.", class:"form-control requiredField", rows:3  %>
+            <!--<textarea name="comments" placeholder="Please be civil." class="form-control requiredField" rows="3" data-error-empty="Please enter comment"></textarea>-->
+            <!--<span class="help-block text-muted">* required</span>-->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+              <%= f.submit "Send Comment", class: "form-control btn btn-primary btn-flat" %>
+              <!--<button name="submit" type="submit" class="form-control btn btn-primary btn-flat" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Comment Sent">Send Comment</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 <% end %>
-
