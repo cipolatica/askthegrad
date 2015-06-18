@@ -165,7 +165,113 @@ class SchoolReviewsController < ApplicationController
         end
         school.college_counter += 1
         school.save
-        
+
+        # Update the STATS
+        limit_amount = 50
+        stats = Stat.first # there is only one stat object, just grabbing the first one
+
+        # update Top College Salaries
+        stats.top_college_salary_names = ""
+        stats.top_college_salary_amounts = ""
+        stats.top_college_salary_ids = ""
+        schools = School.where(salary_average:100..1000001).order(salary_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.top_college_salary_names.concat(school.name + "^")
+          stats.top_college_salary_amounts.concat(school.salary_average.to_s + "^")
+          stats.top_college_salary_ids.concat(school.id.to_s + "^")
+        end
+
+        # update Top College Debt
+        stats.top_college_debt_names = ""
+        stats.top_college_debt_amounts = ""
+        stats.top_college_debt_ids = ""
+        schools = School.where(debt_average:1..1000001).order(debt_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.top_college_debt_names.concat(school.name + "^")
+          stats.top_college_debt_amounts.concat(school.debt_average.to_s + "^")
+          stats.top_college_debt_ids.concat(school.id.to_s + "^")
+        end
+
+        # update Top College Recommend
+        stats.top_college_recommend_names = ""
+        stats.top_college_recommend_amounts = ""
+        stats.top_college_recommend_ids = ""
+        schools = School.where(recommend_average:0.1..1.0).order(recommend_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.top_college_recommend_names.concat(school.name + "^")
+          stats.top_college_recommend_amounts.concat(school.recommend_average.to_s + "^")
+          stats.top_college_recommend_ids.concat(school.id.to_s + "^")
+        end
+
+        # update Top College Rating
+        stats.top_college_rating_names = ""
+        stats.top_college_rating_amounts = ""
+        stats.top_college_rating_ids = ""
+        schools = School.where(rating_average:1..5).order(rating_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.top_college_rating_names.concat(school.name + "^")
+          stats.top_college_rating_amounts.concat(school.rating_average.to_s + "^")
+          stats.top_college_rating_ids.concat(school.id.to_s + "^")
+        end
+
+        # update Top College Worth Money
+        stats.top_college_worth_money_names = ""
+        stats.top_college_worth_money_amounts = ""
+        stats.top_college_worth_money_ids = ""
+        schools = School.where(worth_money_average:0.1..1.0).order(worth_money_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.top_college_worth_money_names.concat(school.name + "^")
+          stats.top_college_worth_money_amounts.concat(school.worth_money_average.to_s + "^")
+          stats.top_college_worth_money_ids.concat(school.id.to_s + "^")
+        end
+
+        # update Top College Party School
+        stats.top_college_party_school_names = ""
+        stats.top_college_party_amounts = ""
+        stats.top_college_party_ids = ""
+        schools = School.where(party_average:0.1..1.0).order(party_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.top_college_party_school_names.concat(school.name + "^")
+          stats.top_college_party_amounts.concat(school.party_average.to_s + "^")
+          stats.top_college_party_ids.concat(school.id.to_s + "^")
+        end
+
+        # update Top Major Salaries
+        stats.top_major_salary_names = ""
+        stats.top_major_salary_amounts = ""
+        stats.top_major_salary_ids = ""
+        majors = Major.where(salary_average:100..1000001).order(salary_average: :desc).limit(limit_amount)
+        majors.each do |major|
+          stats.top_major_salary_names.concat(major.name + "^")
+          stats.top_major_salary_amounts.concat(major.salary_average.to_s + "^")
+          stats.top_major_salary_ids.concat(major.id.to_s + "^")
+        end
+
+        # update Top Major difficulty
+        stats.top_major_difficulty_names = ""
+        stats.top_major_difficulty_amounts = ""
+        stats.top_major_difficulty_ids = ""
+        majors = Major.where(difficulty_average:100..1000001).order(difficulty_average: :desc).limit(limit_amount)
+        majors.each do |major|
+          stats.top_major_difficulty_names.concat(major.name + "^")
+          stats.top_major_difficulty_amounts.concat(major.difficulty_average.to_s + "^")
+          stats.top_major_difficulty_ids.concat(major.id.to_s + "^")
+        end
+
+        # update Top Major recommend
+        stats.top_major_recommend_names = ""
+        stats.top_major_recommend_amounts = ""
+        stats.top_major_recommend_ids = ""
+        majors = Major.where(recommend_average:100..1000001).order(recommend_average: :desc).limit(limit_amount)
+        majors.each do |major|
+          stats.top_major_recommend_names.concat(major.name + "^")
+          stats.top_major_recommend_amounts.concat(major.recommend_average.to_s + "^")
+          stats.top_major_recommend_ids.concat(major.id.to_s + "^")
+        end
+
+        stats.save
+        # DONE Updating STATS
+
         redirect_to @review
       else
         reg = Registration.new(school_review_id:@review.id, school_id:@review.school_id)
@@ -290,6 +396,14 @@ class SchoolReviewsController < ApplicationController
   end
   
   private
+  def create_delimiter(limit)
+    delimiter = ""
+    for i in 1..limit
+      delimiter.concat("^")
+    end
+    return delimiter
+  end
+
   def update_top_major_names(top_major_ids)
     ids_array = top_major_ids.split("^")
     top_major_ids = ""
