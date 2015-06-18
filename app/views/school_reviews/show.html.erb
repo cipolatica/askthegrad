@@ -111,7 +111,7 @@
         </div>
       </div>
       <p style="margin-bottom: 8px;">
-        In an era where Americans have forsaken cars for SUVs, especially those with just two doors, sports cars in general command a fraction of the market they once held in their late ‘60s and early '70s heyday. Compared to the volume of Chevrolet’s other passenger cars and pickups, Camaro production is a side line.
+        <%= @school_review.review %>
       </p>
       <% if @school_review.vote_count %>
           <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
@@ -141,7 +141,7 @@
           <h3 id="show-comment-count">
             <%= render 'commentcount' %>
           </h3>
-            <!--<div class="bs-docs-example ">-->
+            <div class="bs-docs-example " style="background-color: #c7c7c7;">
 
               <span id="show-comments">
                 <% if @comments && @comments.length > 0 %>
@@ -164,7 +164,7 @@
                   </div>
                 <!--</form>-->
               </div>
-            <!--</div>-->
+            </div>
         </div>
       </section>
     </div>

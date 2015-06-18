@@ -4,8 +4,11 @@
 
 
 jQuery ->
-  $('#search').autocomplete
+  $('#find_college').autocomplete
     source: "/search_suggestions"
     
   $('#major_search').autocomplete
     source: "/major_search_suggestions"
+
+  $('#search').autocomplete
+    source: "/search_suggestions"

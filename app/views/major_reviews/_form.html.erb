@@ -217,13 +217,14 @@
         <%= f.check_box :recommend_this_school, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
       </div>
     </div>
-
+    <br>
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
         <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.check_box :worth_money, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
       </div>
     </div>
+    <br> <br>
 
     <%= f.hidden_field :party_school, id: "party-school-rating-value", :readonly => true  %>
      <div class="form-group" style="margin-bottom:0px;" >

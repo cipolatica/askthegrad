@@ -1,0 +1,5 @@
+<div id="college"> <!-- these ID are important -->
+  <%= form_tag  schools_index_path, :method => "get" do %>
+      <%= text_field_tag :find_college, params[:find_college] %>
+  <% end %>
+</div>

@@ -13,7 +13,12 @@ class SchoolsController < ApplicationController
           end
           counter += 1
         end
-        @schools = School.clickable_search(params[:search]).order(:name)
+        if params[:search] != nil
+          @schools = School.clickable_search(params[:search]).order(:name)
+        else
+          @schools = School.clickable_search(params[:find_college]).order(:name)
+        end
+        #@schools = School.clickable_search(params[:search]).order(:name)
         if @schools.length == 1
           redirect_to school_reviews_path(:the_school => { :school_id => @schools[0].id })
         elsif @schools.length == 0
@@ -21,7 +26,12 @@ class SchoolsController < ApplicationController
           #redirect_to (:back), :notice => "problem with the start_date and end_date" and return
         end
       else
-        @schools = School.clickable_search(params[:search]).order(:name)
+        if params[:search] != nil
+          @schools = School.clickable_search(params[:search]).order(:name)
+        else
+          @schools = School.clickable_search(params[:find_college]).order(:name)
+        end
+        #@schools = School.clickable_search(params[:search]).order(:name)
       end
     end
   end

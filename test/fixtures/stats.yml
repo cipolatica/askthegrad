@@ -1,0 +1,67 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  top_college_salary_names: MyText
+  top_college_salary_amounts: MyText
+  top_college_salary_ids: MyText
+  top_college_debt_names: MyText
+  top_college_debt_amounts: MyText
+  top_college_debt_ids: MyText
+  top_college_recommend_names: MyText
+  top_college_recommend_amounts: MyText
+  top_college_recommend_ids: MyText
+  top_college_rating_names: MyText
+  top_college_rating_amounts: MyText
+  top_college_rating_ids: MyText
+  top_college_worth_money_names: MyText
+  top_college_worth_money_amounts: MyText
+  top_college_worth_money_ids: MyText
+  top_college_party_school_names: MyText
+  top_college_party_amounts: MyText
+  top_college_party_ids: MyText
+  top_major_rating_names: MyText
+  top_major_rating_amounts: MyText
+  top_major_rating_ids: MyText
+  top_major_difficulty_names: MyText
+  top_major_difficulty_amounts: MyText
+  top_major_difficulty_ids: MyText
+  top_major_recommend_names: MyText
+  top_major_recommend_amounts: MyText
+  top_major_recommend_ids: MyText
+  top_major_salary_names: MyText
+  top_major_salary_amounts: MyText
+  top_major_salary_ids: MyText
+
+two:
+  name: MyString
+  top_college_salary_names: MyText
+  top_college_salary_amounts: MyText
+  top_college_salary_ids: MyText
+  top_college_debt_names: MyText
+  top_college_debt_amounts: MyText
+  top_college_debt_ids: MyText
+  top_college_recommend_names: MyText
+  top_college_recommend_amounts: MyText
+  top_college_recommend_ids: MyText
+  top_college_rating_names: MyText
+  top_college_rating_amounts: MyText
+  top_college_rating_ids: MyText
+  top_college_worth_money_names: MyText
+  top_college_worth_money_amounts: MyText
+  top_college_worth_money_ids: MyText
+  top_college_party_school_names: MyText
+  top_college_party_amounts: MyText
+  top_college_party_ids: MyText
+  top_major_rating_names: MyText
+  top_major_rating_amounts: MyText
+  top_major_rating_ids: MyText
+  top_major_difficulty_names: MyText
+  top_major_difficulty_amounts: MyText
+  top_major_difficulty_ids: MyText
+  top_major_recommend_names: MyText
+  top_major_recommend_amounts: MyText
+  top_major_recommend_ids: MyText
+  top_major_salary_names: MyText
+  top_major_salary_amounts: MyText
+  top_major_salary_ids: MyText
