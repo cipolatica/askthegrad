@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618015437) do
+ActiveRecord::Schema.define(version: 20150620221509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,6 +253,8 @@ ActiveRecord::Schema.define(version: 20150618015437) do
     t.text     "top_major_salary_ids"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "top_college_party_school_amounts"
+    t.text     "top_college_party_school_ids"
   end
 
   create_table "users", force: true do |t|

@@ -170,7 +170,26 @@ class SchoolReviewsController < ApplicationController
         limit_amount = 50
         stats = Stat.first # there is only one stat object, just grabbing the first one
 
+        # update Top College party
+        stats.top_college_party_school_names = ""
+        stats.top_college_party_school_amounts = ""
+        stats.top_college_party_school_ids = ""
+        schools = School.where(party_average:1..5).order(party_average: :desc).limit(limit_amount)
+        schools.each do |school|
+          logger.debug "in the IF man"
+          stats.top_college_party_school_names.concat(school.name + "^")
+          stats.top_college_party_school_amounts.concat(school.party_average.to_s + "^")
+          stats.top_college_party_school_ids.concat(school.id.to_s + "^")
+        end
+        #logger.debug "out the IF"
+        #logger.debug "stats.top_college_party_school_names: #{stats.top_college_party_school_names.inspect}"
+        #logger.debug "stats.top_college_party_school_amounts: #{stats.top_college_party_school_amounts.inspect}"
+        #logger.debug "stats.top_college_party_school_ids: #{stats.top_college_party_school_amounts.inspect}"
+
+        stats.save # going to save here because i had issues with updating Parties list.. this might now be needed anymore
+        stats = Stat.first
         # update Top College Salaries
+
         stats.top_college_salary_names = ""
         stats.top_college_salary_amounts = ""
         stats.top_college_salary_ids = ""
@@ -223,17 +242,6 @@ class SchoolReviewsController < ApplicationController
           stats.top_college_worth_money_names.concat(school.name + "^")
           stats.top_college_worth_money_amounts.concat(school.worth_money_average.to_s + "^")
           stats.top_college_worth_money_ids.concat(school.id.to_s + "^")
-        end
-
-        # update Top College Party School
-        stats.top_college_party_school_names = ""
-        stats.top_college_party_amounts = ""
-        stats.top_college_party_ids = ""
-        schools = School.where(party_average:0.1..1.0).order(party_average: :desc).limit(limit_amount)
-        schools.each do |school|
-          stats.top_college_party_school_names.concat(school.name + "^")
-          stats.top_college_party_amounts.concat(school.party_average.to_s + "^")
-          stats.top_college_party_ids.concat(school.id.to_s + "^")
         end
 
         # update Top Major Salaries
