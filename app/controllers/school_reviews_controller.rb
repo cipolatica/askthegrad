@@ -128,11 +128,60 @@ class SchoolReviewsController < ApplicationController
         if school.debt_average == nil
           school.debt_average = 0
         end
+
+        major = Major.find(@review.major_id)
+        if major.difficulty_average == nil
+          major.difficulty_average = 0
+        end
+        if major.recommend_average == nil
+          major.recommend_average = 0
+        end
+        if major.salary_average == nil
+          major.salary_average = 0
+        end
+        if major.major_counter == nil
+          major.major_counter = 0
+        end
+        if major.two_year_major == nil
+          major.two_year_major = 0
+        end
         school.recommend_average = update_bool_average(@review.recommend_this_school, school.recommend_average, school.college_counter)
         school.party_average = update_num_average(@review.party_school, school.party_average, school.college_counter)
         school.worth_money_average = update_bool_average(@review.worth_money, school.worth_money_average, school.college_counter)
         school.rating_average = update_num_average(@review.rating, school.rating_average, school.college_counter)
+
+        major.difficulty_average = update_num_average(@review.difficulty, major.difficulty_average, major.major_counter)
+        major.recommend_average = update_bool_average(@review.recommend_this_major, major.recommend_average, major.major_counter)
         if (@review.year_graduated >= (Date.today.year - 2))
+          major.salary_average = update_num_average(@review.annual_salary, major.salary_average, major.two_year_major)
+          major.two_year_major += 1
+          # Find top 5 highest paying majors
+          review_list = SchoolReview.where(major_id:major.id, year_graduated:(Date.today.year - 2)..Date.today.year).order(:school_id)
+          major.top_school_ids = "^^^^"
+          major.top_school_amounts = "^^^^"
+          salary_average = 0.0
+          current_school_id = review_list[0].school_id
+          current_school_counter = 0
+          review_list.each do |r|
+            if r.school_id != current_school_id
+              salary_average = salary_average / current_school_counter
+              if does_top_major_list_need_update(salary_average, major.top_school_amounts) #this method should be called does_list_need_update
+                major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
+              end
+              salary_average = 0.0
+              current_school_id = r.major_id
+              current_school_counter = 0
+            end
+            salary_average = salary_average + r.annual_salary
+            current_school_counter = current_school_counter + 1
+          end
+          salary_average = salary_average / current_school_counter
+          if does_top_major_list_need_update(salary_average, major.top_school_amounts)
+            major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
+          end
+          major.top_school_names = update_top_school_names(major.top_school_ids)
+          # DONE with Finding top 5 highest paying Majors
+
           school.salary_average = update_num_average(@review.annual_salary, school.salary_average, school.two_year_college)
           school.debt_average = update_num_average(@review.debt, school.debt_average, school.two_year_college)
           school.two_year_college += 1
@@ -163,6 +212,9 @@ class SchoolReviewsController < ApplicationController
           school.top_major_names = update_top_major_names(school.top_major_ids)
           # DONE with Finding top 5 highest paying colleges
         end
+        major.major_counter += 1
+        major.save
+
         school.college_counter += 1
         school.save
 
@@ -181,10 +233,7 @@ class SchoolReviewsController < ApplicationController
           stats.top_college_party_school_amounts.concat(school.party_average.to_s + "^")
           stats.top_college_party_school_ids.concat(school.id.to_s + "^")
         end
-        #logger.debug "out the IF"
         #logger.debug "stats.top_college_party_school_names: #{stats.top_college_party_school_names.inspect}"
-        #logger.debug "stats.top_college_party_school_amounts: #{stats.top_college_party_school_amounts.inspect}"
-        #logger.debug "stats.top_college_party_school_ids: #{stats.top_college_party_school_amounts.inspect}"
 
         stats.save # going to save here because i had issues with updating Parties list.. this might now be needed anymore
         stats = Stat.first
@@ -410,6 +459,22 @@ class SchoolReviewsController < ApplicationController
       delimiter.concat("^")
     end
     return delimiter
+  end
+
+  def update_top_school_names(top_school_ids)
+    ids_array = top_school_ids.split("^")
+    top_school_ids = ""
+    for i in 0..4
+      if ids_array[i].to_s == nil || ids_array[i].to_s == ""
+        top_school_ids.concat("")
+      else
+        top_school_ids.concat(School.find(ids_array[i].to_i).name)
+      end
+      if i != 4
+        top_school_ids.concat("^")
+      end
+    end
+    return top_school_ids
   end
 
   def update_top_major_names(top_major_ids)
