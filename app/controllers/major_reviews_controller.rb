@@ -7,9 +7,13 @@ class MajorReviewsController < ApplicationController
     if session[:school_id_for_major] != nil
       redirect_to new_major_review_path(:major_id => params[:major_id]) and return
     end
-    @major_id = params[:major_id]
     #@major_reviews = MajorReview.where(major_id:@major_id)
-    
+    if params[:the_major] != nil
+      @the_major = params[:the_major]
+      @major_id = @the_major["major_id"]
+    else
+      @major_id = params[:major_id]
+    end
     @major = Major.find(@major_id)
     @title = @major.name
     if params[:sort] != nil

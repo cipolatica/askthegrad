@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
     if params[:the_state]
       state_id = params[:the_state]
       @schools = School.where(state_id:state_id["state_id"]).order(:name)
-    else 
+    else
       if session[:search_name] && session[:search_index]
         counter = 0
         session[:search_name].each do |s|
@@ -13,12 +13,21 @@ class SchoolsController < ApplicationController
           end
           counter += 1
         end
+        counter = 0
+        session[:search_name].each do |s|
+          if s == params[:find_college]
+            redirect_to school_reviews_path(:the_school => { :school_id => session[:search_index][counter] }) and return
+          end
+          counter += 1
+        end
         if params[:search] != nil
           @schools = School.clickable_search(params[:search]).order(:name)
+          logger.debug "blah:params[:search] != nil: #{@schools.inspect}"
         else
           @schools = School.clickable_search(params[:find_college]).order(:name)
+          logger.debug "blah:params[:search] == nil: #{@schools.inspect}"
+          logger.debug "blah:params[:find_college]: #{params[:find_college].inspect}"
         end
-        #@schools = School.clickable_search(params[:search]).order(:name)
         if @schools.length == 1
           redirect_to school_reviews_path(:the_school => { :school_id => @schools[0].id })
         elsif @schools.length == 0
@@ -31,7 +40,6 @@ class SchoolsController < ApplicationController
         else
           @schools = School.clickable_search(params[:find_college]).order(:name)
         end
-        #@schools = School.clickable_search(params[:search]).order(:name)
       end
     end
   end

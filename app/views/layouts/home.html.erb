@@ -14,9 +14,8 @@
     <ul class="nav navbar-nav navbar-right">
       <li>
 
-            <form class="navbar-form search-form" role="search">
-              <!--<input type="text" class="form-control" id="searchbox" placeholder="Search College">-->
-              <input type="text" class="ui-autocomplete-input" id="find_college" name="find_college" placeholder="Find your College">
+            <form class="navbar-form search-form" role="search" action="/schools/index" accept-charset="UTF-8" method="get">
+              <input type="text" class="ui-autocomplete-input" id="find_college" name="find_college" autocomplete="off" placeholder="Find your College" size="40">
               <% if not mobile_device? %>
                 <span class="search-button" style="position: relative; right: 26px;"><i class="fa fa-search"></i></span>
               <% end  %>

@@ -209,8 +209,34 @@
             </h4>
           </div>
           <div id="collapseSix" class="panel-collapse collapse">
-            <div class="panel-body">
-              stuff
+            <div class="panel-body" style="padding: 0 15px 15px 15px;">
+              <div class="table-responsive">
+                <table class="table table-striped" style="margin-bottom: 0;">
+                  <tbody>
+                  <% names_array = @stats.m_sal_names.to_s.split("^")%>
+                  <% ids_array = @stats.m_sal_ids.to_s.split("^")%>
+                  <% amounts_array = @stats.m_sal_amounts.to_s.split("^")%>
+                  <% (0..names_array.length-1).each do |index|%>
+                      <tr>
+
+                        <td><%= index + 1 %></td>
+                        <td>
+                          <ul class="list-unstyled small" style="margin-bottom: 0;">
+                            <li style="margin-bottom: 0;">
+                              <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                  <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                  <%= number_to_currency(amounts_array[index].to_f, precision: 2) %>
+                              <% else %>
+                                  <b>N/A</b>
+                              <% end %>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -223,23 +249,33 @@
             </h4>
           </div>
           <div id="collapseSeven" class="panel-collapse collapse">
-            <div class="panel-body">
-              <div class='left-timeline metrics-timeline'>
-                <ul class="list-unstyled small">
-                  <% types = [ { klass: 'refund', css_class: 'label-danger'},  { klass: 'purchase', css_class: 'label-success'}, { klass: 'cancellation', css_class: 'label-inverse'}] %>
-                  <% (1..10).each do |index|%>
-                      <li class="mb10">
-                        <% instance = types[Random.rand(types.length)] %>
-                        <time class='<%= instance[:css_class]%>'>
-                          <strong>$<%=Random.rand(120) %></strong>
-                        </time>
-                        <header>
-                          <strong>Internet Genie</strong><br/>
-                          <small class="text-muted"><%=instance[:klass].upcase %> - <%=time_ago_in_words( DateTime.now-(index.minutes) ) %></small>
-                        </header>
-                      </li>
+            <div class="panel-body" style="padding: 0 15px 15px 15px;">
+              <div class="table-responsive">
+                <table class="table table-striped" style="margin-bottom: 0;">
+                  <tbody>
+                  <% names_array = @stats.m_diff_names.to_s.split("^")%>
+                  <% ids_array = @stats.m_diff_ids.to_s.split("^")%>
+                  <% amounts_array = @stats.m_diff_amounts.to_s.split("^")%>
+                  <% (0..names_array.length-1).each do |index|%>
+                      <tr>
+
+                        <td><%= index + 1 %></td>
+                        <td>
+                          <ul class="list-unstyled small" style="margin-bottom: 0;">
+                            <li style="margin-bottom: 0;">
+                              <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                  <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                  <strong><%= number_with_precision(amounts_array[index].to_f,precision:1) %></strong> <small><em>out of 5</em></small>
+                              <% else %>
+                                  <b>N/A</b>
+                              <% end %>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
                   <% end %>
-                </ul>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -253,8 +289,34 @@
             </h4>
           </div>
           <div id="collapseEight" class="panel-collapse collapse">
-            <div class="panel-body">
-              stuff
+            <div class="panel-body" style="padding: 0 15px 15px 15px;">
+              <div class="table-responsive">
+                <table class="table table-striped" style="margin-bottom: 0;">
+                  <tbody>
+                  <% names_array = @stats.m_rec_names.to_s.split("^")%>
+                  <% ids_array = @stats.m_rec_ids.to_s.split("^")%>
+                  <% amounts_array = @stats.m_rec_amounts.to_s.split("^")%>
+                  <% (0..names_array.length-1).each do |index|%>
+                      <tr>
+
+                        <td><%= index + 1 %></td>
+                        <td>
+                          <ul class="list-unstyled small" style="margin-bottom: 0;">
+                            <li style="margin-bottom: 0;">
+                              <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                  <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                  <strong><%= number_with_precision(amounts_array[index].to_f*100,precision:1) %>%</strong>
+                              <% else %>
+                                  <b>N/A</b>
+                              <% end %>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

@@ -98,6 +98,7 @@ class SchoolReviewsController < ApplicationController
       @review.annual_salary = get_max_value(@review.annual_salary)
       @review.debt = get_max_value(@review.debt)
       @review.major_name = Major.find(@review.major_id).name
+      @review.school_name = School.find(@review.school_id).name
       @review.user_id = user_signed_in? ? current_user.id : nil;
       @review.user_name = user_signed_in? ? current_user.username : nil;
     end
@@ -169,7 +170,7 @@ class SchoolReviewsController < ApplicationController
                 major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
               end
               salary_average = 0.0
-              current_school_id = r.major_id
+              current_school_id = r.school_id
               current_school_counter = 0
             end
             salary_average = salary_average + r.annual_salary
@@ -293,37 +294,42 @@ class SchoolReviewsController < ApplicationController
           stats.top_college_worth_money_ids.concat(school.id.to_s + "^")
         end
 
+        stats.save # going to save here because i had issues with updating lists.. this might now be needed anymore
+        stats = Stat.first
+
         # update Top Major Salaries
-        stats.top_major_salary_names = ""
-        stats.top_major_salary_amounts = ""
-        stats.top_major_salary_ids = ""
+        stats.m_sal_names = ""
+        stats.m_sal_amounts = ""
+        stats.m_sal_ids = ""
         majors = Major.where(salary_average:100..1000001).order(salary_average: :desc).limit(limit_amount)
         majors.each do |major|
-          stats.top_major_salary_names.concat(major.name + "^")
-          stats.top_major_salary_amounts.concat(major.salary_average.to_s + "^")
-          stats.top_major_salary_ids.concat(major.id.to_s + "^")
+          stats.m_sal_names.concat(major.name + "^")
+          stats.m_sal_amounts.concat(major.salary_average.to_s + "^")
+          stats.m_sal_ids.concat(major.id.to_s + "^")
         end
+        #stats.update(top_major_salary_names:stats.top_major_salary_names, top_major_salary_amounts:stats.top_major_salary_amounts, top_major_salary_ids:stats.top_major_salary_ids)
+        #logger.debug "stats.top_major_salary_names: #{stats.top_major_salary_names.inspect}"
 
         # update Top Major difficulty
-        stats.top_major_difficulty_names = ""
-        stats.top_major_difficulty_amounts = ""
-        stats.top_major_difficulty_ids = ""
-        majors = Major.where(difficulty_average:100..1000001).order(difficulty_average: :desc).limit(limit_amount)
+        stats.m_diff_names = ""
+        stats.m_diff_amounts = ""
+        stats.m_diff_ids = ""
+        majors = Major.where(difficulty_average:1..5).order(difficulty_average: :desc).limit(limit_amount)
         majors.each do |major|
-          stats.top_major_difficulty_names.concat(major.name + "^")
-          stats.top_major_difficulty_amounts.concat(major.difficulty_average.to_s + "^")
-          stats.top_major_difficulty_ids.concat(major.id.to_s + "^")
+          stats.m_diff_names.concat(major.name + "^")
+          stats.m_diff_amounts.concat(major.difficulty_average.to_s + "^")
+          stats.m_diff_ids.concat(major.id.to_s + "^")
         end
 
         # update Top Major recommend
-        stats.top_major_recommend_names = ""
-        stats.top_major_recommend_amounts = ""
-        stats.top_major_recommend_ids = ""
-        majors = Major.where(recommend_average:100..1000001).order(recommend_average: :desc).limit(limit_amount)
+        stats.m_rec_names = ""
+        stats.m_rec_amounts = ""
+        stats.m_rec_ids = ""
+        majors = Major.where(recommend_average:0.1..1.0).order(recommend_average: :desc).limit(limit_amount)
         majors.each do |major|
-          stats.top_major_recommend_names.concat(major.name + "^")
-          stats.top_major_recommend_amounts.concat(major.recommend_average.to_s + "^")
-          stats.top_major_recommend_ids.concat(major.id.to_s + "^")
+          stats.m_rec_names.concat(major.name + "^")
+          stats.m_rec_amounts.concat(major.recommend_average.to_s + "^")
+          stats.m_rec_ids.concat(major.id.to_s + "^")
         end
 
         stats.save
