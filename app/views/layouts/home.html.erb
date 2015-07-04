@@ -15,10 +15,12 @@
       <li>
 
             <form class="navbar-form search-form" role="search" action="/schools/index" accept-charset="UTF-8" method="get">
-              <input type="text" class="ui-autocomplete-input" id="find_college" name="find_college" autocomplete="off" placeholder="Find your College" size="40">
               <% if not mobile_device? %>
+                <input type="text" class="ui-autocomplete-input" id="find_college" name="find_college" autocomplete="off" placeholder="Find your College" size="40" style="padding-right: 30px;">
                 <span class="search-button" style="position: relative; right: 26px;"><i class="fa fa-search"></i></span>
-              <% end  %>
+              <% else  %>
+                <input type="text" class="ui-autocomplete-input" id="find_college" name="find_college" autocomplete="off" placeholder="Find your College">
+              <% end %>
               </input>
             </form>
       </li>
