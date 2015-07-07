@@ -129,6 +129,9 @@ class SchoolReviewsController < ApplicationController
         if school.debt_average == nil
           school.debt_average = 0
         end
+        if school.overall_salary == nil
+          school.overall_salary = 0
+        end
 
         major = Major.find(@review.major_id)
         if major.difficulty_average == nil
@@ -146,11 +149,16 @@ class SchoolReviewsController < ApplicationController
         if major.two_year_major == nil
           major.two_year_major = 0
         end
+        if major.overall_salary == nil
+          major.overall_salary = 0
+        end
         school.recommend_average = update_bool_average(@review.recommend_this_school, school.recommend_average, school.college_counter)
         school.party_average = update_num_average(@review.party_school, school.party_average, school.college_counter)
         school.worth_money_average = update_bool_average(@review.worth_money, school.worth_money_average, school.college_counter)
         school.rating_average = update_num_average(@review.rating, school.rating_average, school.college_counter)
+        school.overall_salary = update_num_average(@review.annual_salary, school.overall_salary, school.college_counter)
 
+        major.overall_salary = update_num_average(@review.annual_salary, major.overall_salary, major.major_counter)
         major.difficulty_average = update_num_average(@review.difficulty, major.difficulty_average, major.major_counter)
         major.recommend_average = update_bool_average(@review.recommend_this_major, major.recommend_average, major.major_counter)
         if (@review.year_graduated >= (Date.today.year - 2))

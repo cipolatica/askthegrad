@@ -44,10 +44,14 @@ class ApplicationController < ActionController::Base
       if school.debt_average == nil
         school.debt_average = 0
       end
+      if school.overall_salary == nil
+        school.overall_salary = 0
+      end
       school.recommend_average = update_bool_average(school_review.recommend_this_school, school.recommend_average, school.college_counter)
       school.party_average = update_num_average(school_review.party_school, school.party_average, school.college_counter)
       school.worth_money_average = update_bool_average(school_review.worth_money, school.worth_money_average, school.college_counter)
       school.rating_average = update_num_average(school_review.rating, school.rating_average, school.college_counter)
+      school.overall_salary = update_num_average(school_review.annual_salary, school.overall_salary, school.college_counter)
       if (school_review.year_graduated >= (Date.today.year - 2))
         school.salary_average = update_num_average(school_review.annual_salary, school.salary_average, school.two_year_college)
         school.debt_average = update_num_average(school_review.debt, school.debt_average, school.two_year_college)
