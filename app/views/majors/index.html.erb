@@ -1,7 +1,5 @@
 <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:900' rel='stylesheet' type='text/css'>
-<div class="container-fluid animate-fade-in-500">
-  <div class="row mt20">
-    <div class="col-md-offset-1 col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+<div class="container animate-fade-in-500">
       <div class="row" >
         <% counter = 0 %>
         <% percent_33 = (@majors.length * 0.33).to_i %>
@@ -48,8 +46,6 @@
             <% counter += 1 %>
         <% end %>
       </div>
-    </div>
-  </div>
 </div>
 
 <%= render "layouts/footer" %> <br >
