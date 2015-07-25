@@ -50,10 +50,12 @@
 
 .list-fancy-text-header-style{
     font-size: 56px;
-    font-family: Courier, monospace;
+    line-height: 70px;
+    font-family: 'Alegreya Sans', sans-serif;
     font-weight: 900;
     text-align: left;
-    margin-bottom: 0;
+    margin: 0;
+    padding: 0;
 }
 .ui-slider .ui-slider-horizontal .ui-widget-content .ui-corner-all{
     background-color: white;
