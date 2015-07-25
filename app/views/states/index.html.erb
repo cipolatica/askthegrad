@@ -1,15 +1,55 @@
-<div class="list-group">
-<!--<div class="form-actions col-md-offset-1 col-md-10">-->
-<% counter = 0 %>
-<% @states.each do |state| %>
-  <% if counter != @states.length - 1%>
-    <%= link_to state.name,  schools_index_path(:the_state => { :state_id => state.id }), :class => "list-group-item", :style => "color:#16333f;border:none;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-left:1px solid #dddddd;" %>
-  <% else -%>
-    <%= link_to state.name,  schools_index_path(:the_state => { :state_id => state.id }), :class => "list-group-item", :style => "color:#16333f;border:none;border:1px solid #dddddd;" %>
-  <% end -%>
-  <% counter += 1 %>
-<% end %>
-<!--</div>-->
+
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-md-offset-1 col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+      <div class="row" >
+        <% counter = 0 %>
+        <% percent_25 = (@states.length * 0.25).to_i %>
+        <% percent_50 = (@states.length * 0.50).to_i %>
+        <% percent_75 = (@states.length * 0.75).to_i %>
+        <% header_character = @states[0].name[0,1] %>
+        <% @states.each do |state| -%>
+            <% if counter == 0 || counter == percent_25 || counter == percent_50 || counter == percent_75 %>
+                <div class="col-lg-2 col-md-3 col-sm-3 text-md-left list-fancy-text-style">
+                  <section>
+                    <% header_character = state.name[0,1] %>
+                    <% random_color_value = Random.rand(3) %>
+                    <% if random_color_value == 0 %>
+                        <p class="list-fancy-text-header-style" style="color: #f44034;">
+                    <% elsif random_color_value == 1 %>
+                        <p class="list-fancy-text-header-style" style="color: #ec417a;">
+                    <% else %>
+                        <p class="list-fancy-text-header-style" style="color: #ff8a80;">
+                    <% end %>
+                    <%= header_character %>
+                    </p>
+            <%  end %>
+
+            <% if header_character != state.name[0,1] %>
+                <% header_character = state.name[0,1] %>
+                <% random_color_value = Random.rand(3) %>
+                <% if random_color_value == 0 %>
+                    <p class="list-fancy-text-header-style" style="color: #f44034;">
+                <% elsif random_color_value == 1 %>
+                    <p class="list-fancy-text-header-style" style="color: #ec417a;">
+                <% else %>
+                    <p class="list-fancy-text-header-style" style="color: #ff8a80;">
+                <% end %>
+                <%= header_character %></p>
+            <% end %>
+
+            <%= link_to  schools_index_path(:the_state => { :state_id => state.id })  do %>
+                <span style="color:#16333f;font-size:medium;"><%= state.name %></span>
+            <% end -%> <br>
+            <%  if (counter == (percent_25 - 1)) || (counter == (percent_50 -1)) || (counter == (percent_75 -1)) || (counter == (@states.length - 1)) %>
+                </section>
+                </div>
+            <% end %>
+            <% counter += 1 %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <%= render "layouts/footer" %> <br >

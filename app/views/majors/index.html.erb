@@ -1,11 +1,53 @@
-<div class="list-group">
-<% counter = 0 %>
-<% @majors.each do |major| %>
-  <% if counter != @majors.length - 1%>
-    <%= link_to major.name,  major_reviews_path(:major_id => major.id ), :class => "list-group-item", :style => "border:none;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-left:1px solid #dddddd;" %>
-  <% else -%>
-    <%= link_to major.name,  major_reviews_path(:major_id => major.id ), :class => "list-group-item", :style => "border:none;border:1px solid #dddddd;" %>
-  <% end -%>
-  <% counter += 1 %>
-<% end %>
+
+<div class="container-fluid animate-fade-in-500">
+  <div class="row mt20">
+    <div class="col-md-offset-1 col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+      <div class="row" >
+        <% counter = 0 %>
+        <% percent_33 = (@majors.length * 0.33).to_i %>
+        <% percent_66 = (@majors.length * 0.66).to_i %>
+        <% header_character = @majors[0].name[0,1] %>
+        <% @majors.each do |major| -%>
+            <% if counter == 0 || counter == percent_33 || counter == percent_66 %>
+                <div class="col-lg-3 col-md-4 col-sm-4 text-md-left list-fancy-text-style">
+                  <section>
+                    <% header_character = major.name[0,1] %>
+                    <% random_color_value = Random.rand(3) %>
+                    <% if random_color_value == 0 %>
+                        <p class="list-fancy-text-header-style" style="color: #f44034;">
+                    <% elsif random_color_value == 1 %>
+                        <p class="list-fancy-text-header-style" style="color: #ec417a;">
+                    <% else %>
+                        <p class="list-fancy-text-header-style" style="color: #ff8a80;">
+                    <% end %>
+                    <%= header_character %>
+                    </p>
+            <%  end %>
+
+            <% if header_character != major.name[0,1] %>
+                <% header_character = major.name[0,1] %>
+                <% random_color_value = Random.rand(3) %>
+                <% if random_color_value == 0 %>
+                    <p class="list-fancy-text-header-style" style="color: #f44034;">
+                <% elsif random_color_value == 1 %>
+                    <p class="list-fancy-text-header-style" style="color: #ec417a;">
+                <% else %>
+                    <p class="list-fancy-text-header-style" style="color: #ff8a80;">
+                <% end %>
+                <%= header_character %></p>
+            <% end %>
+
+            <%= link_to major_reviews_path(:major_id => major.id )  do %>
+                <span style="color:#16333f;font-size:medium;"><%= major.name %></span>
+            <% end -%> <br>
+
+            <%  if (counter == (percent_33 - 1)) || (counter == (percent_66 -1)) || (counter == (@majors.length - 1)) %>
+                </section>
+                </div>
+            <% end %>
+            <% counter += 1 %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

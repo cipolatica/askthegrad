@@ -4,6 +4,7 @@ class SchoolsController < ApplicationController
     if params[:the_state]
       state_id = params[:the_state]
       @schools = School.where(state_id:state_id["state_id"]).order(:name)
+      @small_text = State.find(state_id["state_id"].to_i).name
     else
       if session[:search_name] && session[:search_index]
         counter = 0
