@@ -1,6 +1,7 @@
 class SchoolReviewsController < ApplicationController
   helper_method :is_signed_in
   def index
+    session[:school_id_for_major] = nil
     @school = params[:the_school]
     @school_id = @school["school_id"]
     if params[:sort] != nil

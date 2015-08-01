@@ -1,21 +1,16 @@
 <% content_for :actions do %>
-    <%= link_to new_major_review_path( :major_id => @major_id ), class: 'btn btn-primary btn-large pull-right' do %>
-        Post Major Review
-    <% end %>
+
 <% end %>
 
-<div class="container-fluid animate-fade-in-500">
-  <div class="row mt20">
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
-      <div class="row" >
-        <div class="col-lg-8">
-          <h3 style="margin:0;">Here are some quick stats for this major</h3>
-        </div>
-      </div>
+<div class="container animate-fade-in-500">
+  <div class="row" >
+    <div class="col-lg-8">
+      <h3 style="margin:0;">Here are some quick stats for this major</h3>
     </div>
   </div>
 </div>
-<div class="container-fluid animate-fade-in-500">
+
+<div class="container animate-fade-in-500">
   <div class="row mt20">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
       <div class="row" >
@@ -157,12 +152,12 @@
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" style="border-bottom: none;">
           <h3 class="panel-title">Top paying Colleges for this major for class of <%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, and <%= (Date.today.year - 2) %></h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="padding: 0 15px 15px 15px;">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" style="margin-bottom: 0;">
               <tbody>
               <% amounts_array = @major.top_school_amounts.to_s.split("^")%>
               <% ids_array = @major.top_school_ids.to_s.split("^")%>
@@ -171,8 +166,8 @@
                   <tr>
                     <td><%= index + 1 %></td>
                     <td>
-                      <ul class="list-unstyled small">
-                        <li class="mb10">
+                      <ul class="list-unstyled small" style="margin-bottom: 0;">
+                        <li style="margin-bottom: 0;">
                           <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
                               <b><%= link_to names_array[index].to_s, :action => "index", :id => @major_id, :the_major => { :major_id => @major.id }, :sort => ids_array[index].to_s  %></b><br/>
                               <%= number_to_currency(amounts_array[index].to_i, precision: 2) %>
@@ -195,31 +190,27 @@
 
 
 
-<div class="container-fluid animate-fade-in-500" style="margin-bottom: 8px;">
-  <div class="row mt20">
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
+<div class="container animate-fade-in-500" style="margin-bottom: 8px;">
       <div class="row" >
-        <div class="col-lg-6">
+        <div class="col-lg-4" style="margin-right: 0;padding-right: 0;">
           <h3 style="margin:0;"><%= @reviews.length %> Review<% if @reviews.length != 1 %>s<% end %> for this Major</h3>
         </div>
-        <div class="col-lg-6">
-          <p style="margin: 6px 0 0 0;"><em>New grad?</em> <%= link_to 'review a Major for this college', majors_index_path( :school_id => @school_id ) %></p>
-        </div>
       </div>
-    </div>
-  </div>
 </div>
 
 
 
-
-<div id="content" class="col-md-9">
+<div class="container animate-fade-in-500" style="margin-bottom: 8px;">
+<div class="col-md-8" style="padding: 0;">
   <table class="table">
     <div class="panel panel-default" style="margin-bottom: 0">
       <div class="panel-heading">
-        Reviews for <%= @major.name %>
+        Reviews
         <div class="pull-right">
           Sort by:
+
+          <%= select_tag('sort_by', options_for_select([["Most Recent",1],["Graduation Year",2],["Highest Paying",3], ["Major Name",4]]), :class => "sort_by") %>
+
           <%= link_to 'Most Recent', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'most_recent'  %> |
           <%= link_to 'Graduation Year', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'graduation_year'  %> |
           <%= link_to 'Highest Paying', :action => "index", :id => @major_id, :major_id => @major_id, :sort => 'highest_paying'  %> |
@@ -275,7 +266,8 @@
     </tbody>
   </table>
   <hr>
-</div> <!-- /#content -->
+</div>
+</div>
 
 <%= render "layouts/footer" %> <br >
 
