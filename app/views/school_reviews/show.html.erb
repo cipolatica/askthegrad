@@ -1,6 +1,5 @@
 
-
-<div class="container-fluid animate-fade-in-500">
+<div class="container animate-fade-in-500">
   <div class="row mt20">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >
       <h3 style="margin-bottom: 30px; margin-top: 10px">
@@ -57,7 +56,8 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Starting Annual Salary after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong><%= number_to_currency(@school_review.annual_salary, precision: 2) %></strong></span>
+                <% amount = (@school_review.annual_salary > 1000000) ? '$1Million+' : number_to_currency(@school_review.annual_salary, precision: 2)  %>
+                Starting Salary after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong><%= amount  %></strong></span>
               </p>
             </div>
           </div>
@@ -66,7 +66,8 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Debt after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong><%= number_to_currency(@school_review.debt, precision: 2) %></strong></span>
+                <% amount = (@school_review.debt > 1000000) ? '$1Million+' : number_to_currency(@school_review.debt, precision: 2)  %>
+                Debt after Graduation: <span class="page-hits m0 text-green-400 pull-right"><strong><%= amount %></strong></span>
               </p>
             </div>
           </div>
