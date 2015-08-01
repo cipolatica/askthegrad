@@ -1,3 +1,14 @@
+<script>
+    $('#sort_by').on('change', function(){
+        $.ajax({ type: "GET",
+            url: "/items",
+            data: { sort: $('option:selected', this).val() }
+        }).done(function(data) {
+            console.log(data);
+        });
+    });
+</script>
+
 <% content_for :actions do %>
   <%= link_to majors_index_path( :school_id => @school_id ), class: 'btn btn-primary btn-large pull-right' do %>
          Post Major Review
@@ -159,7 +170,7 @@
                     <ul class="list-unstyled small" style="margin-bottom: 0;">
                       <li style="margin-bottom: 0;">
                         <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                            <b><%= link_to names_array[index].to_s, :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => ids_array[index].to_s  %></b><br/>
+                            <b><%= link_to names_array[index].to_s,  major_reviews_path(:major_id => ids_array[index].to_s ) %></b><br/>
                             <%= number_to_currency(amounts_array[index].to_i, precision: 2) %>
                         <% else %>
                             <b>N/A</b>
@@ -205,6 +216,12 @@
               Reviews
               <div class="pull-right">
                   Sort by:
+
+                <%= select_tag('sort_by', options_for_select([["Most Recent",1],["Graduation Year",2],["Highest Paying",3], ["Major Name",4]]), :class => "sort_by") %>
+
+
+
+
                   <%= link_to 'Most Recent', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'most_recent'  %> |
                   <%= link_to 'Graduation Year', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'graduation_year'  %> |
                   <%= link_to 'Highest Paying', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'highest_paying'  %> |
