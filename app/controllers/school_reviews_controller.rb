@@ -260,6 +260,17 @@ class SchoolReviewsController < ApplicationController
           stats.top_college_salary_ids.concat(school.id.to_s + "^")
         end
 
+        # update over college salaries
+        stats.c_overall_sal_names = ""
+        stats.c_overall_sal_amounts = ""
+        stats.c_overall_sal_ids = ""
+        schools = School.where(overall_salary:100..1000001).order(overall_salary: :desc).limit(limit_amount)
+        schools.each do |school|
+          stats.c_overall_sal_names.concat(school.name + "^")
+          stats.c_overall_sal_amounts.concat(school.overall_salary.to_s + "^")
+          stats.c_overall_sal_ids.concat(school.id.to_s + "^")
+        end
+
         # update Top College Debt
         stats.top_college_debt_names = ""
         stats.top_college_debt_amounts = ""
