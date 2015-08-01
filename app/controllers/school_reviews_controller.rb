@@ -1,5 +1,6 @@
 class SchoolReviewsController < ApplicationController
   helper_method :is_signed_in
+  #before_action :authenticate_user!, :except => [:index,:show,:update,:edit,:create,:destroy,:comment,:post_comments]
   def index
     session[:school_id_for_major] = nil
     @school = params[:the_school]
