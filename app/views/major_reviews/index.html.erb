@@ -169,7 +169,7 @@
                       <ul class="list-unstyled small" style="margin-bottom: 0;">
                         <li style="margin-bottom: 0;">
                           <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                              <b><%= link_to names_array[index].to_s, :action => "index", :id => @major_id, :the_major => { :major_id => @major.id }, :sort => ids_array[index].to_s  %></b><br/>
+                              <b><%= link_to names_array[index].to_s,  school_reviews_path(:the_school => {:school_id => ids_array[index].to_s} ) %></b><br/>
                               <%= number_to_currency(amounts_array[index].to_i, precision: 2) %>
                           <% else %>
                               <b>N/A</b>
