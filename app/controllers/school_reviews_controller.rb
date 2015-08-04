@@ -260,7 +260,7 @@ class SchoolReviewsController < ApplicationController
           stats.top_college_salary_ids.concat(school.id.to_s + "^")
         end
 
-        # update over college salaries
+        # update overall college salaries
         stats.c_overall_sal_names = ""
         stats.c_overall_sal_amounts = ""
         stats.c_overall_sal_ids = ""
@@ -330,6 +330,17 @@ class SchoolReviewsController < ApplicationController
         end
         #stats.update(top_major_salary_names:stats.top_major_salary_names, top_major_salary_amounts:stats.top_major_salary_amounts, top_major_salary_ids:stats.top_major_salary_ids)
         #logger.debug "stats.top_major_salary_names: #{stats.top_major_salary_names.inspect}"
+
+        # update overall Major Salaries
+        stats.m_overall_sal_names = ""
+        stats.m_overall_sal_amounts = ""
+        stats.m_overall_sal_ids = ""
+        majors = Major.where(overall_salary:100..1000001).order(overall_salary: :desc).limit(limit_amount)
+        majors.each do |major|
+          stats.m_overall_sal_names.concat(major.name + "^")
+          stats.m_overall_sal_amounts.concat(major.overall_salary.to_s + "^")
+          stats.m_overall_sal_ids.concat(major.id.to_s + "^")
+        end
 
         # update Top Major difficulty
         stats.m_diff_names = ""

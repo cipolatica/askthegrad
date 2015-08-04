@@ -1,100 +1,5 @@
 
 
-<div class='container-fluid animate-fade-in-500'>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel-group" id="accordion">
-
-
-
-
-
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-                Most Difficult Majors <small><em>overall</em></small>
-              </a>
-            </h4>
-          </div>
-          <div id="collapseSeven" class="panel-collapse collapse">
-            <div class="panel-body" style="padding: 0 15px 15px 15px;">
-              <div class="table-responsive">
-                <table class="table table-striped" style="margin-bottom: 0;">
-                  <tbody>
-                  <% names_array = @stats.m_diff_names.to_s.split("^")%>
-                  <% ids_array = @stats.m_diff_ids.to_s.split("^")%>
-                  <% amounts_array = @stats.m_diff_amounts.to_s.split("^")%>
-                  <% (0..names_array.length-1).each do |index|%>
-                      <tr>
-
-                        <td><%= index + 1 %></td>
-                        <td>
-                          <ul class="list-unstyled small" style="margin-bottom: 0;">
-                            <li style="margin-bottom: 0;">
-                              <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                  <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
-                                  <strong><%= number_with_precision(amounts_array[index].to_f,precision:1) %></strong> <small><em>out of 5</em></small>
-                              <% else %>
-                                  <b>N/A</b>
-                              <% end %>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                  <% end %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
-                Most Recommended Majors <small><em>overall</em></small>
-              </a>
-            </h4>
-          </div>
-          <div id="collapseEight" class="panel-collapse collapse">
-            <div class="panel-body" style="padding: 0 15px 15px 15px;">
-              <div class="table-responsive">
-                <table class="table table-striped" style="margin-bottom: 0;">
-                  <tbody>
-                  <% names_array = @stats.m_rec_names.to_s.split("^")%>
-                  <% ids_array = @stats.m_rec_ids.to_s.split("^")%>
-                  <% amounts_array = @stats.m_rec_amounts.to_s.split("^")%>
-                  <% (0..names_array.length-1).each do |index|%>
-                      <tr>
-
-                        <td><%= index + 1 %></td>
-                        <td>
-                          <ul class="list-unstyled small" style="margin-bottom: 0;">
-                            <li style="margin-bottom: 0;">
-                              <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                  <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
-                                  <strong><%= number_with_precision(amounts_array[index].to_f*100,precision:1) %>%</strong>
-                              <% else %>
-                                  <b>N/A</b>
-                              <% end %>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                  <% end %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <div class="container animate-fade-in-500">
   <div class="row" >
     <div class="col-lg-8">
@@ -382,12 +287,12 @@
                 <div class="panel panel-default" style="margin: 0 7px 0 7px;">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseOne">
                         Highest Paying Majors <small><em>for past 3 years (<%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, <%= (Date.today.year - 2) %>)</em></small>
                       </a>
                     </h4>
                   </div>
-                  <div id="collapseSix" class="panel-collapse collapse">
+                  <div id="majorCollapseOne" class="panel-collapse collapse">
                     <div class="panel-body" style="padding: 0 15px 15px 15px;">
                       <div class="table-responsive">
                         <table class="table table-striped" style="margin-bottom: 0;">
@@ -403,8 +308,136 @@
                                   <ul class="list-unstyled small" style="margin-bottom: 0;">
                                     <li style="margin-bottom: 0;">
                                       <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                          <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
                                           <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
-                                          <%= number_to_currency(amounts_array[index].to_f, precision: 2) %>
+                                          <%= amount %>
+                                      <% else %>
+                                          <b>N/A</b>
+                                      <% end %>
+                                    </li>
+                                  </ul>
+                                </td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseTwo">
+                        Highest Paying Majors <small><em>OVERALL</em></small>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="majorCollapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body" style="padding: 0 15px 15px 15px;">
+                      <div class="table-responsive">
+                        <table class="table table-striped" style="margin-bottom: 0;">
+                          <tbody>
+                          <% names_array = @stats.m_overall_sal_names.to_s.split("^")%>
+                          <% ids_array = @stats.m_overall_sal_ids.to_s.split("^")%>
+                          <% amounts_array = @stats.m_overall_sal_amounts.to_s.split("^")%>
+                          <% (0..names_array.length-1).each do |index|%>
+                              <tr>
+
+                                <td><%= index + 1 %></td>
+                                <td>
+                                  <ul class="list-unstyled small" style="margin-bottom: 0;">
+                                    <li style="margin-bottom: 0;">
+                                      <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                          <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
+                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <%= amount %>
+                                      <% else %>
+                                          <b>N/A</b>
+                                      <% end %>
+                                    </li>
+                                  </ul>
+                                </td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseThree">
+                        Most Difficult Majors
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="majorCollapseThree" class="panel-collapse collapse">
+                    <div class="panel-body" style="padding: 0 15px 15px 15px;">
+                      <div class="table-responsive">
+                        <table class="table table-striped" style="margin-bottom: 0;">
+                          <tbody>
+                          <% names_array = @stats.m_diff_names.to_s.split("^")%>
+                          <% ids_array = @stats.m_diff_ids.to_s.split("^")%>
+                          <% amounts_array = @stats.m_diff_amounts.to_s.split("^")%>
+                          <% (0..names_array.length-1).each do |index|%>
+                              <tr>
+
+                                <td><%= index + 1 %></td>
+                                <td>
+                                  <ul class="list-unstyled small" style="margin-bottom: 0;">
+                                    <li style="margin-bottom: 0;">
+                                      <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <strong><%= number_with_precision(amounts_array[index].to_f,precision:1) %></strong> <small><em>out of 5</em></small>
+                                      <% else %>
+                                          <b>N/A</b>
+                                      <% end %>
+                                    </li>
+                                  </ul>
+                                </td>
+                              </tr>
+                          <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseFour">
+                        Most Recommended Majors
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="majorCollapseFour" class="panel-collapse collapse">
+                    <div class="panel-body" style="padding: 0 15px 15px 15px;">
+                      <div class="table-responsive">
+                        <table class="table table-striped" style="margin-bottom: 0;">
+                          <tbody>
+                          <% names_array = @stats.m_rec_names.to_s.split("^")%>
+                          <% ids_array = @stats.m_rec_ids.to_s.split("^")%>
+                          <% amounts_array = @stats.m_rec_amounts.to_s.split("^")%>
+                          <% (0..names_array.length-1).each do |index|%>
+                              <tr>
+
+                                <td><%= index + 1 %></td>
+                                <td>
+                                  <ul class="list-unstyled small" style="margin-bottom: 0;">
+                                    <li style="margin-bottom: 0;">
+                                      <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <strong><%= number_with_precision(amounts_array[index].to_f*100,precision:1) %>%</strong>
                                       <% else %>
                                           <b>N/A</b>
                                       <% end %>
