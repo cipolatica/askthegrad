@@ -11,7 +11,7 @@
 <div class="container animate-fade-in-500">
   <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-          <div class="panel panel-metric">
+          <div class="panel panel-metric" style="min-height: 400px;">
             <div class="panel-body">
               <div class="metric-content">
                 <div class="row">
@@ -20,7 +20,136 @@
                   </header>
 
                   <div class="col-xs-12" style="margin: 10px 0 0 0;">
-                    <div class="panel panel-danger" style="margin: 0 7px 0 7px;">
+
+                    <div class="panel panel-success" style="margin: 0 7px 0 7px;">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseTwo">
+                            Highest Paying Colleges <small><em>for past 3 years (<%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, <%= (Date.today.year - 2) %>)</em></small>
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collegeCollapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body" style="padding: 0 15px 15px 15px;">
+                          <div class="table-responsive">
+                            <table class="table table-striped" style="margin-bottom: 0;">
+                              <tbody>
+                              <% names_array = @stats.top_college_salary_names.to_s.split("^")%>
+                              <% ids_array = @stats.top_college_salary_ids.to_s.split("^")%>
+                              <% amounts_array = @stats.top_college_salary_amounts.to_s.split("^")%>
+                              <% (0..names_array.length-1).each do |index|%>
+                                  <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td>
+                                      <ul class="list-unstyled small" style="margin-bottom: 0;">
+                                        <li style="margin-bottom: 0;">
+                                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                              <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
+                                              <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                              <%= amount %>
+                                          <% else %>
+                                              <b>N/A</b>
+                                          <% end %>
+                                        </li>
+                                      </ul>
+                                    </td>
+                                  </tr>
+                              <% end %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success" style="margin: 5px 7px 0 7px;">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseThree">
+                            Highest Paying Colleges <small><em>OVERALL</em></small>
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collegeCollapseThree" class="panel-collapse collapse">
+                        <div class="panel-body" style="padding: 0 15px 15px 15px;">
+                          <div class="table-responsive">
+                            <table class="table table-striped" style="margin-bottom: 0;">
+                              <tbody>
+                              <% names_array = @stats.c_overall_sal_names.to_s.split("^")%>
+                              <% ids_array = @stats.c_overall_sal_ids.to_s.split("^")%>
+                              <% amounts_array = @stats.c_overall_sal_amounts.to_s.split("^")%>
+                              <% (0..names_array.length-1).each do |index|%>
+                                  <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td>
+                                      <ul class="list-unstyled small" style="margin-bottom: 0;">
+                                        <li style="margin-bottom: 0;">
+                                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                              <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
+                                              <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                              <%= amount %>
+                                          <% else %>
+                                              <b>N/A</b>
+                                          <% end %>
+                                        </li>
+                                      </ul>
+                                    </td>
+                                  </tr>
+                              <% end %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                    <div class="panel panel-success" style="margin: 5px 7px 0 7px;">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFour">
+                            Highest debt colleges
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collegeCollapseFour" class="panel-collapse collapse">
+                        <div class="panel-body" style="padding: 0 15px 15px 15px;">
+                          <div class="table-responsive">
+                            <table class="table table-striped" style="margin-bottom: 0;">
+                              <tbody>
+                              <% names_array = @stats.top_college_debt_names.to_s.split("^")%>
+                              <% ids_array = @stats.top_college_debt_ids.to_s.split("^")%>
+                              <% amounts_array = @stats.top_college_debt_amounts.to_s.split("^")%>
+                              <% (0..names_array.length-1).each do |index|%>
+                                  <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td>
+                                      <ul class="list-unstyled small" style="margin-bottom: 0;">
+                                        <li style="margin-bottom: 0;">
+                                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
+                                              <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
+                                              <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                              <%= amount %>
+                                          <% else %>
+                                              <b>N/A</b>
+                                          <% end %>
+                                        </li>
+                                      </ul>
+                                    </td>
+                                  </tr>
+                              <% end %>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="panel panel-danger" style="margin: 5px 7px 0 7px;">
                       <div class="panel-heading">
                         <h4 class="panel-title"> <!-- DONT FORGET: the href from dressed had  href="006_components@fa-briefcase%252Faccordian.html#collapseOne" YOU may need to add full URL -->
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseOne">
@@ -59,129 +188,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseTwo">
-                            Highest Paying Colleges <small><em>for past 3 years (<%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, <%= (Date.today.year - 2) %>)</em></small>
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collegeCollapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body" style="padding: 0 15px 15px 15px;">
-                          <div class="table-responsive">
-                            <table class="table table-striped" style="margin-bottom: 0;">
-                              <tbody>
-                              <% names_array = @stats.top_college_salary_names.to_s.split("^")%>
-                              <% ids_array = @stats.top_college_salary_ids.to_s.split("^")%>
-                              <% amounts_array = @stats.top_college_salary_amounts.to_s.split("^")%>
-                              <% (0..names_array.length-1).each do |index|%>
-                                  <tr>
-                                    <td><%= index + 1 %></td>
-                                    <td>
-                                      <ul class="list-unstyled small" style="margin-bottom: 0;">
-                                        <li style="margin-bottom: 0;">
-                                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                              <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
-                                              <%= number_to_currency(amounts_array[index].to_f, precision: 2) %>
-                                          <% else %>
-                                              <b>N/A</b>
-                                          <% end %>
-                                        </li>
-                                      </ul>
-                                    </td>
-                                  </tr>
-                              <% end %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseThree">
-                            Highest Paying Colleges <small><em>OVERALL</em></small>
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collegeCollapseThree" class="panel-collapse collapse">
-                        <div class="panel-body" style="padding: 0 15px 15px 15px;">
-                          <div class="table-responsive">
-                            <table class="table table-striped" style="margin-bottom: 0;">
-                              <tbody>
-                              <% names_array = @stats.c_overall_sal_names.to_s.split("^")%>
-                              <% ids_array = @stats.c_overall_sal_ids.to_s.split("^")%>
-                              <% amounts_array = @stats.c_overall_sal_amounts.to_s.split("^")%>
-                              <% (0..names_array.length-1).each do |index|%>
-                                  <tr>
-                                    <td><%= index + 1 %></td>
-                                    <td>
-                                      <ul class="list-unstyled small" style="margin-bottom: 0;">
-                                        <li style="margin-bottom: 0;">
-                                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                              <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
-                                              <%= number_to_currency(amounts_array[index].to_f, precision: 2) %>
-                                          <% else %>
-                                              <b>N/A</b>
-                                          <% end %>
-                                        </li>
-                                      </ul>
-                                    </td>
-                                  </tr>
-                              <% end %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
 
-                    <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFour">
-                            Highest debt colleges
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collegeCollapseFour" class="panel-collapse collapse">
-                        <div class="panel-body" style="padding: 0 15px 15px 15px;">
-                          <div class="table-responsive">
-                            <table class="table table-striped" style="margin-bottom: 0;">
-                              <tbody>
-                              <% names_array = @stats.top_college_debt_names.to_s.split("^")%>
-                              <% ids_array = @stats.top_college_debt_ids.to_s.split("^")%>
-                              <% amounts_array = @stats.top_college_debt_amounts.to_s.split("^")%>
-                              <% (0..names_array.length-1).each do |index|%>
-                                  <tr>
-                                    <td><%= index + 1 %></td>
-                                    <td>
-                                      <ul class="list-unstyled small" style="margin-bottom: 0;">
-                                        <li style="margin-bottom: 0;">
-                                          <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                              <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
-                                              <%= number_to_currency(amounts_array[index].to_f, precision: 2) %>
-                                          <% else %>
-                                              <b>N/A</b>
-                                          <% end %>
-                                        </li>
-                                      </ul>
-                                    </td>
-                                  </tr>
-                              <% end %>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
+                    <div class="panel panel-danger" style="margin: 5px 7px 0 7px;">
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFive">
@@ -273,7 +282,7 @@
         </div>
 
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-      <div class="panel panel-metric">
+      <div class="panel panel-metric" style="min-height: 400px;">
         <div class="panel-body">
           <div class="metric-content">
             <div class="row">
@@ -284,7 +293,7 @@
 
 
 
-                <div class="panel panel-default" style="margin: 0 7px 0 7px;">
+                <div class="panel panel-success" style="margin: 0 7px 0 7px;">
                   <div class="panel-heading">
                     <h4 class="panel-title">
                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseOne">
@@ -326,7 +335,7 @@
                   </div>
                 </div>
 
-                <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
+                <div class="panel panel-success" style="margin: 5px 7px 0 7px;">
                   <div class="panel-heading">
                     <h4 class="panel-title">
                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseTwo">
@@ -370,7 +379,7 @@
 
 
 
-                <div class="panel panel-default" style="margin: 5px 7px 0 7px;">
+                <div class="panel panel-danger" style="margin: 5px 7px 0 7px;">
                   <div class="panel-heading">
                     <h4 class="panel-title">
                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseThree">
