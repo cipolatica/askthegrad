@@ -318,7 +318,7 @@
                                     <li style="margin-bottom: 0;">
                                       <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
                                           <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
-                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <b><%= link_to names_array[index].to_s, major_reviews_path(:major_id => ids_array[index].to_i)  %></b><br/>
                                           <%= amount %>
                                       <% else %>
                                           <b>N/A</b>
@@ -360,7 +360,7 @@
                                     <li style="margin-bottom: 0;">
                                       <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
                                           <% amount = (amounts_array[index].to_f > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_f, precision: 2)  %>
-                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <b><%= link_to names_array[index].to_s, major_reviews_path(:major_id => ids_array[index].to_i)  %></b><br/>
                                           <%= amount %>
                                       <% else %>
                                           <b>N/A</b>
@@ -403,7 +403,7 @@
                                   <ul class="list-unstyled small" style="margin-bottom: 0;">
                                     <li style="margin-bottom: 0;">
                                       <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <b><%= link_to names_array[index].to_s, major_reviews_path(:major_id => ids_array[index].to_i)  %></b><br/>
                                           <strong><%= number_with_precision(amounts_array[index].to_f,precision:1) %></strong> <small><em>out of 5</em></small>
                                       <% else %>
                                           <b>N/A</b>
@@ -445,7 +445,7 @@
                                   <ul class="list-unstyled small" style="margin-bottom: 0;">
                                     <li style="margin-bottom: 0;">
                                       <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
-                                          <b><%= link_to names_array[index].to_s, school_reviews_path(:the_school => { :school_id => ids_array[index].to_i })  %></b><br/>
+                                          <b><%= link_to names_array[index].to_s, major_reviews_path(:major_id => ids_array[index].to_i)  %></b><br/>
                                           <strong><%= number_with_precision(amounts_array[index].to_f*100,precision:1) %>%</strong>
                                       <% else %>
                                           <b>N/A</b>

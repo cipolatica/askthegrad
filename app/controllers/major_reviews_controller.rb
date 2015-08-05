@@ -57,6 +57,7 @@ class MajorReviewsController < ApplicationController
     @school_id = nil
     if session[:school_id_for_major] != nil
       @school_id = session[:school_id_for_major]
+      @small_text = School.find(@school_id).name
     end
     @major_id = params[:major_id]
     @major = Major.find(@major_id)
