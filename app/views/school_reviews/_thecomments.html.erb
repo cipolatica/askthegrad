@@ -9,7 +9,11 @@
       <%= simple_format( c.content, style: 'margin-bottom:2px;') %>
       <%= link_to "Reply", comment_school_review_path(@school_review, comm_id: c.id ), id: "comm_#{c.id}", remote:true %>
     </div>
-  </div>
+    <% if c.is_parent == true %> <!-- only have this IF statement to pass Heroku submit -->
+        </div>
+    <% else %>
+        </div>
+    <% end %>
     <% if c.is_parent == true %>
         <hr style="margin:0;border-top-color: #e6e6e6;">
     <% else %>

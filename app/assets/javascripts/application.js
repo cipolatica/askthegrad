@@ -18,7 +18,4 @@
 //= require_tree .
 
 
-jQuery ->
-  $("#receive_email").click(function() {
-          alert( "Handler for .click() called." );
-        });
+
