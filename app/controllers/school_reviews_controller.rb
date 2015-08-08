@@ -466,7 +466,7 @@ class SchoolReviewsController < ApplicationController
       if @school_review.vote_count
         @likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count
         @dislikes = @school_review.vote_count - @likes
-      elsif
+      else
         @likes = 0
         @dislikes = 0
       end
