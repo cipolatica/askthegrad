@@ -28,9 +28,10 @@ class SchoolReviewsController < ApplicationController
   end
 
   def show
-    @title = "School Review"
+    @title = "Graduate Review"
     @school_review = SchoolReview.find(params[:id])
     @school_id = @school_review.school_id
+    @small_text = School.find(@school_id).name
     @comments = Comment.where(college_review_id:@school_review.id).order(lineage: :asc)
     @comment = Comment.new
   end
