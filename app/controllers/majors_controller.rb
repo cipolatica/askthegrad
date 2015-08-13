@@ -7,6 +7,7 @@ class MajorsController < ApplicationController
     elsif params[:school_id] != nil
       session[:school_id_for_major] = params[:school_id]
       @majors = Major.all.order(:name)
+      @small_text = School.find(params[:school_id]).name
     elsif session[:search_name] && session[:search_index]
       counter = 0
       session[:search_name].each do |s|

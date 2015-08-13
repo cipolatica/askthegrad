@@ -149,248 +149,246 @@
 
     });
 </script>
+<div class="container animate-fade-in-500" style="margin-bottom: 8px;">
+  <%= form_for @review  do |f| %>
+
+      <% if @review.errors.any? %>
+
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong><%= pluralize(@review.errors.count, "error") %> prohibited
+              this review from being saved!</strong>
+            <ul>
+              <% @review.errors.each do |field,msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
 
 
-<%= form_for @review do |f| %>
 
-    <% if @review.errors.any? %>
+      <% end %>
+      <%= f.hidden_field :major_id, :value => @major_id  %>
+      <% if @school_id != nil %>
+          <%= f.hidden_field :school_id, :value => @school_id  %>
+      <% end %>
 
-        <div class="alert alert-danger alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <strong><%= pluralize(@review.errors.count, "error") %> prohibited
-            this review from being saved!</strong>
-          <ul>
-            <% @review.errors.each do |field,msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
+      <%= f.form_group :title do |f| %>
+          <div class="form-actions col-md-8" style="margin-bottom: 20px;">
+            <%= f.label "Title of your review", class: "string required control-label" %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+      <% end %>
+
+
+      <% years = ["Select graduation year"] %>
+      <%
+         for i in 0..50
+           years.push(Date.today.year - i)
+         end
+      %>
+      <div class="form-group"  >
+        <div class="form-actions col-md-8">
+          <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+          <%= f.select :year_graduated, years, class: 'form-control' %>
         </div>
+      </div>
 
-
-
-    <% end %>
-    <% if @major_id != nil %>
-        <%= f.hidden_field :major_id, :value => @major_id  %>
-    <% end %>
-    <% if @school_id != nil %>
-        <%= f.hidden_field :school_id, :value => @school_id  %>
-    <% end %>
-    <%= f.form_group :title do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Title of your review", class: "string required control-label" %>
-          <%= f.text_field :title, class: 'form-control' %>
-          <%= f.error_messages %>
+      <div class="form-group"  style="margin-top:15px;">
+        <div class="form-actions col-md-8" style="margin-top:7px;padding-top: 0;color: green;">
+          <h3 style="margin-bottom: 0px;margin-top: 18px;">Now, some questions about your college</h3>
         </div>
-    <% end %>
-
-
-    <% years = ["Select graduation year"] %>
-    <%
-       for i in 0..50
-         years.push(Date.today.year - i)
-       end
-    %>
-    <div class="form-group"  >
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
-        <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.select :year_graduated, years, class: 'form-control' %>
       </div>
-    </div>
+      <!--<hr style="margin-top:2px; margin-bottom: 15px;">-->
 
-    <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom: 0;margin-top:7px;">
-        <h4 style="margin-bottom: 0px;"><strong>Now, some questions about your college</strong></h4>
+
+
+      <div class="form-group" style="margin-bottom:0px;" >
+        <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 40px;">
+          <%= f.label 'Would you recommend this college? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+          <%= f.check_box :recommend_this_school, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+        </div>
       </div>
-    </div>
-    <hr style="margin-top:2px; margin-bottom: 15px;">
-
-
-
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
-        <%= f.label 'Would you recommend this college? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.check_box :recommend_this_school, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+      <br>
+      <div class="form-group" style="margin-bottom:0px;" >
+        <div class="form-actions col-md-8" style="margin-top: 0px; margin-bottom:7px; height: 50px;">
+          <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+          <%= f.check_box :worth_money, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+        </div>
       </div>
-    </div>
-    <br>
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
-        <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.check_box :worth_money, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
-      </div>
-    </div>
-    <br>
-    <%= f.hidden_field :party_school, id: "party-school-rating-value", :readonly => true  %>
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-offset-2 col-md-9">
-        <div class="row">
-          <div class="col-md-8">
-            <%= f.label "Party school rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :party_school_f, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
+      <br>
+
+      <%= f.hidden_field :party_school, id: "party-school-rating-value", :readonly => true  %>
+      <div class="form-group" style="margin-bottom:0px;" >
+        <div class="form-actions col-md-8">
+          <div class="row">
+            <div class="col-md-8">
+              <%= f.label "Party school rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+              <%= f.text_field :party_school_f, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
+
+            </div>
+          </div>
+        </div>
+        <div class="form-actions col-md-8" style="height:32px;">
+          <div class="ui-slider-wrapper ui-widget horizontal">
+
+            <div class="ui-slider-labels">
+              <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+              </div>
+            </div>
+
+            <div id="slider-party-school" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+              <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+            </div>
 
           </div>
         </div>
       </div>
-      <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
-        <div class="ui-slider-wrapper ui-widget horizontal">
-
-          <div class="ui-slider-labels">
-            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
-            </div>
-          </div>
-
-          <div id="slider-party-school" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
-            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
 
 
-    <%= f.hidden_field :rating, id: "school-rating-value", :readonly => true  %>
-    <div class="form-group" style="margin-bottom:0px; height: 75px;" >
-      <div class="form-actions col-md-offset-2 col-md-9">
-        <div class="row">
-          <div class="col-md-8">
-            <%= f.label "School Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :rating_f, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
+      <%= f.hidden_field :rating, id: "school-rating-value", :readonly => true  %>
+      <div class="form-group" style="margin-bottom:0px; " >
+        <div class="form-actions col-md-8" style="margin-top: 20px; margin-bottom: 0;">
+          <div class="row">
+            <div class="col-md-8">
+              <%= f.label "School Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+              <%= f.text_field :rating_f, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;max-height:132px;">
-        <div class="ui-slider-wrapper ui-widget horizontal">
-          <div class="ui-slider-labels">
-            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span></div>
-            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span></div>
-            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span></div>
-            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span></div>
-            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span></div>
-            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span></div>
-          </div>
+        <div class="form-actions col-md-8" style="margin-bottom:7px;max-height:132px;">
+          <div class="ui-slider-wrapper ui-widget horizontal">
+            <div class="ui-slider-labels">
+              <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span></div>
+              <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span></div>
+              <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span></div>
+              <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span></div>
+              <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span></div>
+              <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span></div>
+            </div>
 
-          <div id="slider-rating" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
-            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-
-    <%= f.form_group :debt do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Debt after graduating", class: 'string required control-label' %>
-          <div class="input-group">
-            <span class="input-group-addon">$</span>
-            <%= f.text_field :debt, class: 'form-control', placeholder: "ex. 18999" %>
-            <span class="input-group-addon">.00</span>
-          </div>
-        </div>
-    <% end %>
-
-
-
-    <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom: 0;margin-top:7px;">
-        <h4 style="margin-bottom: 0px;"><strong>Major specific questions</strong></h4>
-      </div>
-    </div>
-    <hr style="margin-top:2px; margin-bottom: 15px;">
-
-
-
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-offset-2 col-md-9" style="margin-bottom:7px;">
-        <%= f.label 'Would you recommend this major? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.check_box :recommend_this_major, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
-      </div>
-    </div>
-
-
-    <%= f.hidden_field :difficulty, id: "difficulty-rating-value", :readonly => true  %>
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-offset-2 col-md-9">
-        <div class="row">
-          <div class="col-md-8">
-            <%= f.label "Difficulty of major: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-            <%= f.text_field :difficulty_f, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+            <div id="slider-rating" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+              <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+            </div>
 
           </div>
         </div>
       </div>
-      <div class="form-actions col-md-offset-2 col-md-9" style="height:32px;">
-        <div class="ui-slider-wrapper ui-widget horizontal">
 
-          <div class="ui-slider-labels">
-            <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
-            </div>
-            <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+
+
+      <%= f.form_group :debt do |f| %>
+          <div class="form-actions col-md-8" style="position: relative;top:-20px;">
+            <%= f.label "Debt after graduating", class: 'string required control-label' %>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <%= f.text_field :debt, class: 'form-control', placeholder: "ex. 18999" %>
+              <span class="input-group-addon">.00</span>
             </div>
           </div>
+      <% end %>
 
-          <div id="slider-range-max" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
-            <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
-          </div>
 
+
+      <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
+        <div class="form-actions col-md-8" style="margin-bottom: 0;margin-top:7px;color: green;">
+          <h3 style="margin-bottom: 0px;margin-top: 18px;">Major specific questions</h3>
         </div>
       </div>
-    </div>
+      <!--<hr style="margin-top:2px; margin-bottom: 15px;">-->
 
-    <!--<hr style="margin:15px 0;">-->
 
-    <%= f.form_group :annual_salary do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Starting annual salary after graduating", class: 'string required control-label' %>
-          <div class="input-group">
-            <span class="input-group-addon">$</span>
-            <%= f.text_field :annual_salary, class: 'form-control', placeholder: "ex. 35999" %>
-            <span class="input-group-addon">.00</span>
+
+      <div class="form-group" style="margin-bottom:0px;" >
+        <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 50px;">
+          <%= f.label 'Would you recommend this major? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+          <%= f.check_box :recommend_this_major, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+        </div>
+      </div>
+      <br>
+
+      <%= f.hidden_field :difficulty, id: "difficulty-rating-value", :readonly => true  %>
+      <div class="form-group" style="margin-bottom:0px;" >
+        <div class="form-actions col-md-8">
+          <div class="row">
+            <div class="col-md-8">
+              <%= f.label "Difficulty of major: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
+              <%= f.text_field :difficulty_f, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+
+            </div>
           </div>
-          <%= f.error_messages %>
         </div>
-    <% end %>
+        <div class="form-actions col-md-8" style="height:32px;">
+          <div class="ui-slider-wrapper ui-widget horizontal">
 
-    <%= f.form_group :position_title do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Starting job title after graduating", class: "string required control-label" %>
-          <%= f.text_field :position_title, class: 'form-control', placeholder: "ex. Software Engineer" %>
-          <%= f.error_messages %>
+            <div class="ui-slider-labels">
+              <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+              </div>
+              <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+              </div>
+            </div>
+
+            <div id="slider-range-max" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+              <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+            </div>
+
+          </div>
         </div>
-    <% end %>
+      </div>
 
-    <%= f.form_group :review do |f| %>
-        <div class="form-actions col-md-offset-2 col-md-9">
-          <%= f.label "Review this major", class: 'string required control-label' %>
-          <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, career satisfaction, advice to students" %>
-          <%= f.error_messages %>
-        </div>
-    <% end %>
+      <!--<hr style="margin:15px 0;">-->
 
-    <div class="form-actions col-md-offset-2 col-md-9">
-      <%= f.submit class: 'btn btn-primary' %>
-      <%= link_to "Cancel", major_reviews_path, class: 'btn' %>
-    </div>
-<% end %>
+      <%= f.form_group :annual_salary do |f| %>
+          <div class="form-actions col-md-8" style="margin-top: 25px;">
+            <%= f.label "Starting annual salary after graduating", class: 'string required control-label' %>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <%= f.text_field :annual_salary, class: 'form-control', placeholder: "ex. 35999" %>
+              <span class="input-group-addon">.00</span>
+            </div>
+          </div>
+      <% end %>
+
+      <%= f.form_group :position_title do |f| %>
+          <div class="form-actions col-md-8" style="margin-top: 25px;">
+            <%= f.label "Starting job title after graduating", class: "string required control-label" %>
+            <%= f.text_field :position_title, class: 'form-control', placeholder: "ex. Software Engineer" %>
+          </div>
+      <% end %>
+
+      <%= f.form_group :review do |f| %>
+          <div class="form-actions col-md-8" style="margin-top: 25px;">
+            <%= f.label "Review this major", class: 'string required control-label' %>
+            <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, career satisfaction, advice to students" %>
+          </div>
+      <% end %>
+
+      <div class="form-actions col-md-9" style="margin-top: 10px;">
+        <%= f.submit class: 'btn btn-primary' %>
+        <%= link_to "Cancel", root_path, class: 'btn' %>
+      </div>
+
+      <!--</div>-->
+  <% end %>
+</div>
 
 
