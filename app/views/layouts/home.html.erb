@@ -37,10 +37,11 @@
         <%= activatable_li_tag_with_link "Stats", stats_path %>
       </li>
       <li>
-        <a href="#">Login</a>
+        <%= activatable_li_tag_with_link "Login", new_user_session_path %>
       </li>
       <li>
-        <button class='btn btn-outline-primary sign-up'>Sign Up</button>
+        <!--<button class='btn btn-outline-primary sign-up'>Sign Up</button>-->
+        <%= button_to 'Sign Ups', new_user_registration_path, class: "btn btn-outline-primary sign-up", method: "get" %>
       </li>
     </ul>
   </div>

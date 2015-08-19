@@ -108,8 +108,8 @@
           <p>Sign up today. It takes less than 2 minutes.</p>
         </div>
         <div class="col-md-7 text-xs-center text-right ctas">
-          <a class="btn btn-outline-default" href="#">Sign Up</a>
-          <a class="btn btn-outline-primary" href="#">or Login</a>
+          <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-outline-default" %>
+          <%= link_to 'or Login', new_user_session_path, class: "btn btn-outline-primary" %>
           <!--<a class="btn btn-outline-primary" href="#">or see features &raquo;</a>-->
         </div>
       </div>
