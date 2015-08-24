@@ -7,15 +7,14 @@
           <div class="pull-right">
             Sort by:
 
-            <%= select_tag('sort_by', options_for_select([["Most Recent",1],["Graduation Year",2],["Highest Paying",3], ["Major Name",4]]), :class => "sort_by") %>
+            <%= select_tag('sort_by', options_for_select([
+                    ["Most Recent","/school_reviews?id=#{@school_id}&sort=most_recent&the_school%5Bschool_id%5D=#{@school_id}#thesortablecomments"],
+                    ["Graduation Year","/school_reviews?id=#{@school_id}&sort=graduation_year&the_school%5Bschool_id%5D=#{@school_id}#thesortablecomments"],
+                    ["Highest Paying","/school_reviews?id=#{@school_id}&sort=highest_paying&the_school%5Bschool_id%5D=#{@school_id}#thesortablecomments"],
+                    ["Major Name","/school_reviews?id=#{@school_id}&sort=major_name_alphabetical&the_school%5Bschool_id%5D=#{@school_id}#thesortablecomments"]],
+                     "/school_reviews?id=#{@school_id}&sort=#{@selected_sort_order}&the_school%5Bschool_id%5D=#{@school_id}#thesortablecomments"),
+                     :onchange => "document.location.href=this.value") %>
 
-
-
-
-            <%= link_to 'Most Recent', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'most_recent'  %> |
-            <%= link_to 'Graduation Years', :action => "index", :id => "grad_years", :the_school => { :school_id => @school.id }, :sort => 'graduation_year'  %> |
-            <%= link_to 'Highest Paying', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'highest_paying'  %> |
-            <%= link_to 'Major Name', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'major_name_alphabetical'  %>
           </div>
         </div>
       </div>
