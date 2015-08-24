@@ -42,11 +42,14 @@
                       <div class="article-meta media color-grey-50">
                         <div class="media-body">
                           <p class="m0 media-heading">
-                            <%= link_to 'By '+ review.user_name, school_review_path(review) %>
-                            majoring in
-                            <%= link_to review.major_name,  major_reviews_path(:major_id => review.major_id ) %>
+                            Review by
+                            <%= link_to  review.user_name, school_review_path(review) %>
                             •
-                            <time><em>Class of <%= review.year_graduated %></em></time>
+
+                            <em><%= link_to 'Class of ' + review.year_graduated.to_s, school_review_path(review) %></em>
+                            •
+                            Majoring in
+                            <%= link_to review.major_name,  major_reviews_path(:major_id => review.major_id ) %>
                             <time class="pull-right"><%= review.created_at.strftime("%m/%d/%Y") %></time>
                           </p>
                         </div>
@@ -60,7 +63,7 @@
                       <% else %>
                           <% likes = 0 %>
                       <% end %>
-                      <%= link_to likes.to_i.to_s + " likes", school_review_path(review) %>
+                      <%= link_to "likes (" + likes.to_i.to_s + ")", school_review_path(review) %>
                       <span class="pull-right">
                     <%= link_to 'Read more or ask this grad →', school_review_path(review) %>
                   </span>
