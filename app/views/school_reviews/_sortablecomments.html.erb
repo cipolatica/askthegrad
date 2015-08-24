@@ -1,0 +1,79 @@
+<div class="container animate-fade-in-500" style="margin-bottom: 8px;">
+  <div class="col-md-8" style="padding: 0;">
+    <table class="table">
+      <div class="panel panel-default" style="margin-bottom: 0">
+        <div class="panel-heading">
+          Reviews
+          <div class="pull-right">
+            Sort by:
+
+            <%= select_tag('sort_by', options_for_select([["Most Recent",1],["Graduation Year",2],["Highest Paying",3], ["Major Name",4]]), :class => "sort_by") %>
+
+
+
+
+            <%= link_to 'Most Recent', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'most_recent'  %> |
+            <%= link_to 'Graduation Years', :action => "index", :id => "grad_years", :the_school => { :school_id => @school.id }, :sort => 'graduation_year'  %> |
+            <%= link_to 'Highest Paying', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'highest_paying'  %> |
+            <%= link_to 'Major Name', :action => "index", :id => @school_id, :the_school => { :school_id => @school.id }, :sort => 'major_name_alphabetical'  %>
+          </div>
+        </div>
+      </div>
+      <tbody>
+      <% if @reviews != nil && @reviews.length > 0 %>
+          <% @reviews.each do |review| %>
+              <tr>
+                <td>
+                  <ol class="list-unstyled">
+                    <li>
+                      <h3 style="margin-bottom: 3px; margin-top: 10px">
+                        <% if review.title != nil && review.title.length > 0 %>
+                            <%= review.title %>
+                        <% else %>
+                            <%= review.major_name %>
+                        <% end %>
+                      </h3>
+                      <div class="article-meta media color-grey-50" style="margin-top: 0;">
+                        <div class="media-body">
+                          <p class="m0 media-heading">
+                            Starting Annual Salary: <span class="page-hits m0 text-green-400"><strong><%= number_to_currency(review.annual_salary, precision: 2) %></strong></span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="article-meta media color-grey-50">
+                        <div class="media-body">
+                          <p class="m0 media-heading">
+                            <%= link_to 'By '+ review.user_name, school_review_path(review) %>
+                            majoring in
+                            <%= link_to review.major_name,  major_reviews_path(:major_id => review.major_id ) %>
+                            •
+                            <time><em>Class of <%= review.year_graduated %></em></time>
+                            <time class="pull-right"><%= review.created_at.strftime("%m/%d/%Y") %></time>
+                          </p>
+                        </div>
+                      </div>
+
+                      <p style="margin-bottom: 8px;">
+                        <%= review.review %>
+                      </p>
+                      <% if review.vote_count %>
+                          <% likes = ((review.reputation_for(:votes) + review.vote_count)/(review.vote_count * 2)) * review.vote_count %>
+                      <% else %>
+                          <% likes = 0 %>
+                      <% end %>
+                      <%= link_to likes.to_i.to_s + " likes", school_review_path(review) %>
+                      <span class="pull-right">
+                    <%= link_to 'Read more or ask this grad →', school_review_path(review) %>
+                  </span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+          <% end %>
+      <% else %>
+      <% end %>
+      </tbody>
+    </table>
+    <hr>
+  </div> <!-- /#content -->
+</div>
