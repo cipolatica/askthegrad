@@ -17,14 +17,18 @@ class MajorReviewsController < ApplicationController
     end
     @major = Major.find(@major_id)
     @title = @major.name
+    @selected_sort_order = "most_recent"
     if params[:sort] != nil
       if params[:sort] == "most_recent"
         @reviews = SchoolReview.where(major_id:@major_id).order(created_at: :desc)
       elsif params[:sort] == "graduation_year"
+        @selected_sort_order = "graduation_year"
         @reviews = SchoolReview.where(major_id:@major_id).order(year_graduated: :desc)
       elsif params[:sort] == "highest_paying"
+        @selected_sort_order = "highest_paying"
         @reviews = SchoolReview.where(major_id:@major_id).order(annual_salary: :desc)
       elsif params[:sort] == "college_name_alphabetical"
+        @selected_sort_order = "college_name_alphabetical"
         @reviews = SchoolReview.where(major_id:@major_id).order(:school_name)
       else
         @reviews = SchoolReview.where(major_id:@major_id, school_id:params[:sort].to_i).order(created_at: :desc)
