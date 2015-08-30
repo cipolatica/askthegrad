@@ -60,41 +60,41 @@ class SchoolReviewsController < ApplicationController
   end
   
   def update
-    @school_review = SchoolReview.find(params[:id])
-    if user_signed_in? && @school_review.user_id == current_user.id
-      @school_id = @school_review.school_id
-      review = SchoolReview.new(review_params)
-      if review.valid?
-        remove_school_values(@school_id)
-      end
-      if @school_review.update(review_params)
-        @school_review.update(annual_salary:get_max_value(review.annual_salary), debt:get_max_value(review.debt))
-        school = School.find(@school_review.school_id)
-        if school.college_counter == nil
-          school.college_counter = 0
-        end
-        if school.two_year_college == nil
-          school.two_year_college = 0
-        end
-        school.recommend_average = update_bool_average(@school_review.recommend_this_school, school.recommend_average, school.college_counter)
-        school.party_average = update_num_average(@school_review.party_school, school.party_average, school.college_counter)
-        school.worth_money_average = update_bool_average(@school_review.worth_money, school.worth_money_average, school.college_counter)
-        school.rating_average = update_num_average(@school_review.rating, school.rating_average, school.college_counter)
-        if (@school_review.year_graduated >= (Date.today.year - 2))
-          school.salary_average = update_num_average(@school_review.annual_salary, school.salary_average, school.two_year_college)
-          school.debt_average = update_num_average(@school_review.debt, school.debt_average, school.two_year_college)
-          school.two_year_college += 1
-        end
-        school.college_counter += 1
-        school.save
-        
-        redirect_to @school_review
-      else
-        render "edit"
-      end
-    else
-      render "edit"
-    end
+    # @school_review = SchoolReview.find(params[:id])
+    # if user_signed_in? && @school_review.user_id == current_user.id
+    #   @school_id = @school_review.school_id
+    #   review = SchoolReview.new(review_params)
+    #   if review.valid?
+    #     remove_school_values(@school_id)
+    #   end
+    #   if @school_review.update(review_params)
+    #     @school_review.update(annual_salary:get_max_value(review.annual_salary), debt:get_max_value(review.debt))
+    #     school = School.find(@school_review.school_id)
+    #     if school.college_counter == nil
+    #       school.college_counter = 0
+    #     end
+    #     if school.two_year_college == nil
+    #       school.two_year_college = 0
+    #     end
+    #     school.recommend_average = update_bool_average(@school_review.recommend_this_school, school.recommend_average, school.college_counter)
+    #     school.party_average = update_num_average(@school_review.party_school, school.party_average, school.college_counter)
+    #     school.worth_money_average = update_bool_average(@school_review.worth_money, school.worth_money_average, school.college_counter)
+    #     school.rating_average = update_num_average(@school_review.rating, school.rating_average, school.college_counter)
+    #     if (@school_review.year_graduated >= (Date.today.year - 2))
+    #       school.salary_average = update_num_average(@school_review.annual_salary, school.salary_average, school.two_year_college)
+    #       school.debt_average = update_num_average(@school_review.debt, school.debt_average, school.two_year_college)
+    #       school.two_year_college += 1
+    #     end
+    #     school.college_counter += 1
+    #     school.save
+    #
+    #     redirect_to @school_review
+    #   else
+    #     render "edit"
+    #   end
+    # else
+    #   render "edit"
+    # end
   end
   
   def create
