@@ -100,6 +100,8 @@ class SchoolReviewsController < ApplicationController
   def create
     #render plain: params[:school_review].inspect
     @review = SchoolReview.new(review_params)
+    @review.annual_salary = validate_dollar_amount(@review.salary_string)
+    @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
     if @review.valid?
       @review.annual_salary = get_max_value(@review.annual_salary)
@@ -627,13 +629,25 @@ class SchoolReviewsController < ApplicationController
     val = the_bool ? 1 : 0
     return ((the_average * the_counter) + val) / (the_counter + 1)
   end
+
+  def validate_dollar_amount (amount)
+    if amount == nil
+      return nil
+    end
+    amount = amount.gsub("$","").gsub(",","")
+    amount = amount.split(".")[0]
+    if (amount =~ /\A[0-9]+\z/)
+      return amount.to_f
+    end
+    return nil
+  end
   
   def comment_params
     params.require(:comment).permit(:content, :lineage, :comm_id)
   end
   
   def review_params
-    params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id)
+    params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id, :salary_string, :debt_string)
   end
 end
 
