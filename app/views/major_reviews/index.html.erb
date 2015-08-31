@@ -35,21 +35,19 @@
             </div>
             <div class="panel-footer">
               <% if @major.difficulty_average != nil && @major.difficulty_average > 0 %>
-                  <% if @major.difficulty_average < 1 %>
-                      This college is terrible
-                  <% elsif @major.difficulty_average < 2 %>
-                      Not a great college
-                  <% elsif @major.difficulty_average < 3 %>
-                      This college is just kind of meh..
-                  <% elsif @major.difficulty_average < 4 %>
-                      This college is good
-                  <% elsif @major.difficulty_average < 5 %>
-                      This college is great
+                  <% if @major.difficulty_average <= 1 %>
+                      This major is easy peasy
+                  <% elsif @major.difficulty_average <= 2 %>
+                      This major is uncomplicated
+                  <% elsif @major.difficulty_average <= 3 %>
+                      This major isn't too tough
+                  <% elsif @major.difficulty_average <= 4 %>
+                      This major is challenging
                   <% else %>
-                      Best college ever!
+                      This major is very difficult
                   <% end %>
               <% else %>
-                  Average school rating for this college
+                  Average difficulty rating for this major
               <% end %>
 
             </div>
@@ -67,7 +65,8 @@
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-red-400">
                 <% if @major.recommend_average != nil %>
-                    <%= number_with_precision(@major.recommend_average, precision: 1) %> <small>out of 5</small>
+                    <% rec_average = @major.recommend_average * 100  %>
+                    <%= number_with_precision(rec_average, precision: 1) %>%
                 <% else %>
                     0.0 <small>out of 5</small>
                 <% end %>
@@ -76,21 +75,17 @@
             </div>
             <div class="panel-footer">
               <% if @major.recommend_average != nil && @major.recommend_average > 0 %>
-                  <% if @major.recommend_average < 1 %>
-                      Pretty much no parties here :-(
-                  <% elsif @major.recommend_average < 2 %>
-                      Not a great party school
-                  <% elsif @major.recommend_average < 3 %>
-                      Partying here is kind of meh..
-                  <% elsif @major.recommend_average < 4 %>
-                      Good party school
-                  <% elsif @major.recommend_average < 5 %>
-                      This is a great party school
+                  <% if @major.recommend_average <= 0.5 %>
+                      Not many grads recommending this major
+                  <% elsif @major.recommend_average <= 0.75 %>
+                      This major has decent recommendations
+                  <% elsif @major.recommend_average < 0.9 %>
+                      Grads are recommending this major
                   <% else %>
-                      Best party school ever!
+                      Grads love this major!
                   <% end %>
               <% else %>
-                  Average party rating for this college
+                  Percentage of grads recommending this major
               <% end %>
             </div>
           </div>
@@ -105,13 +100,13 @@
               <p class="lead">
                 <i class="fa fa-smile-o">
                 </i>
-                AVERAGE <b>STARTING SALARY</b>
+                STARTING <b>SALARY</b> <small>Overall</small>
               </p>
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @major.salary_average != nil %>
-                    <%= number_to_currency(@major.salary_average, precision: 2) %>
+                <% if @major.overall_salary != nil %>
+                    <%= number_to_currency(@major.overall_salary, precision: 2) %>
                 <% else %>
                     $0.00
                 <% end %>
@@ -127,15 +122,15 @@
           <div class="panel panel-success" id="panels">
             <div class="panel-heading">
               <p class="lead">
-                <i class="fa fa-frown-o">
+                <i class="fa fa-smile-o">
                 </i>
-                AVERAGE <b>COLLEGE DEBT</b>
+                STARTING <b>SALARY</b> <small>Past 2 years</small>
               </p>
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @major.debt_average != nil %>
-                    <%= number_to_currency(@major.debt_average, precision: 2) %>
+                <% if @major.salary_average != nil %>
+                    <%= number_to_currency(@major.salary_average, precision: 2) %>
                 <% else %>
                     $0.00
                 <% end %>
@@ -143,7 +138,7 @@
               </h2>
             </div>
             <div class="panel-footer">
-              Average tuition debt after graduating
+              Average starting salary after graduation
             </div>
           </div>
         </div>
