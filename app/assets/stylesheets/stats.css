@@ -1,0 +1,12 @@
+@media all and (max-width: 480px)  {
+    .half {
+        float: left !important;
+        width: 89% !important;
+    }
+}
+@media all and (max-width: 480px)  {
+    .halffirst {
+        float: left !important;
+        width: 10% !important;
+    }
+}
