@@ -36,11 +36,16 @@
       <li>
         <%= activatable_li_tag_with_link "Login", new_user_session_path %>
       </li>
-      <li>
-        <!--<button class='btn btn-outline-primary sign-up'>Sign Up</button>-->
-        <%= button_to 'Sign Up', new_user_registration_path, class: "btn btn-outline-primary sign-up", method: "get" %>
-      </li>
+      <% if not mobile_device? %>
+          <li>
+            <!--<button class='btn btn-outline-primary sign-up'>Sign Up</button>-->
+            <%= button_to 'Sign Up', new_user_registration_path, class: "btn btn-outline-primary sign-up", method: "get" %>
+          </li>
+      <% end %>
       <% if mobile_device? %>
+          <li>
+            <%= activatable_li_tag_with_link "Sign Up", new_user_registration_path %>
+          </li>
           <li>
             <form class="navbar-form search-form" role="search" action="/schools/index" accept-charset="UTF-8" method="get">
               <input type="text" class="ui-autocomplete-input" id="find_college" name="find_college" autocomplete="off" placeholder="Find your College">
