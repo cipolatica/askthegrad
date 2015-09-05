@@ -17,8 +17,8 @@
         <div class="panel-heading">
           <% if not mobile_device? %>
               Reviews
+              <div class="pull-right">
           <% end %>
-          <div class="pull-right">
             Sort by:
 
             <%= select_tag('sort_by', options_for_select([
@@ -29,7 +29,9 @@
                      "/school_reviews?id=#{@school_id}&sort=#{@selected_sort_order}&the_school%5Bschool_id%5D=#{@school_id}#thesortablecomments"),
                      :onchange => "document.location.href=this.value") %>
 
+          <% if not mobile_device? %>
           </div>
+          <% end %>
         </div>
       </div>
       <tbody>

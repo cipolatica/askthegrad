@@ -15,8 +15,8 @@
         <div class="panel-heading">
           <% if not mobile_device? %>
           Reviews
-          <% end %>
           <div class="pull-right">
+          <% end %>
             Sort by:
 
             <%= select_tag('sort_by', options_for_select([
@@ -27,7 +27,9 @@
                                     "/major_reviews?id=#{@major_id}&major_id=#{@major_id}&sort=#{@selected_sort_order}#thesortablemajorcomments"),
                                     :onchange => "document.location.href=this.value") %>
 
+          <% if not mobile_device? %>
           </div>
+          <% end %>
         </div>
       </div>
       <tbody>
