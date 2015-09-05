@@ -9,6 +9,7 @@ class MajorReviewsController < ApplicationController
       redirect_to new_major_review_path(:major_id => params[:major_id]) and return
     end
     #@major_reviews = MajorReview.where(major_id:@major_id)
+    @has_modal_displayed = true
     if params[:the_major] != nil
       @the_major = params[:the_major]
       @major_id = @the_major["major_id"]
@@ -34,6 +35,10 @@ class MajorReviewsController < ApplicationController
         @reviews = SchoolReview.where(major_id:@major_id, school_id:params[:sort].to_i).order(created_at: :desc)
       end
     else
+      if session[:modal_for_major_reviews_index] == nil
+        @has_modal_displayed = false
+        session[:modal_for_major_reviews_index] = true
+      end
       @reviews = SchoolReview.where(major_id:@major_id).order(created_at: :desc)
     end
 

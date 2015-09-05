@@ -135,4 +135,7 @@ $(function() {
     $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
     $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
 });
