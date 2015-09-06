@@ -20,7 +20,7 @@
         </ul>
         <div class="navbar-text pull-right">
           <% if user_signed_in? %>
-              <%= fa_icon_tag "user" %> Welcome, <strong><%= current_user.email %></strong>
+              <%= fa_icon_tag "user" %> Welcome, <strong><%= current_user.username %></strong>
               <span class="divider">|</span>
               <%= link_to 'Settings', edit_user_registration_path %>
               <span class="divider">|</span>

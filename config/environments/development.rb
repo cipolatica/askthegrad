@@ -31,12 +31,13 @@ Rails.application.configure do
     #enable_starttls_auto: true  
     #}
   ActionMailer::Base.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :user_name            => "albertoplatatestemail@gmail.com",
-    :password             => 'happyday123',
+    :address              => "mail.askthegrad.com",
+    :port                 => 26,
+    :user_name            => "support@askthegrad.com",
+    :password             => 'newGoodPass!23',
     :authentication       => "plain",
-    :enable_starttls_auto => true
+    :enable_starttls_auto => true,
+    :openssl_verify_mode  => 'none'
   }
 
   # Print deprecation notices to the Rails logger.
