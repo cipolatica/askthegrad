@@ -37,7 +37,7 @@ end
 
 gem 'rails_12factor', group: :production
 
-#ruby "2.1.0"
+ruby "2.1.6"
 #source 'https://dresssed.com/gems/9b3c48b7ae2a4453da59/'
 #gem 'dresssed-gimlet', '~> 3.0.0'  # For Bootsrap 3
 # Use ActiveModel has_secure_password
