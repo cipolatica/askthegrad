@@ -75,6 +75,36 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def is_integer_sql_safe(value)
+    if (value == nil)
+      return true
+    end
+    if (value.to_s =~ /\A[0-9]+\z/)
+      return true
+    end
+    return false
+  end
+
+  def is_float_sql_safe(amount)
+    if amount == nil
+      return true
+    end
+    amount = amount.to_s.gsub("$","").gsub(",","").gsub(".","").gsub("+","").gsub("-","")
+    if (amount =~ /\A[0-9]+\z/)
+      return true
+    end
+    return false
+  end
+
+  def make_string_sql_safe(str)
+    if (str == nil)
+      return ""
+    end
+    str = str.to_s.gsub("(","[").gsub(")","]").gsub(";",",").gsub("DROP","Drop").gsub("DATABASE","Database").gsub("SELECT","Select").gsub("CREATE","Create")
+    str = str.to_s.gsub("ALTER","[").gsub("PASSWORD","Password").gsub("USER","User").gsub("WITH","With")
+    return str
+  end
+
   def mobile_device?
     request.user_agent =~ /Mobile|webOS/
   end

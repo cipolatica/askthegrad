@@ -5,6 +5,10 @@ class SchoolReviewsController < ApplicationController
     session[:school_id_for_major] = nil
     @school = params[:the_school]
     @school_id = @school["school_id"]
+    if not is_integer_sql_safe(@school_id)
+      logger.debug "school_reviews.controller: index: not sql safe"
+      return
+    end
     @selected_sort_order = "most_recent"
     if params[:sort] != nil
       if params[:sort] == "most_recent"
@@ -33,6 +37,10 @@ class SchoolReviewsController < ApplicationController
 
   def show
     @title = "Graduate Review"
+    if not is_integer_sql_safe(params[:id])
+      logger.debug "school_reviews.controller: show: not sql safe"
+      return
+    end
     @school_review = SchoolReview.find(params[:id])
     @school_id = @school_review.school_id
     @small_text = School.find(@school_id).name
@@ -43,6 +51,10 @@ class SchoolReviewsController < ApplicationController
   def new
     @school = params[:the_school]
     @school_id = @school["school_id"]
+    if not is_integer_sql_safe(@school_id)
+      logger.debug "school_reviews.controller: new: not sql safe"
+      return
+    end
     @school_name = School.find(@school_id).name
     # @school_review = SchoolReview.new
 
@@ -50,11 +62,19 @@ class SchoolReviewsController < ApplicationController
       @school_id = session[:school_id_for_major]
     end
     @major_id = params[:major_id]
+    if not is_integer_sql_safe(@major_id)
+      logger.debug "school_reviews.controller: new: not sql safe"
+      return
+    end
     @major = Major.find(@major_id)
     @review = SchoolReview.new
   end
   
   def edit
+    if not is_integer_sql_safe(params[:id])
+      logger.debug "school_reviews.controller: edit: not sql safe"
+      return
+    end
     @school_review = SchoolReview.find(params[:id])
     @school_id = @school_review.school_id
   end

@@ -7,6 +7,10 @@ class MajorsController < ApplicationController
     elsif params[:school_id] != nil
       session[:school_id_for_major] = params[:school_id]
       @majors = Major.all.order(:name)
+      if not is_integer_sql_safe(params[:school_id])
+        logger.debug "majors.controller: index: not sql safe"
+        return
+      end
       @small_text = School.find(params[:school_id]).name
     elsif session[:search_name] && session[:search_index]
       counter = 0

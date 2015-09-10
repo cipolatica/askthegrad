@@ -16,6 +16,10 @@ class MajorReviewsController < ApplicationController
     else
       @major_id = params[:major_id]
     end
+    if not is_integer_sql_safe(@major_id)
+      logger.debug "major_reviews.controller: index not sql safe"
+      return
+    end
     @major = Major.find(@major_id)
     @title = @major.name
     @selected_sort_order = "most_recent"
@@ -67,9 +71,17 @@ class MajorReviewsController < ApplicationController
     @school_id = nil
     if session[:school_id_for_major] != nil
       @school_id = session[:school_id_for_major]
+      if not is_integer_sql_safe(@school_id)
+        logger.debug "major_reviews.controller: new: not sql safe"
+        return
+      end
       @small_text = School.find(@school_id).name
     end
     @major_id = params[:major_id]
+    if not is_integer_sql_safe(@major_id)
+      logger.debug "major_reviews.controller: new: not sql safe"
+      return
+    end
     @major = Major.find(@major_id)
     @review = SchoolReview.new # Returning a School Review here because we are just using one review object and this has more functionality
   end
@@ -122,6 +134,10 @@ class MajorReviewsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_major_review
+      if not is_integer_sql_safe(params[:id])
+        logger.debug "major_reviews.controller: set_major_review: not sql safe"
+        return
+      end
       @major_review = MajorReview.find(params[:id])
     end
 
