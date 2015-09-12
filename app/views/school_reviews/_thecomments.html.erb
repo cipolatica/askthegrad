@@ -1,12 +1,22 @@
+<% user_color = Hash.new %>
+<% @comments.each do |c| %>
+    <% hex_string = "#" %>
+    <% for i in 0..5 %>
+       <% hex_string << Random.rand(12).to_s(16) %> <!-- generating a random hex number but making it less than 16 so it not too bright -->
+    <% end %>
+    <% user_color[c.username] = hex_string %>
+<% end %>
 <% @comments.each do |c| %>
   <% if c.is_parent == true %>
   <div class="media" style="margin-bottom: 20px;">
   <% else %>
   <div class="media" style="margin-left:50px; margin-bottom: 20px;" >
   <% end %>
+    <div class="pull-left" id="circle" style='background-color:<%= user_color[c.username] %>' ><p id="circle-letter"><%= c.username[0].upcase %></p></div>
     <div class="media-body">
-      <h5 class="media-heading"><small>by</small> <%= c.username %></h5>
-      <%= simple_format( c.content, style: 'margin-bottom:2px;') %>
+      <h5 class="media-heading"><a href="#"><%= c.username %></a><time class="pull-right" id="comments-date"><%= c.created_at.strftime("%m/%d/%Y") %></time></h5>
+        <span id="comments-content-message"><%= simple_format( c.content, style: 'margin-bottom:2px;') %></span>
+
       <%= link_to "Reply", comment_school_review_path(@school_review, comm_id: c.id ), id: "comm_#{c.id}", remote:true %>
     </div>
     <% if c.is_parent == true %> <!-- only have this IF statement to pass Heroku submit -->
