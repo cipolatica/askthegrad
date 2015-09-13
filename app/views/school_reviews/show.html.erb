@@ -104,6 +104,7 @@
         </div>
       </div>
       </div>
+      <% if mobile_device? %>
       <div class="article-meta media color-grey-50">
         <div class="media-body">
           <p class="m0 media-heading">
@@ -111,9 +112,11 @@
           </p>
         </div>
       </div>
+      <% end %>
       <p style="margin-bottom: 8px;">
         <%= @school_review.review %>
       </p>
+      <% if mobile_device? %>
       <% if @school_review.vote_count %>
           <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
           <% dislikes = @school_review.vote_count - likes %>
@@ -124,10 +127,49 @@
 
       <%= link_to content_tag(:i, nil, class: 'fa fa-thumbs-o-up'), vote_school_review_path(@school_review, type: "up"), id: "like", remote: true, method: "post" %> (<span id="show-likes"><%= likes.to_i %></span>) |
       <%= link_to content_tag(:i, nil, class: 'fa fa-thumbs-o-down'), vote_school_review_path(@school_review, type: "down"), id: "dislike", remote:true, method: "post" %> (<span id="show-dislikes"><%= dislikes.to_i %></span>)<br>
-
+      <% end %>
     </div>
   </div>
 </div>
+
+
+<% if not mobile_device? %>
+<div class="container animate-fade-in-500" >
+  <div class="row mt20" >
+    <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+
+    <div class="media color-grey-50" style="background-color: white;padding-top: 5px;padding-left: 5px;border-radius: 4px;">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+      <div class="pull-left" style="margin-right: 8px;">
+        <i class="fa fa-user fa-2x"></i>
+      </div>
+      <div class="media-body">
+        <p class="m0 media-heading">Published <time><%= @school_review.created_at.strftime("%b %d, %Y") %></time></p>
+        <a href="#">by <%= @school_review.user_name %></a>
+      </div>
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="pull-right">
+        <% if @school_review.vote_count %>
+            <% likes = ((@school_review.reputation_for(:votes) + @school_review.vote_count)/(@school_review.vote_count * 2)) * @school_review.vote_count %>
+            <% dislikes = @school_review.vote_count - likes %>
+        <% else %>
+            <% likes = 0 %>
+            <% dislikes = 0 %>
+        <% end %>
+
+        <%= link_to content_tag(:i, nil, class: 'fa fa-thumbs-o-up'), vote_school_review_path(@school_review, type: "up"), id: "like", remote: true, method: "post" %> (<span id="show-likes"><%= likes.to_i %></span>) |
+        <%= link_to content_tag(:i, nil, class: 'fa fa-thumbs-o-down'), vote_school_review_path(@school_review, type: "down"), id: "dislike", remote:true, method: "post" %> (<span id="show-dislikes"><%= dislikes.to_i %></span>)<br>
+
+      </div>
+    </div>
+    </div>
+    </div>
+ </div>
+</div>
+
+<% end %>
 
 <div class="container animate-fade-in-500">
   <div class="row mt20">
