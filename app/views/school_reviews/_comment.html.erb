@@ -34,7 +34,7 @@
   <%= f.hidden_field :comm_id, :value => comm_id %>
   <%= f.hidden_field :lineage, :value => lineage %>
     <% if comm_id == nil %>
-        <label class="control-label" for="contact-message">Join the discussion</label>
+        <label class="control-label" for="contact-message">Ask this grad <em style="color: #02a6f2;">or</em> Join the discussion</label>
     <% end %>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12" style="visibility: visible;">
@@ -47,7 +47,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-              <%= f.submit "Send Comment", class: "form-control btn btn-primary btn-flat" %>
+              <%= f.submit "Send", class: "form-control btn btn-primary btn-flat" %>
             </div>
           </div>
         </div>

@@ -75,6 +75,16 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def is_boolean_sql_safe(value)
+    if (value == nil)
+      return true
+    end
+    if (value.is_a? String)
+      return false
+    end
+    return true
+  end
+
   def is_integer_sql_safe(value)
     if (value == nil)
       return true
@@ -101,7 +111,7 @@ class ApplicationController < ActionController::Base
       return ""
     end
     str = str.to_s.gsub("(","[").gsub(")","]").gsub(";",",").gsub("DROP","Drop").gsub("DATABASE","Database").gsub("SELECT","Select").gsub("CREATE","Create")
-    str = str.to_s.gsub("ALTER","[").gsub("PASSWORD","Password").gsub("USER","User").gsub("WITH","With")
+    str = str.to_s.gsub("ALTER","[").gsub("PASSWORD","Password").gsub("USER","User").gsub("WITH","With").gsub("1=1","").gsub("destroy","desrtoy").gsub("admin","adminn").gsub(" user "," User ")
     return str
   end
 
