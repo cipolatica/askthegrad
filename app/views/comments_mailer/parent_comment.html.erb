@@ -1,9 +1,85 @@
-<p>Hi <strong><%= @user.username%></strong>,</p>
 
-<p><strong><%= @comment.username %><strong> commented on your post.</p>
-<p>"<em><%= @comment.content %></em>"</p>
+<%
+   def email_message_spacer( count=1 )
+     (1..count).each do
+       return capture do
+         concat content_tag(:br)
+       end
+     end
+   end
 
-<p>Sign in to <a href="localhost:3000">AskTheGrad</a> and click on the "My Account" tab to respond!</p>
+   def email_message_body_text &block
+     content_tag(:span, capture(&block), style: "font-family: Avenir, 'Helvetica Neue', Helvetica, sans-serif; font-size:28px; color:#444444;")
+   end
 
-<p>Thanks,</p>
-AskTheGrad
+   def email_message_small_text &block
+     content_tag(:span, capture(&block), style: "font-family: Avenir, 'Helvetica Neue', Helvetica, sans-serif; font-size:22px; color:#444444;")
+   end
+
+   def email_message_button &block
+     content_tag(:table, border: 0, cellpadding: 0, cellspacing: 0, width: "50%", style: "background-color:#16A086;") do
+       content_tag(:tr) do
+         concat(email_message_spacer(4))
+         concat( content_tag(:td, nil, style: "padding: 18px 20px 18px 20px; font-family:  Avenir, 'Helvetica Neue', Helvetica, sans-serif, sans-serif; color: #ffffff; font-size: 18px; text-align: center;") do
+                   content_tag(:span, capture(&block), style: "text-decoration: none; color: #ffffff;")
+                 end)
+       end
+     end
+   end
+
+   def email_message_section &block
+     content_tag(:tr) do
+       content_tag(:td) do
+         content_tag(:table, border: 0, cellpadding: 0, cellspacing: 0, width: "100%") do
+           content_tag(:tr) do
+             content_tag(:td, align: "left", valign: "top") do
+               content_tag(:table, border: 0, cellpadding: 10, cellspacing: 0, width: "100%") do
+                 content_tag(:tr) do
+                   content_tag(:td, capture(&block), align: "left", valign: "top")
+                 end
+               end
+             end
+           end
+         end
+       end
+     end
+   end
+%>
+
+<%= email_message_section do %>
+    <%= email_message_spacer 2 %>
+    <%= email_message_small_text do %>
+        Hi <%= @user.username.capitalize  %>,<br>
+        <%= @comment.username.capitalize  %> commented on your post.<br>
+    <% end %>
+    <%= email_message_spacer 2 %>
+    <%= email_message_body_text do %>
+        "<%= @comment.content %>"<br>
+    <% end %>
+
+    <%= email_message_button do %>
+        <%= link_to 'Sign in and respond!', user_session_url , style: 'color: #fff;' %>
+    <% end %>
+
+    <%= email_message_spacer 2 %>
+
+    <%= email_message_small_text do %>
+        Any questions? Just <%= link_to 'email us.', root_url %>
+    <% end %>
+
+    <%= email_message_spacer 2 %>
+<% end %>
+<table border="0" cellpadding="10" cellspacing="0" width="100%">
+  <tr>
+    <td align="left" valign="top">
+      <br />
+      <br />
+      <span class="applefix" style="font-family:Arial; font-size:14px; color:#888888;">
+        Thanks,<br />
+        <b>Ask The Grad</b><br />
+      </span>
+      <br />
+      <br />
+    </td>
+  </tr>
+</table>
