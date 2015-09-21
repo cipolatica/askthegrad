@@ -440,7 +440,7 @@ class SchoolReviewsController < ApplicationController
       if comment.content == nil || (comment.content != nil && (comment.content.length >= 350 || comment.content.length < 1))
         respond_to do |format|
           format.html { redirect_to :back, notice: "You must be signed in to comment" }
-          format.js { render :js => "alert('Your comment must be at between 1 - 350 characters');" }
+          format.js { render :js => "alert('Your comment must be at between 1 - 350 characters'); $('#formsubmitbutton').attr('value', 'Send'); $('#formsubmitbutton').removeAttr('disabled');" }
         end
       elsif comment.save
         if @school_review.comment_count == nil

@@ -135,4 +135,9 @@ $(function() {
     $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
     $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
+    $('#formsubmitbutton').first().click(function() {
+        $(this).attr('value', 'Please wait...');
+        $(this).attr('disabled', 'disabled');
+        $( "form" ).submit();
+    });
 });
