@@ -1,5 +1,5 @@
 class CommentsMailer < ActionMailer::Base
-  default from: "askthegrad@example.com"
+  #default from: "askthegrad@example.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -11,12 +11,12 @@ class CommentsMailer < ActionMailer::Base
     @content = content
     @username = username
 
-    mail to: user.email, subject: "You received a comment on your thread!", from: "askthegrad@example.com"
+    mail to: user.email, subject: "You received a comment on your thread!", from: '"Ask The Grad" <support@askthegrad.com>'
   end
   def parent_comment(user, comment)
     @user = user
     @comment = comment
 
-    mail to: user.email, subject: "You received a comment on your review!", from: "askthegrad@example.com"
+    mail to: user.email, subject: "You received a comment on your review!", from: '"Ask The Grad" <support@askthegrad.com>'
   end
 end
