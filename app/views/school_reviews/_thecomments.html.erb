@@ -13,7 +13,7 @@
   <div class="media" style="margin-left:50px; margin-bottom: 20px;" >
   <% end %>
     <div class="pull-left" id="circle" style='background-color:<%= user_color[c.username] %>' ><p id="circle-letter"><%= c.username[0].upcase %></p></div>
-    <div class="media-body">
+    <div class="media-body comments-parent">
       <h5 class="media-heading"><a href="#"><%= c.username %></a><time class="pull-right" id="comments-date"><%= c.created_at.strftime("%m/%d/%Y") %></time></h5>
         <span id="comments-content-message"><%= simple_format( c.content, style: 'margin-bottom:2px;') %></span>
 

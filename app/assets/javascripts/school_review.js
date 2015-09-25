@@ -135,9 +135,39 @@ $(function() {
     $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
     $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
-    $('#formsubmitbutton').first().click(function() {
+
+    //$( document ).ajaxComplete(function() {
+    //    var elements = document.getElementsByClassName("blabber");
+    //    var names = '';
+    //    for(var i=0; i<elements.length; i++) {
+    //        names += elements[i].name;
+    //        elements[i].click(function() {
+    //
+    //            $(this).attr('value', 'Please wait...');
+    //            $(this).attr('disabled', 'disabled');
+    //            //$( "form" ).submit();
+    //        });
+    //    }
+    //    alert(names);
+    //});
+    $('.comments-parent').on('click', '.blabber',function(){
+        //alert("holler");
+        $(this).attr('value', 'Please wait...');
+        $(this).attr('disabled', 'disabled');
+        $( this ).submit();
+    });
+
+    $('#formsubmitbutton').click(function() {
+        var elements = document.getElementsByClassName("blabber");
+        var names = '';
+        for(var i=0; i<elements.length; i++) {
+            names += elements[i].name;
+        }
+        //elements[0].remote();
+        //alert(this);
         $(this).attr('value', 'Please wait...');
         $(this).attr('disabled', 'disabled');
         $( "form" ).submit();
+        //elements[1].click();
     });
 });
