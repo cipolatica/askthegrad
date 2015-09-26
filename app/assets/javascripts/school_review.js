@@ -136,38 +136,36 @@ $(function() {
     $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
 
-    //$( document ).ajaxComplete(function() {
-    //    var elements = document.getElementsByClassName("blabber");
-    //    var names = '';
-    //    for(var i=0; i<elements.length; i++) {
-    //        names += elements[i].name;
-    //        elements[i].click(function() {
-    //
-    //            $(this).attr('value', 'Please wait...');
-    //            $(this).attr('disabled', 'disabled');
-    //            //$( "form" ).submit();
-    //        });
-    //    }
-    //    alert(names);
-    //});
-    $('.comments-parent').on('click', '.blabber',function(){
-        //alert("holler");
+    // Handling comments for Show page
+    $('.comments-parent').on('click', '.comment-send-button',function(){
+        var elements = document.getElementsByClassName("commentclass");
+        var elementIndex = [];
+        for(var i=0; i<elements.length; i++) {
+            if (!elements[i].contains(this)){
+                elementIndex.push(i);
+            }
+        }
+        for (var i = elementIndex.length - 1; i >= 0; i--){
+            elements[elementIndex[i]].remove();
+        }
         $(this).attr('value', 'Please wait...');
         $(this).attr('disabled', 'disabled');
         $( this ).submit();
     });
 
     $('#formsubmitbutton').click(function() {
-        var elements = document.getElementsByClassName("blabber");
-        var names = '';
+        var elements = document.getElementsByClassName("commentclass");
+        var elementIndex = [];
         for(var i=0; i<elements.length; i++) {
-            names += elements[i].name;
+            if (!elements[i].contains(this)){
+                elementIndex.push(i);
+            }
         }
-        //elements[0].remote();
-        //alert(this);
+        for (var i = elementIndex.length - 1; i >= 0; i--){
+            elements[elementIndex[i]].remove();
+        }
         $(this).attr('value', 'Please wait...');
         $(this).attr('disabled', 'disabled');
         $( "form" ).submit();
-        //elements[1].click();
     });
 });

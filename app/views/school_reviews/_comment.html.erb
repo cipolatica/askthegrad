@@ -17,6 +17,7 @@
     <% lineage = "AAA_AAA" %>
   <% end -%>
 <% end %>
+<div class="commentclass">
 <%= form_for @comment, url: post_comments_school_review_path(@school_review), remote: true do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
@@ -47,11 +48,11 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-              <%= submit_tag "Send", class: "form-control btn btn-primary btn-flat blabber", id: "formsubmitbutton" %>
+              <%= submit_tag "Send", class: "form-control btn btn-primary btn-flat comment-send-button", id: "formsubmitbutton" %>
             </div>
           </div>
         </div>
       </div>
     </div>
 <% end %>
-
+</div>
