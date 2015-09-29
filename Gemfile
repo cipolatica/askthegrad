@@ -37,6 +37,9 @@ end
 
 gem 'rails_12factor', group: :production
 
+gem 'daemons'
+gem 'delayed_job_active_record'
+
 ruby "2.1.6"
 #source 'https://dresssed.com/gems/9b3c48b7ae2a4453da59/'
 #gem 'dresssed-gimlet', '~> 3.0.0'  # For Bootsrap 3

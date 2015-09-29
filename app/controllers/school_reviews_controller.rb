@@ -452,10 +452,12 @@ class SchoolReviewsController < ApplicationController
         email_hash = {}
         review_user = User.find(@school_review.user_id)
         if comment.is_parent && current_user.id != review_user.id
-          CommentsMailer.parent_comment(review_user, comment).deliver
+          #CommentsMailer.parent_comment(review_user, comment).deliver
+          CommentsMailer.delay.deliver_parent_email(review_user, comment)
         elsif comment.is_parent == false
           if current_user.id != review_user.id
-            CommentsMailer.child_comment(review_user, comment.content, comment.username).deliver
+            #CommentsMailer.child_comment(review_user, comment.content, comment.username).deliver
+            CommentsMailer.delay.deliver_child_email(review_user, comment.content, comment.username)
           end
           @comments.each do |c|
             if c.lineage.split('_')[0] == comment.lineage.split('_')[0] && c.user_id != review_user.id
@@ -464,7 +466,8 @@ class SchoolReviewsController < ApplicationController
           end
           email_hash.each do |key, value|
             thread_user = User.find(value)
-            CommentsMailer.child_comment(thread_user, comment.content, comment.username).deliver
+            #CommentsMailer.child_comment(thread_user, comment.content, comment.username).deliver
+            CommentsMailer.delay.deliver_child_email(thread_user, comment.content, comment.username)
           end
         end
         respond_to do |format|
