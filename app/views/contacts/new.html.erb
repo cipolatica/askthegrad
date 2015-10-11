@@ -1,0 +1,72 @@
+<div class="container animate-fade-in-500" style="margin-bottom: 8px;">
+  <%= form_for @contact  do |f| %>
+
+      <% if @contact.errors.any? %>
+
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong><%= pluralize(@contact.errors.count, "error") %> prohibited
+              this message from being sent.</strong>
+            <ul>
+              <% @contact.errors.each do |field,msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+
+
+
+      <% end %>
+
+      <div class="form-group"  style="margin-bottom: 0px;margin-top:0px;">
+        <div class="form-actions col-md-8" style="margin-bottom: 0;margin-top:0px;color: green;">
+          <h3 style="margin-bottom: 15px;margin-top: 0px;">Help us help you! Please provide as much information as possible.</h3>
+        </div>
+      </div>
+
+      <%= f.form_group :name do |f| %>
+          <div class="form-actions col-md-8" style="margin-bottom: 20px;">
+            <%= f.label "Name: ", class: "string required control-label" %>
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+      <% end %>
+
+      <%= f.form_group :email do |f| %>
+          <div class="form-actions col-md-8" style="margin-bottom: 20px;">
+            <%= f.label "Email: ", class: "string required control-label" %>
+            <%= f.text_field :email, class: 'form-control' %>
+          </div>
+      <% end %>
+
+
+      <% years = ["Select reason"] %>
+      <% reasons = ["I don't see my college","I don't see my major","Question","Comment","Report bug","Report user","Cancel account","Other"] %>
+      <%
+         for i in 0..reasons.length - 1
+           years.push(reasons[i])
+         end
+      %>
+      <div class="form-group"  >
+        <div class="form-actions col-md-8">
+          <%= f.label 'Reason: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
+          <%= f.select :reason, years, class: 'form-control' %>
+        </div>
+      </div>
+
+
+      <%= f.form_group :message do |f| %>
+          <div class="form-actions col-md-8" style="margin-top: 25px;">
+            <%= f.label "Message: ", class: 'string required control-label' %>
+            <%= f.text_area :message, class: 'form-control', rows: 12 %>
+          </div>
+      <% end %>
+
+      <div class="form-actions col-md-9" style="margin-top: 10px;">
+        <%= f.submit "Send Message", class: 'btn btn-primary' %>
+      </div>
+
+  <% end %>
+</div>
+<%= render "layouts/footer" %> <br >
+
+
