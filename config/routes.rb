@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   get 'schools/index'
   get 'home/index'
+  get 'about/index'
   resources :contacts
   #get 'dashdel/index'
 
