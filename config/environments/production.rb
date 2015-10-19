@@ -23,7 +23,7 @@ Rails.application.configure do
       :port                 => 26,
       :user_name            => ENV["EMAIL"],
       :password             => ENV["PASSWORD"],
-      :authentication       => "plain",
+      :authentication       => "login",
       :enable_starttls_auto => true,
       :openssl_verify_mode  => 'none'
   }

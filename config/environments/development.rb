@@ -34,8 +34,8 @@ Rails.application.configure do
     :address              => "mail.askthegrad.com",
     :port                 => 26,
     :user_name            => "support@askthegrad.com",
-    :password             => 'newGoodPass!23',
-    :authentication       => "plain",
+    :password             => 'newWelcomeWeb@23',
+    :authentication       => "login",
     :enable_starttls_auto => true,
     :openssl_verify_mode  => 'none'
   }
