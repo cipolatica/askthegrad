@@ -5,6 +5,9 @@ class SchoolReviewsController < ApplicationController
     session[:school_id_for_major] = nil
     @school = params[:the_school]
     @school_id = @school["school_id"]
+    if session[:major_id_for_school] != nil
+      redirect_to new_major_review_path(:school_id => @school_id) and return
+    end
     if not is_integer_sql_safe(@school_id)
       logger.debug "school_reviews.controller: index: not sql safe"
       return

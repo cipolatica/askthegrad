@@ -2,6 +2,8 @@ class ContactsController < ApplicationController
   def new
     @title = "Contact Us"
     @contact = Contact.new
+    session[:school_id_for_major] = nil
+    session[:major_id_for_school] = nil
   end
 
   def create

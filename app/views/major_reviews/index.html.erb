@@ -1,5 +1,7 @@
 <% content_for :actions do %>
-
+    <%= link_to states_path( :major_id => @major_id ), class: 'btn btn-primary btn-large pull-right' do %>
+        Post Your Review
+    <% end %>
 <% end %>
 
 <div class="container animate-fade-in-500">
@@ -11,23 +13,23 @@
 </div>
 
 <!-- Modal -->
-<% if !@has_modal_displayed %>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Grads, want to review this major?</h4>
-          </div>
-          <div class="modal-body">
-            First, find your college then click on the <strong>'Post Your Review'</strong> button to link your college and major!
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Got It</button>
-          </div>
-        </div>
-      </div>
-    </div>
+<% if !@has_modal_displayed && false %>
+    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+      <!--<div class="modal-dialog" role="document">-->
+        <!--<div class="modal-content">-->
+          <!--<div class="modal-header">-->
+            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+            <!--<h4 class="modal-title" id="myModalLabel">Grads, want to review this major?</h4>-->
+          <!--</div>-->
+          <!--<div class="modal-body">-->
+            <!--First, find your college then click on the <strong>'Post Your Review'</strong> button to link your college and major!-->
+          <!--</div>-->
+          <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-primary" data-dismiss="modal">Got It</button>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
 <% end %>
 
 <div class="container animate-fade-in-500">
