@@ -123,10 +123,12 @@ class SchoolReviewsController < ApplicationController
   def create
     #render plain: params[:school_review].inspect
     @review = SchoolReview.new(review_params)
+    @review.current_salary = validate_dollar_amount(@review.current_salary_string)
     @review.annual_salary = validate_dollar_amount(@review.salary_string)
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
     if @review.valid?
+      @review.current_salary = get_max_value(@review.current_salary)
       @review.annual_salary = get_max_value(@review.annual_salary)
       @review.debt = get_max_value(@review.debt)
       @review.major_name = Major.find(@review.major_id).name
@@ -673,7 +675,7 @@ class SchoolReviewsController < ApplicationController
   end
   
   def review_params
-    params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id, :salary_string, :debt_string)
+    params.require(:school_review).permit(:school_id, :year_graduated, :recommend_this_school, :recommend_this_major, :party_school, :difficulty, :rating, :annual_salary, :user_id, :worth_money, :debt, :review, :title, :position_title, :register_id, :vote_count, :comment_count, :major_id, :salary_string, :debt_string, :school_review, :current_salary, :current_salary_string)
   end
 end
 

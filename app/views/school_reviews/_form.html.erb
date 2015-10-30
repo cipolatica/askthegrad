@@ -158,6 +158,16 @@
 
 
 
+      <%= f.form_group :school_review do |f| %>
+          <div class="form-actions col-md-8" style="margin-top: 25px;">
+            <%= f.label "Review your college", class: 'string required control-label' %>
+            <%= f.text_area :school_review, class: 'form-control', rows: 10, placeholder: "pros/cons, advice to students" %>
+            <%= f.error_messages %>
+          </div>
+      <% end %>
+
+
+
       <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
         <div class="form-actions col-md-8" style="margin-bottom: 0;margin-top:7px;color: green;">
           <h3 style="margin-bottom: 0px;margin-top: 18px;">Major specific questions</h3>
@@ -214,6 +224,16 @@
 
       <!--<hr style="margin:15px 0;">-->
 
+      <%= f.form_group :position_title do |f| %>
+          <div class="form-actions col-md-8" style="margin-top: 25px;">
+            <%= f.label "Starting job title after graduating", class: "string required control-label" %>
+            <%= f.text_field :position_title, class: 'form-control', placeholder: "ex. Software Engineer" %>
+            <%= f.error_messages %>
+          </div>
+      <% end %>
+
+
+
       <%= f.form_group :salary_string do |f| %>
           <div class="form-actions col-md-8" style="margin-top: 25px;">
             <%= f.label "Starting annual salary after graduating", class: 'string required control-label' %>
@@ -222,20 +242,27 @@
               <%= f.text_field :salary_string, class: 'form-control', placeholder: "ex. 35999" %>
               <span class="input-group-addon">.00</span>
             </div>
+            <%= f.error_messages %>
           </div>
       <% end %>
 
-      <%= f.form_group :position_title do |f| %>
+
+      <%= f.form_group :current_salary_string do |f| %>
           <div class="form-actions col-md-8" style="margin-top: 25px;">
-            <%= f.label "Starting job title after graduating", class: "string required control-label" %>
-            <%= f.text_field :position_title, class: 'form-control', placeholder: "ex. Software Engineer" %>
+            <%= f.label "Current salary right now", class: 'string required control-label' %>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <%= f.text_field :current_salary_string, class: 'form-control', placeholder: "ex. 75999" %>
+              <span class="input-group-addon">.00</span>
+            </div>
+            <%= f.error_messages %>
           </div>
       <% end %>
 
       <%= f.form_group :review do |f| %>
           <div class="form-actions col-md-8" style="margin-top: 25px;">
-            <%= f.label "Review this major", class: 'string required control-label' %>
-            <%= f.text_area :review, class: 'form-control', rows: 12, placeholder: "pros/cons, career satisfaction, advice to students" %>
+            <%= f.label "Review your major", class: 'string required control-label' %>
+            <%= f.text_area :review, class: 'form-control', rows: 10, placeholder: "pros/cons, career satisfaction, advice to students" %>
           </div>
       <% end %>
 
