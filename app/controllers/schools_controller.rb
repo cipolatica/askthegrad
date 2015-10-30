@@ -1,5 +1,6 @@
 class SchoolsController < ApplicationController
   def index
+    flash[:notice] = nil # forcing this to be be nil because it displays flash from States page for some reason
     @title = "Choose your College"
     session[:school_id_for_major] = nil
     if params[:the_state]
