@@ -23,9 +23,6 @@
             </form>
         </li>
       <% end %>
-      <li class="active">
-        <%= activatable_li_tag_with_link "Home", root_path %>
-      </li>
       <li>
         <%= activatable_li_tag_with_link "Colleges", states_path %>
       </li>
@@ -36,7 +33,7 @@
         <%= activatable_li_tag_with_link "Rankings", stats_path %>
       </li>
       <li>
-        <%= activatable_li_tag_with_link "Login", new_user_session_path %>
+        <%= activatable_li_tag_with_link "Post", new_user_session_path %>
       </li>
       <% if not mobile_device? %>
           <li>
