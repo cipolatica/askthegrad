@@ -53,25 +53,30 @@
     </div>
 
     <div class="form-group"  style="margin-top:15px;">
-      <div class="form-actions col-md-8" style="margin-top:7px;padding-top: 0;color: green;">
-        <h3 style="margin-bottom: 0px;margin-top: 18px;">Now, some questions about your college</h3>
+      <div class="form-actions col-md-8" style="margin-top:35px;padding-top: 0;color: #f6931f;">
+        <h3 style="margin-bottom: 0px;margin-top: 18px;font-weight: bold;">College specific questions</h3>
       </div>
     </div>
-    <!--<hr style="margin-top:2px; margin-bottom: 15px;">-->
 
 
 
     <div class="form-group" style="margin-bottom:0px;" >
-              <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 40px;">
+      <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 40px;">
         <%= f.label 'Would you recommend this college? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.check_box :recommend_this_school, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+        <%= f.radio_button :recommend_this_school, '1' %>
+        <%= label :recommend_this_school, 'Yes',:style => "font-weight:normal;" %>
+        <%= f.radio_button :recommend_this_school, '0' %>
+        <%= label :recommend_this_school, 'No',:style => "font-weight:normal;" %>
       </div>
     </div>
     <br>
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-8" style="margin-top: 0px; margin-bottom:7px; height: 50px;">
         <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.check_box :worth_money, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+        <%= f.radio_button :worth_money, '1' %>
+        <%= label :worth_money, 'Yes',:style => "font-weight:normal;" %>
+        <%= f.radio_button :worth_money, '0' %>
+        <%= label :worth_money, 'No',:style => "font-weight:normal;" %>
       </div>
     </div>
     <br>
@@ -164,15 +169,14 @@
           <div class="form-actions col-md-8" style="margin-top: 25px;">
             <%= f.label "Review your college", class: 'string required control-label' %>
             <%= f.text_area :school_review, class: 'form-control', rows: 10, placeholder: "pros/cons, advice to students" %>
-            <%= f.error_messages %>
           </div>
       <% end %>
 
 
 
     <div class="form-group"  style="margin-bottom: 0px;margin-top:35px;">
-      <div class="form-actions col-md-8" style="margin-bottom: 0;margin-top:7px;color: green;">
-        <h3 style="margin-bottom: 0px;margin-top: 18px;">Major specific questions</h3>
+      <div class="form-actions col-md-8" style="margin-bottom: 0;margin-top:35px;color: #f6931f;">
+        <h3 style="margin-bottom: 0px;margin-top: 18px;font-weight: bold;">Major specific questions</h3>
       </div>
     </div>
     <!--<hr style="margin-top:2px; margin-bottom: 15px;">-->
@@ -182,7 +186,10 @@
     <div class="form-group" style="margin-bottom:0px;" >
       <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 50px;">
         <%= f.label 'Would you recommend this major? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
-        <%= f.check_box :recommend_this_major, class: 'form-control',:style => "float:left;margin-right:20px;height:auto;" %>
+        <%= f.radio_button :recommend_this_major, '1' %>
+        <%= label :recommend_this_major, 'Yes',:style => "font-weight:normal;" %>
+        <%= f.radio_button :recommend_this_major, '0' %>
+        <%= label :recommend_this_major, 'No',:style => "font-weight:normal;" %>
       </div>
     </div>
       <br>
