@@ -20,7 +20,11 @@
 <div class="container animate-fade-in-500">
   <div class="row">
     <div class="col-lg-8">
-      <h3 style="margin:0;">Here are some quick stats for this college</h3>
+      <% if @school.college_counter != nil && @school.college_counter > 0  %>
+          <h3 style="margin:0;">Here are some quick stats for this college</h3>
+      <% else %>
+          <%= link_to 'Be the first to review this college', majors_index_path( :school_id => @school_id ), :style => "font-size: 1.2em;"%>
+      <% end %>
     </div>
   </div>
 </div>
@@ -40,10 +44,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-red-400">
-                <% if @school.rating_average != nil %>
+                <% if @school.rating_average != nil && @school.college_counter != nil && @school.college_counter > 0  %>
                     <%= number_with_precision(@school.rating_average, precision: 1) %> <small>out of 5</small>
                 <% else %>
-                    0.0 <small>out of 5</small>
+                    N/A
                 <% end %>
 
               </h2>
@@ -82,10 +86,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-red-400">
-                <% if @school.debt_average != nil %>
+                <% if @school.debt_average != nil && @school.college_counter != nil && @school.college_counter > 0 %>
                     <%= number_to_currency(@school.debt_average, precision: 2) %>
                 <% else %>
-                    $0.00
+                    N/A
                 <% end %>
 
               </h2>
@@ -110,10 +114,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @school.overall_salary != nil %>
+                <% if @school.overall_salary != nil && @school.college_counter != nil && @school.college_counter > 0 %>
                     <%= number_to_currency(@school.overall_salary, precision: 2) %>
                 <% else %>
-                    $0.00
+                    N/A
                 <% end %>
 
               </h2>
@@ -135,10 +139,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @school.salary_average != nil %>
+                <% if @school.salary_average != nil && @school.college_counter != nil && @school.college_counter > 0 %>
                     <%= number_to_currency(@school.salary_average, precision: 2) %>
                 <% else %>
-                    $0.00
+                    N/A
                 <% end %>
 
               </h2>
