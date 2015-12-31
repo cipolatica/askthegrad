@@ -10,7 +10,7 @@
       <% if @major.major_counter != nil && @major.major_counter > 0 %>
           <h3 style="margin:0;">Here are some quick stats for this major</h3>
       <% else %>
-          <%= link_to 'Be the first to review this major', states_path( :major_id => @major_id ), :style => "font-size: 1.2em;"%>
+          <%= link_to 'Be the first to review this major!', states_path( :major_id => @major_id ), :style => "font-size: 1.56em;font-weight:bold;" %>
       <% end %>
     </div>
   </div>
