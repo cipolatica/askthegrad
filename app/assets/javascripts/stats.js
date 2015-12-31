@@ -9,10 +9,10 @@ $(function() {
         //alert("element.className: "+element.className.toString() );
 
         //toggle icon in the element
-        if (element.className === "fa fa-caret-down"){
-            element.className = "fa fa-caret-up";
-        } else {
+        if (element.className === "fa fa-caret-right"){
             element.className = "fa fa-caret-down";
+        } else {
+            element.className = "fa fa-caret-right";
         }
     });
 });
