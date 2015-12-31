@@ -7,7 +7,11 @@
 <div class="container animate-fade-in-500">
   <div class="row" >
     <div class="col-lg-8">
-      <h3 style="margin:0;">Here are some quick stats for this major</h3>
+      <% if @major.major_counter != nil && @major.major_counter > 0 %>
+          <h3 style="margin:0;">Here are some quick stats for this major</h3>
+      <% else %>
+          <%= link_to 'Be the first to review this major', states_path( :major_id => @major_id ), :style => "font-size: 1.2em;"%>
+      <% end %>
     </div>
   </div>
 </div>
@@ -47,10 +51,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-red-400">
-                <% if @major.difficulty_average != nil %>
+                <% if @major.difficulty_average != nil && @major.major_counter != nil && @major.major_counter > 0 %>
                     <%= number_with_precision(@major.difficulty_average, precision: 1) %> <small>out of 5</small>
                 <% else %>
-                    0.0 <small>out of 5</small>
+                    N/A
                 <% end %>
 
               </h2>
@@ -86,11 +90,11 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-red-400">
-                <% if @major.recommend_average != nil %>
+                <% if @major.recommend_average != nil && @major.major_counter != nil && @major.major_counter > 0 %>
                     <% rec_average = @major.recommend_average * 100  %>
                     <%= number_with_precision(rec_average, precision: 1) %>%
                 <% else %>
-                    0.0 <small>out of 5</small>
+                    N/A
                 <% end %>
 
               </h2>
@@ -127,10 +131,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @major.overall_salary != nil %>
+                <% if @major.overall_salary != nil && @major.major_counter != nil && @major.major_counter > 0 %>
                     <%= number_to_currency(@major.overall_salary, precision: 2) %>
                 <% else %>
-                    $0.00
+                    N/A
                 <% end %>
 
               </h2>
@@ -151,10 +155,10 @@
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @major.salary_average != nil %>
+                <% if @major.salary_average != nil && @major.major_counter != nil && @major.major_counter > 0 %>
                     <%= number_to_currency(@major.salary_average, precision: 2) %>
                 <% else %>
-                    $0.00
+                    N/A
                 <% end %>
 
               </h2>
