@@ -128,7 +128,6 @@ class SchoolReviewsController < ApplicationController
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
     if @review.valid?
-      @review.current_salary = get_max_value(@review.current_salary)
       @review.annual_salary = get_max_value(@review.annual_salary)
       @review.debt = get_max_value(@review.debt)
       @review.major_name = Major.find(@review.major_id).name

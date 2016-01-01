@@ -55,11 +55,11 @@
             <div class="panel-footer">
               <% if @school.rating_average != nil && @school.rating_average > 0 %>
                   <% if @school.rating_average < 1 %>
-                      This college is terrible
+                        Not a good college
                   <% elsif @school.rating_average < 2 %>
-                        Not a great college
+                        Not a good college
                   <% elsif @school.rating_average < 3 %>
-                        This college is just kind of meh..
+                        This college is decent
                   <% elsif @school.rating_average < 4 %>
                         This college is good
                   <% elsif @school.rating_average < 5 %>
@@ -79,15 +79,15 @@
           <div class="panel panel-danger" id="panels">
             <div class="panel-heading">
               <p class="lead">
-                <i class="fa fa-frown-o">
+                <i class="fa fa-beer">
                 </i>
-                COLLEGE <b>DEBT</b>
+                PARTY <b>SCHOOL RATING</b>
               </p>
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-red-400">
-                <% if @school.debt_average != nil && @school.college_counter != nil && @school.college_counter > 0 %>
-                    <%= number_to_currency(@school.debt_average, precision: 2) %>
+                <% if @school.party_average != nil && @school.college_counter != nil && @school.college_counter > 0  %>
+                    <%= number_with_precision(@school.party_average, precision: 1) %> <small>out of 5</small>
                 <% else %>
                     N/A
                 <% end %>
@@ -95,7 +95,24 @@
               </h2>
             </div>
             <div class="panel-footer">
-              Average tuition debt after graduating
+              <% if @school.party_average != nil && @school.party_average > 0 %>
+                  <% if @school.party_average < 1 %>
+                      Not a party school
+                  <% elsif @school.party_average < 2 %>
+                      Not a party school
+                  <% elsif @school.party_average < 3 %>
+                      Decent party school
+                  <% elsif @school.party_average < 4 %>
+                      Good party school
+                  <% elsif @school.party_average < 5 %>
+                      Great party school
+                  <% else %>
+                      Best party school ever!
+                  <% end %>
+              <% else %>
+                  Party school rating for this college
+              <% end %>
+
             </div>
           </div>
         </div>
@@ -132,15 +149,15 @@
           <div class="panel panel-success" id="panels">
             <div class="panel-heading">
               <p class="lead">
-                <i class="fa fa-smile-o">
+                <i class="fa fa-frown-o">
                 </i>
-                STARTING <b>SALARY</b> <small>Past 2 years</small>
+                COLLEGE <b>DEBT</b>
               </p>
             </div>
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
-                <% if @school.salary_average != nil && @school.college_counter != nil && @school.college_counter > 0 %>
-                    <%= number_to_currency(@school.salary_average, precision: 2) %>
+                <% if @school.debt_average != nil && @school.college_counter != nil && @school.college_counter > 0 %>
+                    <%= number_to_currency(@school.debt_average, precision: 2) %>
                 <% else %>
                     N/A
                 <% end %>
@@ -148,7 +165,7 @@
               </h2>
             </div>
             <div class="panel-footer">
-              Average starting salary after graduation
+              Average tuition debt after graduating
             </div>
           </div>
         </div>
