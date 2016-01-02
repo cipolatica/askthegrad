@@ -15,13 +15,13 @@
 
           <%= f.error_notification %>
 
-            <%= f.form_group :username do |f| %>
-                <%= f.label :username, class: "col-xs-1 col-sm-2 col-md-2 control-label" %>
-                <div class="col-sm-10">
-                  <%= f.email_field :username, required: true, autofocus: true, class: "form-control" %>
-                  <%= f.error_messages %>
-                </div>
-            <% end %>
+            <!--< %= f.form_group :username do |f| %>-->
+                <!--< %= f.label :username, class: "col-xs-1 col-sm-2 col-md-2 control-label" %>-->
+                <!--<div class="col-sm-10">-->
+                  <!--< %= f.email_field :username, required: true, autofocus: true, class: "form-control" %>-->
+                  <!--< %= f.error_messages %>-->
+                <!--</div>-->
+            <!--< % end %>-->
 
           <%= f.form_group :email do |f| %>
             <%= f.label :email, class: "col-xs-1 col-sm-2 col-md-2 control-label" %>
@@ -63,7 +63,7 @@
 
           <div class="form-actions col-sm-offset-2">
             <%= f.submit "Update", class: 'btn btn-primary' %>
-            <%= link_to "Cancel my account", registration_path(resource_name), confirm: "Are you sure?", method: :delete, class: "pull-right text-red-400 pt10" %>
+            <!--< %= link_to "Cancel my account", registration_path(resource_name), confirm: "Are you sure?", method: :delete, class: "pull-right text-red-400 pt10" %>-->
           </div>
         <% end %>
       </div>

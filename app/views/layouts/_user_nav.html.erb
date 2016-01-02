@@ -10,7 +10,7 @@
           <span class="icon-bar" style="display: block;width: 10px;height: 2px;background-color: #385e80;"></span>
         </button>
         <div style="position: relative; top:-12px;">
-         <%= link_to image_tag("/atg_logo.png", height: '40', width: '120'), {:action => 'index', :controller => 'home'}, { :class=>"navbar-brand" } %>
+         <%= link_to image_tag("/atg_logo.png", height: '40', width: '120'), root_path , { :class=>"navbar-brand" } %>
         </div>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -23,8 +23,8 @@
           <% if user_signed_in? %>
               <%= fa_icon_tag "user" %> Welcome, <strong><%= current_user.username %></strong>
               <span class="divider">|</span>
-              <!--< %= link_to 'Settings', edit_user_registration_path %>-->
-              <!--<span class="divider">|</span>-->
+              <%= link_to 'Settings', edit_user_registration_path %>
+              <span class="divider">|</span>
               <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
           <% else %>
               <%= link_to 'Register', new_user_registration_path %>
