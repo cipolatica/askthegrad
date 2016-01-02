@@ -3,6 +3,7 @@ class MajorsController < ApplicationController
     @title = "Choose your Major"
     session[:major_id_for_school] = nil
     if params[:clr_sch] != nil
+      cleanup_post_flow
       session[:school_id_for_major] = nil
       @majors = Major.all.order(:name)
     elsif params[:school_id] != nil

@@ -18,6 +18,7 @@
           <%= activatable_li_tag_with_link "Colleges", states_path(:clr_sch => "true") %>
           <%= activatable_li_tag_with_link "Majors", majors_index_path(:clr_sch => "true") %> <!-- clr_sch = clear_school_id -->
           <%= activatable_li_tag_with_link "Rankings", stats_path %>
+          <%= activatable_li_tag_with_link "Post", states_path(:post_flow => "true") %>
         </ul>
         <div class="navbar-text pull-right">
           <% if user_signed_in? %>

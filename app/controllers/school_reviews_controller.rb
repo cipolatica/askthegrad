@@ -5,6 +5,10 @@ class SchoolReviewsController < ApplicationController
     session[:school_id_for_major] = nil
     @school = params[:the_school]
     @school_id = @school["school_id"]
+    if session[:executing_post_flow] != nil
+      session[:executing_post_flow_school] = @school_id.to_i
+      redirect_to majors_index_path and return
+    end
     if session[:major_id_for_school] != nil
       redirect_to new_major_review_path(:school_id => @school_id) and return
     end
@@ -39,6 +43,7 @@ class SchoolReviewsController < ApplicationController
   end
 
   def show
+    cleanup_post_flow
     @title = "Graduate Review"
     if not is_integer_sql_safe(params[:id])
       logger.debug "school_reviews.controller: show: not sql safe"

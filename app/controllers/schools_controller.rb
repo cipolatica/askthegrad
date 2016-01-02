@@ -7,6 +7,11 @@ class SchoolsController < ApplicationController
       state_id = params[:the_state]
       @schools = School.where(state_id:state_id["state_id"]).order(:name)
       @small_text = State.find(state_id["state_id"].to_i).name
+
+      #Save the state in session if we are in the post_flow
+      if session[:executing_post_flow] != nil
+        session[:executing_post_flow_state] = state_id["state_id"].to_i
+      end
     else
       if session[:search_name] && session[:search_index]
         counter = 0

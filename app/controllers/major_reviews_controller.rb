@@ -5,6 +5,9 @@ class MajorReviewsController < ApplicationController
   # GET /major_reviews
   # GET /major_reviews.json
   def index
+    if session[:executing_post_flow] != nil
+      redirect_to new_major_review_path(:major_id => params[:major_id]) and return
+    end
     if session[:school_id_for_major] != nil
       redirect_to new_major_review_path(:major_id => params[:major_id]) and return
     end
@@ -71,6 +74,20 @@ class MajorReviewsController < ApplicationController
     @school_id = nil
     if session[:school_id_for_major] != nil
       @school_id = session[:school_id_for_major]
+      if not is_integer_sql_safe(@school_id)
+        logger.debug "major_reviews.controller: new: not sql safe"
+        return
+      end
+      @small_text = School.find(@school_id).name
+      @major_id = params[:major_id]
+      if not is_integer_sql_safe(@major_id)
+        logger.debug "major_reviews.controller: new: not sql safe"
+        return
+      end
+      @major = Major.find(@major_id)
+      @review = SchoolReview.new # Returning a School Review here because we are just using one review object and this has more functionality
+    elsif session[:executing_post_flow] != nil
+      @school_id = session[:executing_post_flow_school]
       if not is_integer_sql_safe(@school_id)
         logger.debug "major_reviews.controller: new: not sql safe"
         return

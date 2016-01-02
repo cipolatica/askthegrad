@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   protected
+  def cleanup_post_flow
+    session[:executing_post_flow] = nil
+    session[:executing_post_flow_state] = nil
+    session[:executing_post_flow_school] = nil
+    session[:executing_post_flow_major] = nil
+  end
+
   def update_num_average (the_num, the_average, the_counter)
     return ((the_average * the_counter) + the_num) / (the_counter + 1)
   end
