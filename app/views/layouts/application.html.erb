@@ -9,6 +9,12 @@
           <%= yield :description %>
         </div>
         <div class="col-md-2 col-sm-height col-middle">
+          <!--THIS AREA IS WHERE THE PROGRESS TRACKER COULD POSSIBLY BE ADDED-->
+          <!--<div class="progress-tracker" id="progress-tracker" style="position: relative; left: -300px">-->
+            <!--< % #if @progress_image != nil && @progress_image.length %>-->
+               <!--< %= #image_tag(@progress_image, height: '40', width: '220') %>-->
+            <!--< % #end %>-->
+          <!--</div>-->
           <%= yield :actions %>
         </div>
       </div>

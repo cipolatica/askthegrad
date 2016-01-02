@@ -8,7 +8,7 @@ class StatesController < ApplicationController
     end
     if params[:major_id] != nil
       session[:major_id_for_school] = params[:major_id]
-      flash[:notice] = "Please link your college before reviewing your major."
+      #flash[:notice] = "Please link your college before reviewing your major."
     end
   end
 end

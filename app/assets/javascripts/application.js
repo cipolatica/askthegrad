@@ -19,3 +19,27 @@
 
 
 
+// ** IF I EVER WANT TO ADD A PROGRESS BAR A I CAN LOOK INTO THIS
+// This code adjusts the Left Offset when the screen size shrinks or expands
+//$(document).ready(function(){
+//    $(window).on('resize',function(){
+//
+//        var winWidth =  $(window).width();
+//        var element = document.getElementById('progress-tracker');;
+//        if(winWidth < 768 ){
+//            document.getElementById("progress-tracker").style.visibility = "hidden";
+//            //alert('Window Width: '+ winWidth + 'class used: col-sm');
+//        }else if( winWidth <= 991){
+//            document.getElementById("progress-tracker").style.visibility = "hidden";
+//            //alert('Window Width: '+ winWidth + 'class used: col-sm');
+//        }else if( winWidth <= 1199){
+//            document.getElementById("progress-tracker").style.visibility = "visible";
+//            document.getElementById("progress-tracker").style.left = "-250px";
+//            //alert('Window Width: '+ winWidth + 'class used: col-sm');
+//        }else{
+//            document.getElementById("progress-tracker").style.visibility = "visible";
+//            document.getElementById("progress-tracker").style.left = "-300px";
+//            //alert('Window Width: '+ winWidth + 'class used: col-sm');
+//        }
+//    });
+//});
