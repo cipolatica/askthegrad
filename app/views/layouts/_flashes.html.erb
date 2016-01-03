@@ -7,11 +7,19 @@
 <% end %>
 
 <% if notice %>
-  <div class="alert alert-warning">
+  <% if flash[:notice] == "Signed in successfully." %>
+    <div class="alert alert-success">
+  <% else %>
+    <div class="alert alert-warning">
+  <% end %>
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <%= fa_icon_tag "info-sign" %> <%= notice %>
     <%= flash[:notice] = nil %>
-  </div>
+  <% if flash[:notice] == "Signed in successfully." %>
+    </div>
+  <% else %>
+    </div>
+  <% end %>
 <% end %>
 
 <% if flash[:success] %>
