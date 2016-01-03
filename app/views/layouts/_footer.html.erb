@@ -4,7 +4,7 @@
         <div class="col-md-5 col-lg-4 text-xs-center text-md-left">
           <section>
             <h4>About</h4>
-            <a href="#">About Ask The Grad</a> <br>
+            <%= link_to "About Ask The Grad", about_index_path %> <br>
             <a href="#">Privacy</a> <br>
             <a href="#">Terms</a>
           </section>
@@ -18,10 +18,10 @@
         <div class="col-md-5 col-lg-4 text-xs-center text-md-left">
           <section>
             <h4>Quick Links</h4>
-            <a href="#">Home</a> <br>
-            <a href="#">Colleges</a> <br>
-            <a href="#">Majors</a> <br>
-            <a href="#">Rankings</a> <br>
+            <%= link_to "Colleges", states_path(:clr_sch => "true") %> <br>
+            <%= link_to "Majors", majors_index_path(:clr_sch => "true") %> <br><!-- clr_sch = clear_school_id -->
+            <%= link_to "Rankings", stats_path %> <br>
+            <%= link_to "Post", states_path(:post_flow => "true") %> <br>
           </section>
         </div>
       </div>
