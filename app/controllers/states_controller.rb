@@ -10,7 +10,7 @@ class StatesController < ApplicationController
         session[:executing_post_flow] = "true"
         @small_text = "Step 1 of 4"
       else
-        flash[:alert] = "You need to sign in or sign up before continuing."
+        flash[:alert] = "Grads, please sign in or sign up before posting a review."
         redirect_to new_user_session_path and return
       end
     end

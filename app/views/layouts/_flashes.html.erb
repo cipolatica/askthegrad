@@ -2,6 +2,7 @@
   <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <%= fa_icon_tag "remove" %> <%= alert %>
+    <%= flash[:alert] = nil %>
   </div>
 <% end %>
 
@@ -9,5 +10,14 @@
   <div class="alert alert-warning">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <%= fa_icon_tag "info-sign" %> <%= notice %>
+    <%= flash[:notice] = nil %>
   </div>
+<% end %>
+
+<% if flash[:success] %>
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= fa_icon_tag "info-sign" %> <%= flash[:success] %>
+      <%= flash[:success] = nil %>
+    </div>
 <% end %>
