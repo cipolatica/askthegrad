@@ -463,11 +463,19 @@ class SchoolReviewsController < ApplicationController
         review_user = User.find(@school_review.user_id)
         if comment.is_parent && current_user.id != review_user.id
           #CommentsMailer.parent_comment(review_user, comment).deliver
-          CommentsMailer.delay.deliver_parent_email(review_user, comment)
+          if not did_user_hit_email_limit(review_user.id)
+            CommentsMailer.delay.deliver_parent_email(review_user, comment)
+            str = update_email_count(review_user.id)
+            review_user.update(email_daily_count: str)
+          end
         elsif comment.is_parent == false
           if current_user.id != review_user.id
             #CommentsMailer.child_comment(review_user, comment.content, comment.username).deliver
-            CommentsMailer.delay.deliver_child_email(review_user, comment.content, comment.username)
+            if not did_user_hit_email_limit(review_user.id)
+              CommentsMailer.delay.deliver_child_email(review_user, comment.content, comment.username)
+              str = update_email_count(review_user.id)
+              review_user.update(email_daily_count: str)
+            end
           end
           @comments.each do |c|
             if c.lineage.split('_')[0] == comment.lineage.split('_')[0] && c.user_id != review_user.id
@@ -477,7 +485,11 @@ class SchoolReviewsController < ApplicationController
           email_hash.each do |key, value|
             thread_user = User.find(value)
             #CommentsMailer.child_comment(thread_user, comment.content, comment.username).deliver
-            CommentsMailer.delay.deliver_child_email(thread_user, comment.content, comment.username)
+            if not did_user_hit_email_limit(thread_user.id)
+              CommentsMailer.delay.deliver_child_email(thread_user, comment.content, comment.username)
+              str = update_email_count(thread_user.id)
+              thread_user.update(email_daily_count: str)
+            end
           end
         end
         respond_to do |format|
@@ -531,6 +543,32 @@ class SchoolReviewsController < ApplicationController
   end
   
   private
+  def did_user_hit_email_limit(user_id)
+    the_user = User.find(user_id)
+    if (the_user.email_daily_count == nil || the_user.email_daily_count.length < 1)
+      return false
+    end
+    email_limit_array = the_user.email_daily_count.split("^")
+    if (email_limit_array[0].to_s == Date.today.to_s && email_limit_array.length > 5)
+      return true
+    end
+    return false
+  end
+  def update_email_count(user_id)
+    the_user = User.find(user_id)
+    if (the_user.email_daily_count == nil || the_user.email_daily_count.length < 1)
+      the_user.email_daily_count = Date.today.to_s
+    else
+      email_limit_array = the_user.email_daily_count.split("^")
+      if email_limit_array[0].to_s != Date.today.to_s
+        the_user.email_daily_count = Date.today.to_s
+      else
+        the_user.email_daily_count.concat(Date.today.to_s)
+      end
+    end
+    the_user.email_daily_count.concat("^")
+    return the_user.email_daily_count
+  end
   def create_delimiter(limit)
     delimiter = ""
     for i in 1..limit
