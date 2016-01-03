@@ -5,6 +5,7 @@ class ContactsController < ApplicationController
     session[:school_id_for_major] = nil
     session[:major_id_for_school] = nil
     cleanup_post_flow
+    cleanup_autocomplete_search
   end
 
   def create

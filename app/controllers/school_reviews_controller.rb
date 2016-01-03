@@ -44,6 +44,7 @@ class SchoolReviewsController < ApplicationController
 
   def show
     cleanup_post_flow
+    cleanup_autocomplete_search
     @title = "Graduate Review"
     if not is_integer_sql_safe(params[:id])
       logger.debug "school_reviews.controller: show: not sql safe"

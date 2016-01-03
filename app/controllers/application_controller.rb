@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     session[:executing_post_flow_school] = nil
     session[:executing_post_flow_major] = nil
   end
+  def cleanup_autocomplete_search
+    session[:search_name] = nil
+    session[:search_index] = nil
+  end
 
   def update_num_average (the_num, the_average, the_counter)
     return ((the_average * the_counter) + the_num) / (the_counter + 1)

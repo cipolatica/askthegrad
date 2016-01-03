@@ -92,13 +92,13 @@ class MajorReviewsController < ApplicationController
         logger.debug "major_reviews.controller: new: not sql safe"
         return
       end
-      @small_text = School.find(@school_id).name
       @major_id = params[:major_id]
       if not is_integer_sql_safe(@major_id)
         logger.debug "major_reviews.controller: new: not sql safe"
         return
       end
       @major = Major.find(@major_id)
+      @small_text = "Step 4 of 4: " + School.find(@school_id).name + ", " + @major.name
       @review = SchoolReview.new # Returning a School Review here because we are just using one review object and this has more functionality
     elsif session[:major_id_for_school] != nil
       @major_id = session[:major_id_for_school]

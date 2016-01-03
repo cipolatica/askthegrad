@@ -4,6 +4,7 @@ class MajorsController < ApplicationController
     session[:major_id_for_school] = nil
     if params[:clr_sch] != nil
       cleanup_post_flow
+      cleanup_autocomplete_search
       session[:school_id_for_major] = nil
       @majors = Major.all.order(:name)
     elsif params[:school_id] != nil
@@ -32,6 +33,9 @@ class MajorsController < ApplicationController
         flash[:notice] = "Couldn't find your major. Search for it here."
       end
     else
+      if session[:executing_post_flow] != nil
+        @small_text = "Step 3 of 4: " + School.find(session[:executing_post_flow_school]).name
+      end
       @majors = Major.clickable_search(params[:major_search]).order(:name)
     end
   end

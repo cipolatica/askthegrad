@@ -11,6 +11,7 @@ class SchoolsController < ApplicationController
       #Save the state in session if we are in the post_flow
       if session[:executing_post_flow] != nil
         session[:executing_post_flow_state] = state_id["state_id"].to_i
+        @small_text = "Step 2 of 4: " + @small_text
       end
     else
       if session[:search_name] && session[:search_index]
