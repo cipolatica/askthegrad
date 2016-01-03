@@ -10,7 +10,7 @@ class ContactsController < ApplicationController
 
   def create
     CommentsMailer.delay.deliver_contact_us_email(params[:contact][:name], params[:contact][:email],params[:contact][:reason],params[:contact][:message])
-    flash[:notice] = "Thanks for your message! We'll get back to you ASAP!"
+    flash[:success] = "Thanks for your message! We'll get back to you ASAP!"
     redirect_to root_path and return
   end
 
