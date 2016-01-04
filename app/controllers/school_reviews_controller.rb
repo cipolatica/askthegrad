@@ -133,6 +133,12 @@ class SchoolReviewsController < ApplicationController
     @review.annual_salary = validate_dollar_amount(@review.salary_string)
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
+    the_current_user = User.find(current_user.id)
+    if is_duplicate_review(the_current_user.review_list, @review.school_id, @review.major_id)
+      redirect_to root_path
+      flash[:alert] = "Error: You have already reviewed this college and major." and return
+    end
+    str = update_review_list(the_current_user.review_list, @review.school_id, @review.major_id)
     if @review.valid?
       @review.annual_salary = get_max_value(@review.annual_salary)
       @review.debt = get_max_value(@review.debt)
@@ -143,6 +149,8 @@ class SchoolReviewsController < ApplicationController
     end
     if @review.save
       if user_signed_in?
+        the_current_user.update(review_list:nil)
+        the_current_user.update(review_list:str)
         school = School.find(@review.school_id)
         if school.college_counter == nil
           school.college_counter = 0
@@ -543,6 +551,27 @@ class SchoolReviewsController < ApplicationController
   end
   
   private
+  def is_duplicate_review(review_list, school_id, major_id)
+    if (review_list == nil || review_list.to_s.length < 1)
+      return false
+    end
+    review_list_array = review_list.split("^")
+    for review in review_list_array
+      school_and_major_array = review.split(",")
+      if school_and_major_array.length == 2
+        if school_and_major_array[0].to_s == school_id.to_s && school_and_major_array[1].to_s == major_id.to_s
+          return true
+        end
+      end
+    end
+    return false
+  end
+  def update_review_list(review_list, school_id, major_id)
+    if (review_list == nil || review_list.to_s.length < 1)
+      return school_id.to_s + "," + major_id.to_s + "^"
+    end
+    return review_list.concat(school_id.to_s + "," + major_id.to_s + "^")
+  end
   def did_user_hit_email_limit(user_id)
     the_user = User.find(user_id)
     if (the_user.email_daily_count == nil || the_user.email_daily_count.length < 1)
