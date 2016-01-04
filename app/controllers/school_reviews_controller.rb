@@ -134,6 +134,11 @@ class SchoolReviewsController < ApplicationController
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
     the_current_user = User.find(current_user.id)
+    if did_user_hit_review_limit(the_current_user.review_daily_count)
+      redirect_to root_path
+      flash[:alert] = "Error: You've made too many reviews today. Try again tomorrow." and return
+    end
+    review_daily_count = update_review_daily_count(the_current_user.review_daily_count)
     if is_duplicate_review(the_current_user.review_list, @review.school_id, @review.major_id)
       redirect_to root_path
       flash[:alert] = "Error: You have already reviewed this college and major." and return
@@ -149,8 +154,8 @@ class SchoolReviewsController < ApplicationController
     end
     if @review.save
       if user_signed_in?
-        the_current_user.update(review_list:nil)
-        the_current_user.update(review_list:str)
+        the_current_user.update(review_list:nil, review_daily_count:nil)
+        the_current_user.update(review_list:str, review_daily_count:review_daily_count)
         school = School.find(@review.school_id)
         if school.college_counter == nil
           school.college_counter = 0
@@ -551,6 +556,26 @@ class SchoolReviewsController < ApplicationController
   end
   
   private
+  def did_user_hit_review_limit(review_daily_count)
+    if (review_daily_count == nil || review_daily_count.to_s.length < 1)
+      return false
+    end
+    review_count_array = review_daily_count.split("^")
+    if (review_count_array[0].to_s == Date.today.to_s && review_count_array.length > 2)
+      return true
+    end
+    return false
+  end
+  def update_review_daily_count(review_daily_count)
+    if (review_daily_count == nil || review_daily_count.to_s.length < 1)
+      return Date.today.to_s + "^"
+    end
+    review_count_array = review_daily_count.split("^")
+    if (review_count_array[0].to_s != Date.today.to_s)
+      return Date.today.to_s + "^"
+    end
+    return review_daily_count.concat(Date.today.to_s + "^")
+  end
   def is_duplicate_review(review_list, school_id, major_id)
     if (review_list == nil || review_list.to_s.length < 1)
       return false
