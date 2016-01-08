@@ -1,9 +1,17 @@
 <% if alert %>
-  <div class="alert alert-danger">
+  <% if flash[:alert] == "Grads, please sign in or sign up before posting your review." %>
+    <div class="alert alert-warning">
+  <% else %>
+    <div class="alert alert-danger">
+  <% end %>
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <%= fa_icon_tag "remove" %> <%= alert %>
     <%= flash[:alert] = nil %>
-  </div>
+  <% if flash[:alert] == "Grads, please sign in or sign up before posting your review." %>
+     </div>
+  <% else %>
+     </div>
+  <% end %>
 <% end %>
 
 <% if notice %>
