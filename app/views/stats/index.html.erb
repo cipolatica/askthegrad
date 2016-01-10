@@ -81,7 +81,7 @@
                           <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseThree">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseThree" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="collegeCollapseThreeCaret"> </span>
                                   </a>
                                 </div>
@@ -138,7 +138,7 @@
                           <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFour">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFour" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="collegeCollapseFourCaret"> </span>
                                   </a>
                                 </div>
@@ -194,7 +194,7 @@
                           <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseOne">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseOne" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="collegeCollapseOneCaret"> </span>
                                   </a>
                                 </div>
@@ -248,7 +248,7 @@
                           <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFive">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseFive" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="collegeCollapseFiveCaret"> </span>
                                   </a>
                                 </div>
@@ -302,7 +302,7 @@
                           <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseSix">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseSix" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="collegeCollapseSixCaret"> </span>
                                   </a>
                                 </div>
@@ -377,7 +377,7 @@
                       <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseOne">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseOne" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="majorCollapseOneCaret"> </span>
                                   </a>
                                 </div>
@@ -432,7 +432,7 @@
                       <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseTwo">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseTwo" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="majorCollapseTwoCaret"> </span>
                                   </a>
                                 </div>
@@ -489,7 +489,7 @@
                       <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseThree">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseThree" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="majorCollapseThreeCaret"> </span>
                                   </a>
                                 </div>
@@ -544,7 +544,7 @@
                       <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseFour">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#majorCollapseFour" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="majorCollapseFourCaret"> </span>
                                   </a>
                                 </div>
@@ -606,17 +606,13 @@
 
 <script>
     function changeCaret(e) {
-       alert("changeCaret" + e.toString());
+//       alert("changeCaret" + e.toString());
 
         var queryString = e.toString().split("#")[1];
-        alert("queryString: "+queryString );
+//        alert("queryString: "+queryString );
 
         //get element from query string
         var element = document.getElementById(queryString + "Caret");
-        alert("element: "+element.toString() );
-        alert("element.className: "+element.className.toString() );
-
-
         //toggle icon in the element
         if (element.className === "fa fa-caret-right"){
             element.className = "fa fa-caret-down";
