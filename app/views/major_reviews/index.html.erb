@@ -132,7 +132,8 @@
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
                 <% if @major.overall_salary != nil && @major.major_counter != nil && @major.major_counter > 0 %>
-                    <%= number_to_currency(@major.overall_salary, precision: 2) %>
+                    <% amount = (@major.overall_salary > 1000000) ? '$1Million+' : number_to_currency(@major.overall_salary, precision: 2)  %>
+                    <%= amount %>
                 <% else %>
                     N/A
                 <% end %>
@@ -156,7 +157,8 @@
             <div class="panel-body text-xs-center text-md-center text-lg-center" >
               <h2 class="page-hits m0 text-green-400">
                 <% if @major.salary_average != nil && @major.major_counter != nil && @major.major_counter > 0 %>
-                    <%= number_to_currency(@major.salary_average, precision: 2) %>
+                    <% amount = (@major.salary_average > 1000000) ? '$1Million+' : number_to_currency(@major.salary_average, precision: 2)  %>
+                    <%= amount %>
                 <% else %>
                     N/A
                 <% end %>
@@ -174,7 +176,7 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
       <div class="panel panel-default">
         <div class="panel-heading" style="border-bottom: none;">
-          <h3 class="panel-title">Top paying Colleges for this major for class of <%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, and <%= (Date.today.year - 2) %></h3>
+          <h3 class="panel-title">Top paying <strong>colleges</strong> for this major for class of <%= (Date.today.year) %>, <%= (Date.today.year - 1) %>, and <%= (Date.today.year - 2) %></h3>
         </div>
         <div class="panel-body" style="padding: 0 15px 15px 15px;">
           <div class="table-responsive">
@@ -191,7 +193,8 @@
                         <li style="margin-bottom: 0;">
                           <% if amounts_array[index] != nil && amounts_array[index].to_s != "" %>
                               <b><%= link_to names_array[index].to_s,  school_reviews_path(:the_school => {:school_id => ids_array[index].to_s} ) %></b><br/>
-                              <%= number_to_currency(amounts_array[index].to_i, precision: 2) %>
+                              <% amount = (amounts_array[index].to_i > 1000000) ? '$1Million+' : number_to_currency(amounts_array[index].to_i, precision: 2)  %>
+                              <%= amount %>
                           <% else %>
                               <b>N/A</b>
                           <% end %>
