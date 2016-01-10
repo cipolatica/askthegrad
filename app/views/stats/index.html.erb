@@ -27,7 +27,7 @@
                           <div class="row">
                             <span class="halffirst" id="halffirst">
                                 <div class="col-xs-1">
-                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseTwo">
+                                  <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#accordion" href="#collegeCollapseTwo" onClick="changeCaret(this)">
                                     <span class="fa fa-caret-right" id="collegeCollapseTwoCaret"> </span>
                                   </a>
                                 </div>
@@ -604,7 +604,28 @@
   </div>
 </div>
 
+<script>
+    function changeCaret(e) {
+       alert("changeCaret" + e.toString());
 
+        var queryString = e.toString().split("#")[1];
+        alert("queryString: "+queryString );
+
+        //get element from query string
+        var element = document.getElementById(queryString + "Caret");
+        alert("element: "+element.toString() );
+        alert("element.className: "+element.className.toString() );
+
+
+        //toggle icon in the element
+        if (element.className === "fa fa-caret-right"){
+            element.className = "fa fa-caret-down";
+        } else {
+            element.className = "fa fa-caret-right";
+        }
+    }
+
+</script>
 
 
 <%= render "layouts/footer" %> <br >

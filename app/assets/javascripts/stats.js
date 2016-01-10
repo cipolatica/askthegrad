@@ -1,7 +1,7 @@
 $(function() {
     $('.accordion-toggle').click(function (e) {
         //get html query from target
-        alert("hi");
+        //alert("hi");
 
         var element;
 
