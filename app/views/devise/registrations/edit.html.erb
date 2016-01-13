@@ -15,18 +15,18 @@
 
           <%= f.error_notification %>
 
-            <!--< %= f.form_group :username do |f| %>-->
-                <!--< %= f.label :username, class: "col-xs-1 col-sm-2 col-md-2 control-label" %>-->
-                <!--<div class="col-sm-10">-->
-                  <!--< %= f.email_field :username, required: true, autofocus: true, class: "form-control" %>-->
-                  <!--< %= f.error_messages %>-->
-                <!--</div>-->
-            <!--< % end %>-->
+            <%= f.form_group :username do |f| %>
+                <%= f.label :username, class: "col-xs-1 col-sm-2 col-md-2 control-label" %>
+                <div class="col-sm-10">
+                  <%= f.email_field :username, required: true, autofocus: true, class: "form-control", readonly: true %>
+                  <%= f.error_messages %>
+                </div>
+            <% end %>
 
           <%= f.form_group :email do |f| %>
             <%= f.label :email, class: "col-xs-1 col-sm-2 col-md-2 control-label" %>
             <div class="col-sm-10">
-              <%= f.email_field :email, required: true, autofocus: false, class: "form-control" %>
+              <%= f.email_field :email, required: true, autofocus: false, class: "form-control", readonly: true%>
               <%= f.error_messages %>
             </div>
           <% end %>
@@ -37,7 +37,7 @@
               <%= f.email_field :password, class: "form-control" %>
               <%= f.error_messages %>
               <div class="help-inline">
-                Leave it blank if you don't want to change it.
+                Change your password.
               </div>
             </div>
           <% end %>
@@ -56,7 +56,7 @@
               <%= f.email_field :current_password, class: "form-control" %>
               <%= f.error_messages %>
               <div class="help-inline">
-                We need your current password to confirm your changes.
+                We need your current password to confirm your change.
               </div>
             </div>
           <% end %>
