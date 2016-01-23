@@ -224,24 +224,30 @@
         <div class="form-actions col-md-8" style="height:32px;">
           <div class="ui-slider-wrapper ui-widget horizontal">
 
+            <% if not mobile_device? %>
             <div class="ui-slider-labels">
-              <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
-              </div>
+              <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span></div>
+              <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span></div>
+              <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span></div>
+              <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span></div>
+              <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span></div>
+              <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span></div>
             </div>
 
             <div id="slider-range-max" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
               <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
             </div>
+            <% else %>
+
+                <div class="ui-slider-labels" style="top:0;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="major-difficulty-star_0" onclick="changeMajorDifficultyStar(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="major-difficulty-star_1" onclick="changeMajorDifficultyStar(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="major-difficulty-star_2" onclick="changeMajorDifficultyStar(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="major-difficulty-star_3" onclick="changeMajorDifficultyStar(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="major-difficulty-star_4" onclick="changeMajorDifficultyStar(this)" style="vertical-align: top;">
+                </div>
+
+            <% end %>
 
           </div>
         </div>
@@ -346,8 +352,29 @@
             case 4:     displayTextElement.value = "Best college ever!";        break;
         }
 
-        var partySchoolRatingValueElement = document.getElementById("school-rating-value");
-        partySchoolRatingValueElement.value = (parseInt(starIndex) + 1).toString();
+        var schoolRatingValueElement = document.getElementById("school-rating-value");
+        schoolRatingValueElement.value = (parseInt(starIndex) + 1).toString();
+    }
+
+    function changeMajorDifficultyStar(e) {
+
+        var starIndex = e.id.split("_")[1];
+        for (var i = 0; i < 5; i++ ) {
+            var element = document.getElementById("major-difficulty-star_" + i.toString());
+            element.src = (i <= parseInt(starIndex)) ? "/star-on.png" : "/star-off.png";
+        }
+
+        var displayTextElement = document.getElementById("amount");
+        switch (parseInt(starIndex)) {
+            case 0:     displayTextElement.value = "Easy peasy";                break;
+            case 1:     displayTextElement.value = "Meh, not bad";              break;
+            case 2:     displayTextElement.value = "Challenging";               break;
+            case 3:     displayTextElement.value = "Very difficult";            break;
+            case 4:     displayTextElement.value = "No life, just studying";    break;
+        }
+
+        var majorDifficultyValueElement = document.getElementById("difficulty-rating-value");
+        majorDifficultyValueElement.value = (parseInt(starIndex) + 1).toString();
     }
 </script>
 

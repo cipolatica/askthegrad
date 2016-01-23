@@ -41,7 +41,9 @@ $(function() {
             $( "#slider-range-max" ).css("border","none");
         }
     });
-    $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+
+    var majorDifficultyTextPresetValue = $( "#slider-range-max" ).slider( "value" ).toString() === "[object Object]" ? "0" : $( "#slider-range-max" ).slider( "value" );
+    $( "#amount" ).val( majorDifficultyTextPresetValue );
     $( "#difficulty-rating-value" ).val( $( "#slider-range-max" ).slider( "value" ) );
 
     $( "#slider-rating" ).slider({
