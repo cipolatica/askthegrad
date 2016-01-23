@@ -95,24 +95,36 @@
         <div class="form-actions col-md-8" style="height:32px;">
           <div class="ui-slider-wrapper ui-widget horizontal">
 
-            <div class="ui-slider-labels">
-              <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
-              </div>
-              <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
-              </div>
-            </div>
+            <% if not mobile_device? %>
+                <div class="ui-slider-labels">
+                  <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span>
+                  </div>
+                  <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span>
+                  </div>
+                  <div class="ui-slider-label-ticks" style="left: 40%;"><span>2</span>
+                  </div>
+                  <div class="ui-slider-label-ticks" style="left: 60%;"><span>3</span>
+                  </div>
+                  <div class="ui-slider-label-ticks" style="left: 80%;"><span>4</span>
+                  </div>
+                  <div class="ui-slider-label-ticks" style="left: 100%;border: none;"><span>5</span>
+                  </div>
+                </div>
 
-            <div id="slider-party-school" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
-              <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
-            </div>
+                <div id="slider-party-school" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
+                  <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
+                </div>
+
+            <% else %>
+
+                <div class="ui-slider-labels" style="top:0;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="party-school-star_0" onclick="changePartySchool(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="party-school-star_1" onclick="changePartySchool(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="party-school-star_2" onclick="changePartySchool(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="party-school-star_3" onclick="changePartySchool(this)" style="vertical-align: top;">
+                  <img alt="Star off" height="25" src="/star-off.png" width="25" id="party-school-star_4" onclick="changePartySchool(this)" style="vertical-align: top;">
+                </div>
+            <% end %>
 
           </div>
         </div>
@@ -283,4 +295,30 @@
   <% end %>
 </div>
 
+
+<script>
+    function changePartySchool(e) {
+//       alert("changePartySchool" + e.id);
+
+        var starIndex = e.id.split("_")[1];
+//        alert("queryString: "+queryString );
+
+        for (var i = 0; i < 5; i++ ) {
+            var element = document.getElementById("party-school-star_" + i.toString());
+            element.src = (i <= parseInt(starIndex)) ? "/star-on.png" : "/star-off.png";
+        }
+
+        var displayTextElement = document.getElementById("amount-party-school");
+        switch (parseInt(starIndex)) {
+            case 0:     displayTextElement.value = "Didn't really party";       break;
+            case 1:     displayTextElement.value = "meh, partying was ok";      break;
+            case 2:     displayTextElement.value = "Partied occasionally";      break;
+            case 3:     displayTextElement.value = "Partied constantly";        break;
+            case 4:     displayTextElement.value = "Non-stop partying!";        break;
+        }
+
+        var partySchoolRatingValueElement = document.getElementById("party-school-rating-value");
+        partySchoolRatingValueElement.value = (parseInt(starIndex) + 1).toString();
+    }
+</script>
 
