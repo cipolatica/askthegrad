@@ -132,7 +132,8 @@ $(function() {
             $( "#slider-party-school" ).css("border","none");
         }
     });
-    $( "#amount-party-school" ).val( $( "#slider-party-school" ).slider( "value" ) );
+    var displayTextPresetValue = $( "#slider-party-school" ).slider( "value").toString() === "[object Object]" ? "0" : $( "#slider-party-school" ).slider( "value" );
+    $( "#amount-party-school" ).val( displayTextPresetValue );
     $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
 
