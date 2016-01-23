@@ -208,6 +208,7 @@ class SchoolReviewsController < ApplicationController
         school.party_average = update_num_average(@review.party_school, school.party_average, school.college_counter)
         school.worth_money_average = update_bool_average(@review.worth_money, school.worth_money_average, school.college_counter)
         school.rating_average = update_num_average(@review.rating, school.rating_average, school.college_counter)
+        school.debt_average = update_num_average(@review.debt, school.debt_average, school.college_counter)
         school.overall_salary = update_num_average(@review.annual_salary, school.overall_salary, school.college_counter)
 
         major.overall_salary = update_num_average(@review.annual_salary, major.overall_salary, major.major_counter)
@@ -244,7 +245,7 @@ class SchoolReviewsController < ApplicationController
           # DONE with Finding top 5 highest paying Majors
 
           school.salary_average = update_num_average(@review.annual_salary, school.salary_average, school.two_year_college)
-          school.debt_average = update_num_average(@review.debt, school.debt_average, school.two_year_college)
+
           school.two_year_college += 1
           # Find top 5 highest paying colleges
           review_list = SchoolReview.where(school_id:@school_id, year_graduated:(Date.today.year - 2)..Date.today.year).order(:major_id)
