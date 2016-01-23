@@ -59,9 +59,10 @@
     </div>
 
 
+      <% margin_bottom_value = mobile_device? ? "35px" : "0px" %>
 
-    <div class="form-group" style="margin-bottom:0px;" >
-      <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 40px;">
+    <div class="form-group" style="margin-bottom:<%= margin_bottom_value %>;" >
+      <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 50px;">
         <%= f.label 'Would you recommend this college? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.radio_button :recommend_this_school, '1' %>
         <%= label :recommend_this_school, 'Yes',:style => "font-weight:normal;" %>
@@ -70,7 +71,7 @@
       </div>
     </div>
     <br>
-    <div class="form-group" style="margin-bottom:0px;" >
+    <div class="form-group" style="margin-bottom:<%= margin_bottom_value %>;" >
       <div class="form-actions col-md-8" style="margin-top: 0px; margin-bottom:7px; height: 50px;">
         <%= f.label 'Was this college worth the money? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.radio_button :worth_money, '1' %>
@@ -195,7 +196,7 @@
 
 
 
-    <div class="form-group" style="margin-bottom:0px;" >
+    <div class="form-group" style="margin-bottom:<%= margin_bottom_value %>;" >
       <div class="form-actions col-md-8" style="margin-top: 15px; margin-bottom:7px;height: 50px;">
         <%= f.label 'Would you recommend this major? ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.radio_button :recommend_this_major, '1' %>
