@@ -139,6 +139,8 @@
       </div>
     <div class="form-actions col-md-8" style="margin-bottom:7px;max-height:132px;">
       <div class="ui-slider-wrapper ui-widget horizontal">
+
+        <% if not mobile_device? %>
         <div class="ui-slider-labels">
           <div class="ui-slider-label-ticks" style="left: 0%;border: none;"><span>0</span></div>
           <div class="ui-slider-label-ticks" style="left: 20%;"><span>1</span></div>
@@ -151,6 +153,16 @@
         <div id="slider-rating" class="ui-slider ui-slider-horizontal ui-widget-content ui-corner-all" style="border: none;">
           <a href="#" class="ui-slider-handle" style="border: 1px solid #999999;"></a>
         </div>
+        <% else %>
+            <div class="ui-slider-labels" style="top:0;">
+              <img alt="Star off" height="25" src="/star-off.png" width="25" id="school-star_0" onclick="changeSchoolStar(this)" style="vertical-align: top;">
+              <img alt="Star off" height="25" src="/star-off.png" width="25" id="school-star_1" onclick="changeSchoolStar(this)" style="vertical-align: top;">
+              <img alt="Star off" height="25" src="/star-off.png" width="25" id="school-star_2" onclick="changeSchoolStar(this)" style="vertical-align: top;">
+              <img alt="Star off" height="25" src="/star-off.png" width="25" id="school-star_3" onclick="changeSchoolStar(this)" style="vertical-align: top;">
+              <img alt="Star off" height="25" src="/star-off.png" width="25" id="school-star_4" onclick="changeSchoolStar(this)" style="vertical-align: top;">
+            </div>
+
+        <% end %>
 
       </div>
     </div>
@@ -317,6 +329,30 @@
         }
 
         var partySchoolRatingValueElement = document.getElementById("party-school-rating-value");
+        partySchoolRatingValueElement.value = (parseInt(starIndex) + 1).toString();
+    }
+
+    function changeSchoolStar(e) {
+//       alert("changePartySchool" + e.id);
+
+        var starIndex = e.id.split("_")[1];
+//        alert("queryString: "+queryString );
+
+        for (var i = 0; i < 5; i++ ) {
+            var element = document.getElementById("school-star_" + i.toString());
+            element.src = (i <= parseInt(starIndex)) ? "/star-on.png" : "/star-off.png";
+        }
+
+        var displayTextElement = document.getElementById("rating-amount");
+        switch (parseInt(starIndex)) {
+            case 0:     displayTextElement.value = "Worst college ever";        break;
+            case 1:     displayTextElement.value = "meh, college is ok";        break;
+            case 2:     displayTextElement.value = "Good reputation";           break;
+            case 3:     displayTextElement.value = "Strong stature";            break;
+            case 4:     displayTextElement.value = "Best college ever!";        break;
+        }
+
+        var partySchoolRatingValueElement = document.getElementById("school-rating-value");
         partySchoolRatingValueElement.value = (parseInt(starIndex) + 1).toString();
     }
 </script>

@@ -86,7 +86,8 @@ $(function() {
 
         }
     });
-    $( "#rating-amount" ).val( $( "#slider-rating" ).slider( "value" ) );
+    var schoolRatingDisplayTextPresetValue = $( "#slider-rating" ).slider( "value" ).toString() === "[object Object]" ? "0" : $( "#slider-rating" ).slider( "value" );
+    $( "#rating-amount" ).val( schoolRatingDisplayTextPresetValue );
     $( "#school-rating-value" ).val( $( "#slider-rating" ).slider( "value" ) );
 
 
