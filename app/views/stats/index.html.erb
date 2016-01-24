@@ -606,19 +606,23 @@
 
 <script>
     function changeCaret(e) {
-//       alert("changeCaret" + e.toString());
+//       NOT DOING ANYTHING IN THIS METHOD ANYMORE BECAUSE THE CARET ISSUE
+//       IS FIXED SO ADDING THE CHANGE HERE DUPLICATES THE CORRECTION.
 
         var queryString = e.toString().split("#")[1];
 //        alert("queryString: "+queryString );
 
         //get element from query string
         var element = document.getElementById(queryString + "Caret");
+//        alert("element: "+element );
+//        alert("element.classname: "+element.className );
         //toggle icon in the element
-        if (element.className === "fa fa-caret-right"){
-            element.className = "fa fa-caret-down";
-        } else {
-            element.className = "fa fa-caret-right";
-        }
+//        if (element.className === "fa fa-caret-right"){
+//            element.className = "fa fa-caret-down";
+//        } else {
+//            element.className = "fa fa-caret-right";
+//        }
+//        alert("element.classname: "+element.className );
     }
 
 </script>
