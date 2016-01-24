@@ -86,7 +86,7 @@
           <div class="row">
             <div class="col-md-8">
               <%= f.label "Party school rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-              <%= f.text_field :party_school_f, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true %>
+              <%= f.text_field :party_school_f, class: 'sliding-scale-value', id: "amount-party-school", :readonly => true, :value => "Select ranking" %>
 
             </div>
           </div>
@@ -131,7 +131,7 @@
           <div class="row">
             <div class="col-md-8">
               <%= f.label "School Rating: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-              <%= f.text_field :rating_f, class: 'sliding-scale-value', id: "rating-amount", :readonly => true %>
+              <%= f.text_field :rating_f, class: 'sliding-scale-value', id: "rating-amount", :readonly => true, :value => "Select ranking" %>
             </div>
           </div>
         </div>
@@ -216,7 +216,7 @@
           <div class="row">
             <div class="col-md-8">
               <%= f.label "Difficulty of major: ", class: 'string required control-label', :style => "float:left;margin-right:3px;" %>
-              <%= f.text_field :difficulty_f, class: 'sliding-scale-value', id: "amount", :readonly => true %>
+              <%= f.text_field :difficulty_f, class: 'sliding-scale-value', id: "amount", :readonly => true, :value => "Select ranking" %>
 
             </div>
           </div>
@@ -342,7 +342,6 @@
             var element = document.getElementById("school-star_" + i.toString());
             element.src = (i <= parseInt(starIndex)) ? "/star-on.png" : "/star-off.png";
         }
-
         var displayTextElement = document.getElementById("rating-amount");
         switch (parseInt(starIndex)) {
             case 0:     displayTextElement.value = "Worst college ever";        break;

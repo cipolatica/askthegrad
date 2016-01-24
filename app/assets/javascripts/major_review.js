@@ -42,8 +42,8 @@ $(function() {
         }
     });
 
-    var majorDifficultyTextPresetValue = $( "#slider-range-max" ).slider( "value" ).toString() === "[object Object]" ? "0" : $( "#slider-range-max" ).slider( "value" );
-    $( "#amount" ).val( majorDifficultyTextPresetValue );
+    //var majorDifficultyTextPresetValue = $( "#slider-range-max" ).slider( "value" ).toString() === "[object Object]" ? "0" : $( "#slider-range-max" ).slider( "value" );
+    //$( "#amount" ).val( majorDifficultyTextPresetValue );
     $( "#difficulty-rating-value" ).val( $( "#slider-range-max" ).slider( "value" ) );
 
     $( "#slider-rating" ).slider({
@@ -88,8 +88,8 @@ $(function() {
 
         }
     });
-    var schoolRatingDisplayTextPresetValue = $( "#slider-rating" ).slider( "value" ).toString() === "[object Object]" ? "0" : $( "#slider-rating" ).slider( "value" );
-    $( "#rating-amount" ).val( schoolRatingDisplayTextPresetValue );
+    //var schoolRatingDisplayTextPresetValue = $( "#slider-rating" ).slider( "value" ).toString() === "[object Object]" ? "0" : $( "#slider-rating" ).slider( "value" );
+    //$( "#rating-amount" ).val( schoolRatingDisplayTextPresetValue );
     $( "#school-rating-value" ).val( $( "#slider-rating" ).slider( "value" ) );
 
 
@@ -135,8 +135,8 @@ $(function() {
             $( "#slider-party-school" ).css("border","none");
         }
     });
-    var displayTextPresetValue = $( "#slider-party-school" ).slider( "value").toString() === "[object Object]" ? "0" : $( "#slider-party-school" ).slider( "value" );
-    $( "#amount-party-school" ).val( displayTextPresetValue );
+    //var displayTextPresetValue = $( "#slider-party-school" ).slider( "value").toString() === "[object Object]" ? "0" : $( "#slider-party-school" ).slider( "value" );
+    //$( "#amount-party-school" ).val( displayTextPresetValue );
     $( "#party-school-rating-value" ).val( $( "#slider-party-school" ).slider( "value" ) );
 
     $(window).load(function(){
