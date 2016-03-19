@@ -1,5 +1,14 @@
 
-<h3>Posting your review is almost complete! <br />All you have to is <%= link_to 'Sign In', new_user_session_path  %> or <%= link_to 'Sign Up', new_user_registration_path  %>. <em>It only takes 2 minutes!</em></h3>
-<p>Reg id: <%= @reg.id %></p>
-<p>school id: <%= @reg.school_id %></p>
-<p>school review id: <%= @reg.school_review_id %></p>
+<div class="container animate-fade-in-500" style="margin-bottom: 8px;">
+
+  <div class="form-group"  style="margin-bottom: 0px;margin-top:0px;">
+    <div class="form-actions col-md-8" style="margin-bottom: 0;margin-top:0px; padding-top: 0;">
+      <h3 style="padding-top: 0;">Posting your review is almost complete! <br />All you have to is <%= link_to 'Sign In', new_user_session_path  %> or <%= link_to 'Sign Up', new_user_registration_path  %>. <em>It only takes 2 minutes!</em> <small><%= link_to 'No thanks', root_path  %></small></h3>
+      <p>Reg id: <%= @reg.id %></p>
+      <p>school id: <%= @reg.school_id %></p>
+      <p>school review id: <%= @reg.school_review_id %></p>
+    </div>
+  </div>
+
+</div>
+<%= render "layouts/footer" %> <br >

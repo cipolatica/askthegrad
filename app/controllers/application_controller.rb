@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       reg = Registration.find(session[:reg_id])
       session[:reg_id] = nil
 
-      school_review_path(reg.school_id)
+      majors_index_path
     end
   end
 
