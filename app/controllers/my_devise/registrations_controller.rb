@@ -10,6 +10,10 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     if (resource.save && session[:reg_id] != nil)
       resource.reg = session[:reg_id]
       resource.save
+
+      reg = Registration.find(session[:reg_id])
+      reg.user_id = resource.id
+      reg.save
     end
     # add custom create logic here
   end

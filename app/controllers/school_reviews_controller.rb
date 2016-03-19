@@ -134,6 +134,8 @@ class SchoolReviewsController < ApplicationController
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
     the_current_user = nil
+    review_daily_count = 0
+    str = ""
     if user_signed_in?
       the_current_user = User.find(current_user.id)
       if did_user_hit_review_limit(the_current_user.review_daily_count)
