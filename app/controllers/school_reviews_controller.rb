@@ -133,17 +133,21 @@ class SchoolReviewsController < ApplicationController
     @review.annual_salary = validate_dollar_amount(@review.salary_string)
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
-    the_current_user = User.find(current_user.id)
-    if did_user_hit_review_limit(the_current_user.review_daily_count)
-      redirect_to root_path
-      flash[:alert] = "Error: You've made too many reviews today. Try again tomorrow." and return
+    the_current_user = nil
+    if user_signed_in?
+      the_current_user = User.find(current_user.id)
+      if did_user_hit_review_limit(the_current_user.review_daily_count)
+        redirect_to root_path
+        flash[:alert] = "Error: You've made too many reviews today. Try again tomorrow." and return
+      end
+      review_daily_count = update_review_daily_count(the_current_user.review_daily_count)
+      if is_duplicate_review(the_current_user.review_list, @review.school_id, @review.major_id)
+        redirect_to root_path
+        flash[:alert] = "Error: You have already reviewed this college and major." and return
+      end
+      str = update_review_list(the_current_user.review_list, @review.school_id, @review.major_id)
     end
-    review_daily_count = update_review_daily_count(the_current_user.review_daily_count)
-    if is_duplicate_review(the_current_user.review_list, @review.school_id, @review.major_id)
-      redirect_to root_path
-      flash[:alert] = "Error: You have already reviewed this college and major." and return
-    end
-    str = update_review_list(the_current_user.review_list, @review.school_id, @review.major_id)
+
     if @review.valid?
       @review.annual_salary = get_max_value(@review.annual_salary)
       @review.debt = get_max_value(@review.debt)
@@ -151,6 +155,42 @@ class SchoolReviewsController < ApplicationController
       @review.school_name = School.find(@review.school_id).name
       @review.user_id = user_signed_in? ? current_user.id : nil;
       @review.user_name = user_signed_in? ? current_user.username : nil;
+
+      # Handle Unauthenticated USER
+      if not user_signed_in?
+        unauth_user = UnauthenticatedReview.new
+        unauth_user.school_id = @review.school_id
+        unauth_user.year_graduated = @review.year_graduated
+        unauth_user.recommend_this_school = @review.recommend_this_school
+        unauth_user.rating = @review.rating
+        unauth_user.annual_salary = @review.annual_salary
+        unauth_user.worth_money = @review.worth_money
+        unauth_user.debt = @review.debt
+        unauth_user.review = @review.review
+        unauth_user.title = @review.title
+        unauth_user.party_school = @review.party_school
+        unauth_user.major_id = @review.major_id
+        unauth_user.position_title = @review.position_title
+        unauth_user.school_rating = @review.school_rating
+        unauth_user.major_rating = @review.major_rating
+        unauth_user.difficulty = @review.difficulty
+        unauth_user.recommend_this_major = @review.recommend_this_major
+        unauth_user.career_satisfaction = @review.career_satisfaction
+        unauth_user.career_relation = @review.career_relation
+        unauth_user.major_name = @review.major_name
+        unauth_user.school_name = @review.school_name
+        unauth_user.school_review = @review.school_review
+        unauth_user.current_salary = @review.current_salary
+
+        if unauth_user.save
+          reg = Registration.new(school_review_id:unauth_user.id, school_id:unauth_user.school_id)
+          reg.save
+          #@review.update(register_id: reg.id, school_id:nil)
+          session[:reg_id] = reg.id
+          redirect_to authentication_required_index_path and return
+        end
+
+      end
     end
     if @review.save
       if user_signed_in?

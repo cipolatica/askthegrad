@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  school_id: 1
+  year_graduated: 1
+  recommend_this_school: false
+  rating: 9.99
+  annual_salary: 9.99
+  worth_money: false
+  debt: 1.5
+  review: MyText
+  title: MyString
+  party_school: 1.5
+  major_id: 1
+  position_title: MyString
+  school_rating: 1.5
+  major_rating: 1.5
+  difficulty: 1.5
+  recommend_this_major: false
+  career_satisfaction: 1.5
+  career_relation: false
+  major_name: MyString
+  school_name: MyString
+  school_review: MyText
+  current_salary: 1.5
+
+two:
+  school_id: 1
+  year_graduated: 1
+  recommend_this_school: false
+  rating: 9.99
+  annual_salary: 9.99
+  worth_money: false
+  debt: 1.5
+  review: MyText
+  title: MyString
+  party_school: 1.5
+  major_id: 1
+  position_title: MyString
+  school_rating: 1.5
+  major_rating: 1.5
+  difficulty: 1.5
+  recommend_this_major: false
+  career_satisfaction: 1.5
+  career_relation: false
+  major_name: MyString
+  school_name: MyString
+  school_review: MyText
+  current_salary: 1.5

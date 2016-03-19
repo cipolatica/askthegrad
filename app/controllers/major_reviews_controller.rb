@@ -1,5 +1,5 @@
 class MajorReviewsController < ApplicationController
-  before_action :authenticate_user!, :except => [:index]
+  #before_action :authenticate_user!, :except => [:index]
   before_action :set_major_review, only: [:show, :edit, :update, :destroy]
 
   # GET /major_reviews

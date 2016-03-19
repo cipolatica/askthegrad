@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103050914) do
+ActiveRecord::Schema.define(version: 20160319172623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,33 @@ ActiveRecord::Schema.define(version: 20160103050914) do
     t.text     "m_overall_sal_names"
     t.text     "m_overall_sal_amounts"
     t.text     "m_overall_sal_ids"
+  end
+
+  create_table "unauthenticated_reviews", force: true do |t|
+    t.integer  "school_id"
+    t.integer  "year_graduated"
+    t.boolean  "recommend_this_school"
+    t.boolean  "worth_money"
+    t.float    "debt"
+    t.text     "review"
+    t.string   "title"
+    t.float    "party_school"
+    t.integer  "major_id"
+    t.string   "position_title"
+    t.float    "school_rating"
+    t.float    "major_rating"
+    t.float    "difficulty"
+    t.boolean  "recommend_this_major"
+    t.float    "career_satisfaction"
+    t.boolean  "career_relation"
+    t.string   "major_name"
+    t.string   "school_name"
+    t.text     "school_review"
+    t.float    "current_salary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "rating"
+    t.float    "annual_salary"
   end
 
   create_table "users", force: true do |t|
