@@ -24,26 +24,20 @@ class ApplicationController < ActionController::Base
   end
   def after_sign_in_path_for(resource)
     logger.debug "this is after signin"
+    should_navigate_to_root = false
 
     if (Registration.where(user_id:resource.id).exists? || session[:reg_id] != nil)
 
       reg = nil
 
       if Registration.where(user_id:resource.id).exists?
-        logger.debug "it exists"
         reg = Registration.where(user_id:resource.id)[0]
       else
-        logger.debug "it does not exists"
-        logger.debug "session.id: #{session[:reg_id]}"
         reg = Registration.find(session[:reg_id])
       end
 
       #reg = Registration.where(user_id:resource.id).exists? ? Registration.where(user_id:resource.id) : Registration.find(session[:reg_id]);
       session[:reg_id] = nil
-      logger.debug "regman"
-      logger.debug "reg: #{reg}"
-      logger.debug "resource.id: #{resource.id}"
-      logger.debug "reg.school_review_id???: #{Registration.where(user_id:resource.id).exists?}"
       unauth_review = UnauthenticatedReview.find(reg.school_review_id)
 
       authenticated_review = SchoolReview.new
@@ -74,18 +68,25 @@ class ApplicationController < ActionController::Base
 
       the_current_user = User.find(current_user.id)
       if did_user_hit_review_limit_max(the_current_user.review_daily_count)
-        root_path
-        flash[:alert] = "Error: You've made too many reviews today. Try again tomorrow." and return
+        should_navigate_to_root = true
+        reg.destroy
+        unauth_review.destroy
+        flash[:alert] = "Error: You've made too many reviews today. Try again tomorrow."
       end
       review_daily_count = update_review_daily_count_max(the_current_user.review_daily_count)
       if is_duplicate_review_max(the_current_user.review_list, authenticated_review.school_id, authenticated_review.major_id)
-        root_path
-        flash[:alert] = "Error: You have already reviewed this college and major." and return
+        should_navigate_to_root = true
+        reg.destroy
+        unauth_review.destroy
+        flash[:alert] = "Error: You have already reviewed this college and major."
       end
-      str = update_review_list_max(the_current_user.review_list, authenticated_review.school_id, authenticated_review.major_id)
 
-      if authenticated_review.save
+      if not should_navigate_to_root
+        str = update_review_list_max(the_current_user.review_list, authenticated_review.school_id, authenticated_review.major_id)
+      end
 
+      if (!should_navigate_to_root && authenticated_review.save)
+        unauth_review.destroy
         the_current_user.update(review_list:nil, review_daily_count:nil)
         the_current_user.update(review_list:str, review_daily_count:review_daily_count)
         school = School.find(authenticated_review.school_id)
@@ -354,8 +355,10 @@ class ApplicationController < ActionController::Base
 
         school_review_path(authenticated_review)
       else
+        if not should_navigate_to_root
+          flash[:alert] = "Error: We were unable to save your review."
+        end
         root_path
-        flash[:alert] = "Error: We were unable to save your review." and return
       end
     else
       root_path
