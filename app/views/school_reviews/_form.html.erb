@@ -277,19 +277,6 @@
           </div>
       <% end %>
 
-
-      <%= f.form_group :current_salary_string do |f| %>
-          <div class="form-actions col-md-8" style="margin-top: 25px;">
-            <%= f.label "Current salary right now", class: 'string required control-label' %>
-            <div class="input-group">
-              <span class="input-group-addon">$</span>
-              <%= f.text_field :current_salary_string, class: 'form-control', placeholder: "ex. 75999" %>
-              <span class="input-group-addon">.00</span>
-            </div>
-            <%= f.error_messages %>
-          </div>
-      <% end %>
-
       <%= f.form_group :review do |f| %>
           <div class="form-actions col-md-8" style="margin-top: 25px;">
             <%= f.label "Review your major", class: 'string required control-label' %>
