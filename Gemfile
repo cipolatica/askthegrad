@@ -32,7 +32,7 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 
 
 source 'https://dresssed.com/gems/25d41039f2a06c40d249/' do
-  gem 'dresssed-ives'
+  gem 'dresssed-ives', '~> 1.0.9'
 end
 
 gem 'rails_12factor', group: :production
