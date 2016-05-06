@@ -43,6 +43,11 @@ class SchoolReviewsController < ApplicationController
   end
 
   def show
+    @show_back_button = false
+    if session[:show_back_button] != nil
+      @show_back_button = true
+      session[:show_back_button] = nil
+    end
     cleanup_post_flow
     cleanup_autocomplete_search
     @title = "Graduate Review"
@@ -196,6 +201,7 @@ class SchoolReviewsController < ApplicationController
     end
     if @review.save
       if user_signed_in?
+        session[:show_back_button] = "true"
         the_current_user.update(review_list:nil, review_daily_count:nil)
         the_current_user.update(review_list:str, review_daily_count:review_daily_count)
         school = School.find(@review.school_id)

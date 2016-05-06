@@ -1,4 +1,12 @@
 
+<% if @show_back_button %>
+    <% content_for :actions do %>
+        <%= link_to school_reviews_path(:the_school => { :school_id => @school_id }), class: 'btn btn-primary btn-large pull-right' do %>
+            &#8610; Go back
+        <% end %>
+    <% end %>
+<% end %>
+
 <div class="container animate-fade-in-500">
   <div class="row mt20">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" >

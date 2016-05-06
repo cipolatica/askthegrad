@@ -87,6 +87,7 @@ class ApplicationController < ActionController::Base
 
       if (!should_navigate_to_root && authenticated_review.save)
         unauth_review.destroy
+        session[:show_back_button] = "true"
         the_current_user.update(review_list:nil, review_daily_count:nil)
         the_current_user.update(review_list:str, review_daily_count:review_daily_count)
         school = School.find(authenticated_review.school_id)
