@@ -256,65 +256,72 @@ class SchoolReviewsController < ApplicationController
         major.overall_salary = update_num_average(@review.annual_salary, major.overall_salary, major.major_counter)
         major.difficulty_average = update_num_average(@review.difficulty, major.difficulty_average, major.major_counter)
         major.recommend_average = update_bool_average(@review.recommend_this_major, major.recommend_average, major.major_counter)
+
+
+        # Find top 5 highest paying majors
+        review_list = SchoolReview.where(major_id:major.id).order(:school_id)
+        major.top_school_ids = "^^^^"
+        major.top_school_amounts = "^^^^"
+        salary_average = 0.0
+        current_school_id = review_list[0].school_id
+        current_school_counter = 0
+        review_list.each do |r|
+          if r.school_id != current_school_id
+            salary_average = salary_average / current_school_counter
+            if does_top_major_list_need_update(salary_average, major.top_school_amounts) #this method should be called does_list_need_update
+              major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
+            end
+            salary_average = 0.0
+            current_school_id = r.school_id
+            current_school_counter = 0
+          end
+          salary_average = salary_average + r.annual_salary
+          current_school_counter = current_school_counter + 1
+        end
+        salary_average = salary_average / current_school_counter
+        if does_top_major_list_need_update(salary_average, major.top_school_amounts)
+          major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
+        end
+        major.top_school_names = update_top_school_names(major.top_school_ids)
+        # DONE with Finding top 5 highest paying Majors
+
+
+        # Find top 5 highest paying colleges
+        review_list = SchoolReview.where(school_id:@school_id).order(:major_id)
+        school.top_major_ids = "^^^^"
+        school.top_major_amounts = "^^^^"
+        salary_average = 0.0
+        current_major_id = review_list[0].major_id
+        current_major_counter = 0
+        review_list.each do |r|
+          if r.major_id != current_major_id
+            salary_average = salary_average / current_major_counter
+            if does_top_major_list_need_update(salary_average, school.top_major_amounts)
+              school.top_major_ids, school.top_major_amounts = update_top_majors(school.top_major_ids, school.top_major_amounts, salary_average,current_major_id)
+            end
+            salary_average = 0.0
+            current_major_id = r.major_id
+            current_major_counter = 0
+          end
+          salary_average = salary_average + r.annual_salary
+          current_major_counter = current_major_counter + 1
+        end
+        salary_average = salary_average / current_major_counter
+        if does_top_major_list_need_update(salary_average, school.top_major_amounts)
+          school.top_major_ids, school.top_major_amounts = update_top_majors(school.top_major_ids, school.top_major_amounts, salary_average,current_major_id)
+        end
+        school.top_major_names = update_top_major_names(school.top_major_ids)
+        # DONE with Finding top 5 highest paying colleges
+
         if (@review.year_graduated >= (Date.today.year - 2))
           major.salary_average = update_num_average(@review.annual_salary, major.salary_average, major.two_year_major)
           major.two_year_major += 1
-          # Find top 5 highest paying majors
-          review_list = SchoolReview.where(major_id:major.id, year_graduated:(Date.today.year - 2)..Date.today.year).order(:school_id)
-          major.top_school_ids = "^^^^"
-          major.top_school_amounts = "^^^^"
-          salary_average = 0.0
-          current_school_id = review_list[0].school_id
-          current_school_counter = 0
-          review_list.each do |r|
-            if r.school_id != current_school_id
-              salary_average = salary_average / current_school_counter
-              if does_top_major_list_need_update(salary_average, major.top_school_amounts) #this method should be called does_list_need_update
-                major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
-              end
-              salary_average = 0.0
-              current_school_id = r.school_id
-              current_school_counter = 0
-            end
-            salary_average = salary_average + r.annual_salary
-            current_school_counter = current_school_counter + 1
-          end
-          salary_average = salary_average / current_school_counter
-          if does_top_major_list_need_update(salary_average, major.top_school_amounts)
-            major.top_school_ids, major.top_school_amounts = update_top_majors(major.top_school_ids, major.top_school_amounts, salary_average,current_school_id)
-          end
-          major.top_school_names = update_top_school_names(major.top_school_ids)
-          # DONE with Finding top 5 highest paying Majors
+
 
           school.salary_average = update_num_average(@review.annual_salary, school.salary_average, school.two_year_college)
 
           school.two_year_college += 1
-          # Find top 5 highest paying colleges
-          review_list = SchoolReview.where(school_id:@school_id, year_graduated:(Date.today.year - 2)..Date.today.year).order(:major_id)
-          school.top_major_ids = "^^^^"
-          school.top_major_amounts = "^^^^"
-          salary_average = 0.0
-          current_major_id = review_list[0].major_id
-          current_major_counter = 0
-          review_list.each do |r|
-            if r.major_id != current_major_id
-              salary_average = salary_average / current_major_counter
-              if does_top_major_list_need_update(salary_average, school.top_major_amounts)
-                school.top_major_ids, school.top_major_amounts = update_top_majors(school.top_major_ids, school.top_major_amounts, salary_average,current_major_id)
-              end
-              salary_average = 0.0
-              current_major_id = r.major_id
-              current_major_counter = 0
-            end
-            salary_average = salary_average + r.annual_salary
-            current_major_counter = current_major_counter + 1
-          end
-          salary_average = salary_average / current_major_counter
-          if does_top_major_list_need_update(salary_average, school.top_major_amounts)
-            school.top_major_ids, school.top_major_amounts = update_top_majors(school.top_major_ids, school.top_major_amounts, salary_average,current_major_id)
-          end
-          school.top_major_names = update_top_major_names(school.top_major_ids)
-          # DONE with Finding top 5 highest paying colleges
+
         end
         major.major_counter += 1
         major.save
@@ -343,15 +350,18 @@ class SchoolReviewsController < ApplicationController
         stats = Stat.first
         # update Top College Salaries
 
-        stats.top_college_salary_names = ""
-        stats.top_college_salary_amounts = ""
-        stats.top_college_salary_ids = ""
+        top_college_salary_names = ""
+        top_college_salary_amounts = ""
+        top_college_salary_ids = ""
         schools = School.where(salary_average:100..1000001).order(salary_average: :desc).limit(limit_amount)
         schools.each do |school|
-          stats.top_college_salary_names.concat(school.name + "^")
-          stats.top_college_salary_amounts.concat(school.salary_average.to_s + "^")
-          stats.top_college_salary_ids.concat(school.id.to_s + "^")
+          top_college_salary_names.concat(school.name + "^")
+          top_college_salary_amounts.concat(school.salary_average.to_s + "^")
+          top_college_salary_ids.concat(school.id.to_s + "^")
         end
+
+        logger.debug "stats.top_college_salary_names again: #{top_college_salary_names.inspect}"
+        stats.update(top_college_salary_names:top_college_salary_names, top_college_salary_amounts:top_college_salary_amounts, top_college_salary_ids:top_college_salary_ids)
 
         # update overall college salaries
         stats.c_overall_sal_names = ""
@@ -412,15 +422,18 @@ class SchoolReviewsController < ApplicationController
         stats = Stat.first
 
         # update Top Major Salaries
-        stats.m_sal_names = ""
-        stats.m_sal_amounts = ""
-        stats.m_sal_ids = ""
+        m_sal_names = ""
+        m_sal_amounts = ""
+        m_sal_ids = ""
         majors = Major.where(salary_average:100..1000001).order(salary_average: :desc).limit(limit_amount)
         majors.each do |major|
-          stats.m_sal_names.concat(major.name + "^")
-          stats.m_sal_amounts.concat(major.salary_average.to_s + "^")
-          stats.m_sal_ids.concat(major.id.to_s + "^")
+          m_sal_names.concat(major.name + "^")
+          m_sal_amounts.concat(major.salary_average.to_s + "^")
+          m_sal_ids.concat(major.id.to_s + "^")
         end
+
+        logger.debug "stats.m_sal_names: #{m_sal_names.inspect}"
+        stats.update(m_sal_names:m_sal_names, m_sal_amounts:m_sal_amounts, m_sal_ids:m_sal_ids)
         #stats.update(top_major_salary_names:stats.top_major_salary_names, top_major_salary_amounts:stats.top_major_salary_amounts, top_major_salary_ids:stats.top_major_salary_ids)
         #logger.debug "stats.top_major_salary_names: #{stats.top_major_salary_names.inspect}"
 
