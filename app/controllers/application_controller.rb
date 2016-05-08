@@ -31,7 +31,8 @@ class ApplicationController < ActionController::Base
       reg = nil
 
       if Registration.where(user_id:resource.id).exists?
-        reg = Registration.where(user_id:resource.id)[0]
+        reg_list = Registration.where(user_id:resource.id)
+        reg = reg_list[reg_list.count - 1]
       else
         reg = Registration.find(session[:reg_id])
       end
@@ -371,6 +372,15 @@ class ApplicationController < ActionController::Base
         if not should_navigate_to_root
           flash[:alert] = "Error: We were unable to save your review."
         end
+        root_path
+      end
+    elsif resource.reg != nil && resource.reg == -1 #reg = -1 then show new review from user.rb
+      logger.debug "the reg equales -1"
+      resource.update(reg:-2)
+      if SchoolReview.where(user_id:resource.id).exists?
+        session[:show_back_button] = "true"
+        school_review_path(SchoolReview.where(user_id:resource.id)[0])
+      else
         root_path
       end
     else
