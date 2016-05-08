@@ -122,7 +122,9 @@
       </div>
       <% end %>
       <p style="margin-bottom: 8px;">
-        <%= @school_review.review %>
+        <% @school_review.review.split("\n").each do |string| %>
+            <%= string %><br>
+        <% end %>
       </p>
       <% if mobile_device? %>
       <% if @school_review.vote_count %>

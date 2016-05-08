@@ -73,7 +73,9 @@
                       </div>
 
                       <p style="margin-bottom: 8px;">
-                        <%= review.review %>
+                        <% review.review.split("\n").each do |string| %>
+                            <%= string %><br>
+                        <% end %>
                       </p>
                       <% if review.vote_count %>
                           <% likes = ((review.reputation_for(:votes) + review.vote_count)/(review.vote_count * 2)) * review.vote_count %>
