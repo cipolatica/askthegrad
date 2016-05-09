@@ -64,22 +64,10 @@ class ApplicationController < ActionController::Base
       authenticated_review.school_name = unauth_review.school_name
       authenticated_review.school_review = unauth_review.school_review
       authenticated_review.current_salary = unauth_review.current_salary
-      user_id_hack = 0
-      if current_user.id == 84
-        user_id_hack = 83
-      else
-        user_id_hack = current_user.id
-      end
-      username_hack = ""
-      if current_user.username == "Mikey"
-        username_hack = "Teacher925"
-      else
-        username_hack = current_user.username
-      end
-      authenticated_review.user_id = user_id_hack
-      authenticated_review.user_name = username_hack
+      authenticated_review.user_id = current_user.id
+      authenticated_review.user_name = current_user.username
 
-      the_current_user = User.find(user_id_hack)
+      the_current_user = User.find(current_user.id)
       if did_user_hit_review_limit_max(the_current_user.review_daily_count)
         should_navigate_to_root = true
         reg.destroy
