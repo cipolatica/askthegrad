@@ -138,6 +138,16 @@ class SchoolReviewsController < ApplicationController
     @review.annual_salary = validate_dollar_amount(@review.salary_string)
     @review.debt = validate_dollar_amount(@review.debt_string)
     @school_id = @review.school_id
+
+    if @review.rating == 0
+      @review.rating = 0.001
+    end
+    if @review.difficulty == 0
+      @review.difficulty = 0.001
+    end
+    if @review.party_school == 0
+      @review.party_school = 0.001
+    end
     the_current_user = nil
     review_daily_count = 0
     str = ""

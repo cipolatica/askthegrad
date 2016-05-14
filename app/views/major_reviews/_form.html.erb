@@ -49,6 +49,7 @@
       <div class="form-actions col-md-8">
         <%= f.label 'Year graduated: ', class: 'string required control-label' ,:style => "float:left;margin-right:20px;"%>
         <%= f.select :year_graduated, years, class: 'form-control' %>
+        <div class="help-block" style="margin-bottom: 0;"><i class="fa fa-asterisk"></i> required</div>
       </div>
     </div>
 
@@ -178,6 +179,7 @@
             <%= f.text_field :debt_string, class: 'form-control', placeholder: "ex. 18999" %>
             <span class="input-group-addon">.00</span>
           </div>
+          <div class="help-block" style="margin-bottom: 0;"><i class="fa fa-asterisk"></i> required</div>
         </div>
     <% end %>
 
@@ -188,6 +190,7 @@
           <div class="form-actions col-md-8" style="margin-top: 25px;">
             <%= f.label "Review your college", class: 'string required control-label' %>
             <%= f.text_area :school_review, class: 'form-control', rows: 10, placeholder: "pros/cons, advice to students" %>
+            <div class="help-block" style="margin-bottom: 0;"><i class="fa fa-asterisk"></i> required</div>
           </div>
       <% end %>
 
@@ -278,6 +281,7 @@
           <%= f.text_field :salary_string, class: 'form-control', placeholder: "ex. 35999" %>
           <span class="input-group-addon">.00</span>
         </div>
+        <div class="help-block" style="margin-bottom: 0;"><i class="fa fa-asterisk"></i> required</div>
         <%= f.error_messages %>
       </div>
     <% end %>
@@ -286,7 +290,7 @@
       <div class="form-actions col-md-8" style="margin-top: 25px;">
         <%= f.label "Review your major", class: 'string required control-label' %>
         <%= f.text_area :review, class: 'form-control', rows: 10, placeholder: "pros/cons, career satisfaction, advice to students" %>
-        <%= f.error_messages %>
+        <div class="help-block" style="margin-bottom: 0;"><i class="fa fa-asterisk"></i> required</div>
       </div>
     <% end %>
 

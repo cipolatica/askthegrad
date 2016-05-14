@@ -43,7 +43,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.rating %></strong><small style="color: black;"> out of 5</small></span>
+                School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.rating.round(1) %></strong><small style="color: black;"> out of 5</small></span>
               </p>
             </div>
           </div>
@@ -52,7 +52,7 @@
           <div class="article-meta media color-grey-50" style="margin-top: 0;">
             <div class="media-body">
               <p class="m0 media-heading">
-                Party School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.party_school %></strong><small style="color: black;"> out of 5</small></span>
+                Party School Rating: <span class="page-hits m0 text-green-400 pull-right"><strong><%= @school_review.party_school.round(1) %></strong><small style="color: black;"> out of 5</small></span>
               </p>
             </div>
           </div>
