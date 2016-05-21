@@ -5,6 +5,9 @@ class MajorReviewsController < ApplicationController
   # GET /major_reviews
   # GET /major_reviews.json
   def index
+    @tab_title = "Majors overview page"
+    @meta_description = "This is the Majors Overview page for Ask The Grad. You'll find average salary and rating information for the selected major"
+    @meta_keywords = "ask the grad, ask the grad majors page, overview, salary information"
     if session[:executing_post_flow] != nil
       redirect_to new_major_review_path(:major_id => params[:major_id]) and return
     end

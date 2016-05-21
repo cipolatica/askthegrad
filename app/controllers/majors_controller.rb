@@ -1,5 +1,8 @@
 class MajorsController < ApplicationController
   def index
+    @tab_title = "Majors selection page"
+    @meta_description = "This is the Majors Selection page for Ask The Grad. Select a major to rate or view its potential salary."
+    @meta_keywords = "ask the grad, ask the grad major selection page, overview, major picker"
     @title = "Choose your Major"
     session[:major_id_for_school] = nil
     if params[:clr_sch] != nil

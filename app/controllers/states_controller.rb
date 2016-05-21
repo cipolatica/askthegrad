@@ -1,6 +1,9 @@
 class StatesController < ApplicationController
   def index
     @title = "Choose your State"
+    @tab_title = "State selection page"
+    @meta_description = "This is the State Selection page for Ask The Grad. Select the state of the college you wish to review or view."
+    @meta_keywords = "ask the grad, ask the grad state selection page, overview, state picker"
     @states = State.all.order(:name)
     session[:school_id_for_major] = nil
     if params[:post_flow] != nil

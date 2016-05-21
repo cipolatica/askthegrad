@@ -2,6 +2,9 @@ class SchoolReviewsController < ApplicationController
   helper_method :is_signed_in
   #before_action :authenticate_user!, :except => [:index,:show,:update,:edit,:create,:destroy,:comment,:post_comments]
   def index
+    @tab_title = "College overview page"
+    @meta_description = "This is the College Overview page for Ask The Grad. You'll find average salary and rating information for the selected college"
+    @meta_keywords = "ask the grad, ask the grad college page, overview, salary information"
     session[:school_id_for_major] = nil
     @school = params[:the_school]
     @school_id = @school["school_id"]

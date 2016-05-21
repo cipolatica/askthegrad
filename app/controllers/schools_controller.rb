@@ -1,5 +1,8 @@
 class SchoolsController < ApplicationController
   def index
+    @tab_title = "College selection page"
+    @meta_description = "This is the College Selection page for Ask The Grad. Select a college to rate or view its potential salary."
+    @meta_keywords = "ask the grad, ask the grad college selection page, overview, college picker"
     flash[:notice] = nil # forcing this to be be nil because it displays flash from States page for some reason
     @title = "Choose your College"
     session[:school_id_for_major] = nil
