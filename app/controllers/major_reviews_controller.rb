@@ -27,6 +27,7 @@ class MajorReviewsController < ApplicationController
       return
     end
     @major = Major.find(@major_id)
+    @tab_title = "Majors overview page - Paying Majors - Salary #{@major.name} "
     @title = @major.name
     @selected_sort_order = "most_recent"
     if params[:sort] != nil

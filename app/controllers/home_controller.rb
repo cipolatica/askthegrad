@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @tab_title = "College Reviews, Major Reviews, Salaries by College, Salaries by Major"
-    @meta_description = "Ask The Grad is a great place where college graduates can review their college, major, and starting salary after graduation."
+    @tab_title = "College Major Reviews, Paying Majors, Salaries by Major, Salaries by College"
+    @meta_description = "Ask The Grad is a great place where college graduates can review their college, major, and starting salary after graduation. Find top paying majors."
     @meta_keywords = "ask the grad, ask the grad home page, education, college, college major, college review, major review, salary by major, college salaries, salary from major, salaries based on major, graduates, alumni, entry level, jobs, schools"
     session[:school_id_for_major] = nil
     session[:major_id_for_school] = nil
